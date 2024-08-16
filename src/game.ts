@@ -1,10 +1,10 @@
-import { Canvas2DView, ControllerBinding, Engine, FixedTickEngine, GamepadController, KeyboardController, Scene, MouseController, Sprite, Sound, ControllerState } from 'game-engine';
+import { Canvas2DView, ControllerBinding, Engine, FixedTickEngine, GamepadController, KeyboardController, Scene, MouseController, Sprite, Sound, ControllerState, SpriteEntity } from 'game-engine';
 import { Player } from './player.js';
-import { Button } from './button.js';
+import { Food } from './food.js';
 
-const screenWidth = 240;
-const screenHeight = 160;
-const scale = 3;
+export const screenWidth = 1920;
+export const screenHeight = 1080;
+const scale = 1;
 export const FPS = 60;
 
 declare global {
@@ -23,7 +23,7 @@ setTimeout(() => {
   window.steam?.send('name');
 }, 2000);
 
-const engine: Engine = new FixedTickEngine(FPS);
+const engine: Engine = new FixedTickEngine(FPS, true);
 
 export const spriteAssets = require.context('../assets/', true, /\.png$/);
 const wavAssets = require.context('../assets/', true, /\.ogg$/);
@@ -32,8 +32,8 @@ if (wavAssets('./premade/outputs/GAME_MENU_SCORE_SFX001416.ogg')) {
   new Sound('start', wavAssets('./premade/outputs/GAME_MENU_SCORE_SFX001416.ogg'));
 }
 
-new Sprite('buddy', spriteAssets('./buddy.png'), { spriteWidth: 64, spriteHeight: 96 });
-new Sprite('button', spriteAssets('./button.png'), { spriteWidth: 64, spriteHeight: 64 });
+new Sprite('bacteria', spriteAssets('./bacteria.png'), { spriteWidth: 80, spriteHeight: 32, spriteOffsetX: 40, spriteOffsetY: 16 });
+new Sprite('food', spriteAssets('./food.png'), { spriteWidth: 8, spriteHeight: 8 });
 
 async function init() {
 
@@ -52,24 +52,60 @@ async function init() {
   engine.addScene(scene);
   engine.addScene(scenePause);
 
-  scene.addEntity(new Player());
+  engine.addActionPre('move-view', () => {
+    const offset = view.getOffset();
+    let dx = 0;
+    let dy = 0;
+    if (engine.isControl('left', ControllerState.Down)) {
+      dx -= 1;
+    }
+    if (engine.isControl('right', ControllerState.Down)) {
+      dx += 1;
+    }
+    if (engine.isControl('up', ControllerState.Down)) {
+      dy -= 1;
+    }
+    if (engine.isControl('down', ControllerState.Down)) {
+      dy += 1;
+    }
+    view.setOffset(offset.x + dx, offset.y + dy);
 
-  scene.addEntity(new Button());
+    if (engine.isControl('action', ControllerState.Down)) {
+      (view as any).scale -= 0.03;
+    }
+  })
+
+  const players = [];
+
+  for (let i = 0; i < 4; i++) {
+    players.push(new Player(screenWidth / 2, screenHeight / 2))
+    scene.addEntity(players.at(-1));
+  }
+
+  for (let i = 0; i < 1000; i++) {
+    let x = Math.random() * screenWidth;
+    let y = Math.random() * screenHeight;
+    while (players.some(player => dist(player.getPos(), {x, y}) < 80)) {
+      x = Math.random() * screenWidth;
+      y = Math.random() * screenHeight;
+    }
+    scene.addEntity(new Food(x, y));
+  }
 
   engine.addScene(scene);
 
   engine.addScene(scenePause);
 
-  engine.addActionPre('pause', () => {
-    if (engine.isControl('action', ControllerState.Press) || engine.isControl('interact1', ControllerState.Press)) {
-      if (engine.getActivatedScenes().some(scene => scene.key === 'main')) {
-        engine.switchToScene('pause');
-        Sound.Sounds['start'].play();
-      } else {
-        engine.switchToScene('main');
-      }
-    }
-  });
+  // engine.addActionPre('pause', () => {
+  //   if (engine.isControl('action', ControllerState.Press) || engine.isControl('interact1', ControllerState.Press)) {
+  //     if (engine.getActivatedScenes().some(scene => scene.key === 'main')) {
+  //       engine.switchToScene('pause');
+  //       Sound.Sounds['start'].play();
+  //     } else {
+  //       engine.switchToScene('main');
+  //     }
+  //   }
+  // });
 
   engine.switchToScene('main');
 
@@ -154,3 +190,15 @@ const gamepadMap = [
 ];
 
 init();
+
+export function dist(a: { x: number, y: number }, b: { x: number, y: number }) {
+  return Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
+}
+
+export function distance(a: SpriteEntity, b: SpriteEntity) {
+  return dist(a.getPos(), b.getPos());
+}
+
+export function clamp(low: number, val: number, high: number) {
+  return Math.min(Math.max(low, val), high);
+}
