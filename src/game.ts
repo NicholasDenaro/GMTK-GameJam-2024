@@ -1,10 +1,11 @@
-import { Canvas2DView, ControllerBinding, Engine, FixedTickEngine, GamepadController, KeyboardController, Scene, MouseController, Sprite, Sound, ControllerState } from 'game-engine';
+import { Canvas2DView, ControllerBinding, Engine, FixedTickEngine, GamepadController, KeyboardController, Scene, MouseController, Sprite, Sound, ControllerState, Rectangle, TiledLoader } from 'game-engine';
 import { Player } from './player.js';
-import { Button } from './button.js';
+import { Solid } from './solid.js';
+import { GmtkTiledLoder } from './gmtk-tiled-loader.js';
 
-const screenWidth = 240;
-const screenHeight = 160;
-const scale = 3;
+export const screenWidth = 240;
+export const screenHeight = 160;
+const scale = 5;
 export const FPS = 60;
 
 declare global {
@@ -27,13 +28,13 @@ const engine: Engine = new FixedTickEngine(FPS);
 
 export const spriteAssets = require.context('../assets/', true, /\.png$/);
 const wavAssets = require.context('../assets/', true, /\.ogg$/);
+const mapAssets = require.context('../assets/tiled', true, /\.tmx$|\.tsx$/);
 
 if (wavAssets('./premade/outputs/GAME_MENU_SCORE_SFX001416.ogg')) {
   new Sound('start', wavAssets('./premade/outputs/GAME_MENU_SCORE_SFX001416.ogg'));
 }
 
-new Sprite('buddy', spriteAssets('./buddy.png'), { spriteWidth: 64, spriteHeight: 96 });
-new Sprite('button', spriteAssets('./button.png'), { spriteWidth: 64, spriteHeight: 64 });
+new Sprite('slime', spriteAssets('./slime.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 8, spriteOffsetY: 15 });
 
 async function init() {
 
@@ -41,37 +42,48 @@ async function init() {
 
   await Sound.waitForLoad();
 
+  const loader = new GmtkTiledLoder(mapAssets, spriteAssets);
+
   engine.addController(new KeyboardController(keyMap));
   engine.addController(new MouseController(mouseMap));
   engine.addController(new GamepadController(gamepadMap));
 
   const view = new Canvas2DView(screenWidth, screenHeight, { scale: scale, bgColor: '#BBBBBB' });
+  const devRoom = await loader.createSceneFromTMX(engine, './dev-room.tmx', 'dev-room', view);
+  engine.addScene(devRoom);
+
   const scene = new Scene('main', view);
   const scenePause = new Scene('pause', view);
 
   engine.addScene(scene);
   engine.addScene(scenePause);
 
-  scene.addEntity(new Player());
+  scene.addEntity(new Player(screenWidth / 2, 32));
 
-  scene.addEntity(new Button());
+  scene.addEntity(new Solid(new Rectangle(16, screenHeight * 3 / 4, screenWidth - 32, 16)));
+
+  scene.addEntity(new Solid(new Rectangle(16, screenHeight * 1 / 4, 16, screenHeight / 2)));
+
+  scene.addEntity(new Solid(new Rectangle(screenWidth - 32, screenHeight * 1 / 4, 16, screenHeight / 2)));
+
+  scene.addEntity(new Solid(new Rectangle(16, screenHeight * 3 / 4 - 32, 32, 16)));
 
   engine.addScene(scene);
 
   engine.addScene(scenePause);
 
-  engine.addActionPre('pause', () => {
-    if (engine.isControl('action', ControllerState.Press) || engine.isControl('interact1', ControllerState.Press)) {
-      if (engine.getActivatedScenes().some(scene => scene.key === 'main')) {
-        engine.switchToScene('pause');
-        Sound.Sounds['start'].play();
-      } else {
-        engine.switchToScene('main');
-      }
-    }
-  });
+  // engine.addActionPre('pause', () => {
+  //   if (engine.isControl('action', ControllerState.Press) || engine.isControl('interact1', ControllerState.Press)) {
+  //     if (engine.getActivatedScenes().some(scene => scene.key === 'main')) {
+  //       engine.switchToScene('pause');
+  //       Sound.Sounds['start'].play();
+  //     } else {
+  //       engine.switchToScene('main');
+  //     }
+  //   }
+  // });
 
-  engine.switchToScene('main');
+  engine.switchToScene('dev-room');
 
   Sound.setVolume(0.1);
 
@@ -154,3 +166,8 @@ const gamepadMap = [
 ];
 
 init();
+
+
+export function clamp(low: number, val: number, high: number) {
+  return Math.min(Math.max(low, val), high);
+}
