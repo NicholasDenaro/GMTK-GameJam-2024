@@ -36,6 +36,7 @@ if (wavAssets('./premade/outputs/GAME_MENU_SCORE_SFX001416.ogg')) {
 }
 
 new Sprite('slime', spriteAssets('./slime.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 8, spriteOffsetY: 15 });
+new Sprite('sign', spriteAssets('./sign.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 8, spriteOffsetY: 15 });
 
 async function init() {
 

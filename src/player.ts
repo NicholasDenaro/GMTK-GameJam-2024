@@ -69,6 +69,7 @@ export class Player extends SpriteEntity {
     this.topRight = new Rectangle(this.x + 5, this.y - 8, 1, 8);
 
     this.zIndex = -1;
+    this.bounds = new Rectangle(this.x - 6, this.y - 12, 12, 12);
   }
 
   tick(engine: Engine, scene: Scene): Promise<void> | void {
@@ -246,7 +247,6 @@ export class Player extends SpriteEntity {
 
     // view.setOffset(clamp(0, this.x - screenWidth / 2, 1000), clamp(0, this.y - screenHeight / 2, 1000));
 
-
     view.setOffset(0, this.viewOffsetY);
     if (this.y > view.getOffset().y + screenHeight && this.viewScrollDirection === 0) {
       console.log(`y: ${this.y}, view.y: ${view.getOffset().y}, view.y+H: ${view.getOffset().y + screenHeight}`);
@@ -268,6 +268,9 @@ export class Player extends SpriteEntity {
     view.setOffset(0, this.viewOffsetY);
 
     // console.log(this.xVelocity);
+
+    this.bounds.x = this.x - 6;
+    this.bounds.y = this.y - 12;
   }
 
   public launch(dxVelocity: number, dyVelocity: number) {

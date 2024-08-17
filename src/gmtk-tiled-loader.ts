@@ -4,6 +4,7 @@ import { Player } from './player.js';
 import { Platform } from './platform.js';
 import { MovingSolid } from './moving-solid.js';
 import { ViewStart } from './view-start.js';
+import { Sign } from './sign.js';
 
 export class GmtkTiledLoder extends TiledLoader {
   constructor(private _mapData: __WebpackModuleApi.RequireContext, private _spriteData: __WebpackModuleApi.RequireContext) {
@@ -43,7 +44,10 @@ export class GmtkTiledLoder extends TiledLoader {
         scene.addEntity(new MovingSolid(bounds, points, steps, delay, launch));
         break;
       case 'ViewStart':
-        scene.addEntity(new ViewStart(Number(object.getAttribute('x')), Number(object.getAttribute('y'))));
+        scene.addEntity(new ViewStart(bounds.x, bounds.y));
+        break;
+      case 'Sign':
+        scene.addEntity(new Sign(bounds.x, bounds.y, this.getProperty(object, 'text')));
         break;
     }
   }
