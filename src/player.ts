@@ -68,7 +68,7 @@ export class Player extends SpriteEntity {
     this.topLeft = new Rectangle(this.x - 5, this.y - 8, 1, 8);
     this.topRight = new Rectangle(this.x + 5, this.y - 8, 1, 8);
 
-    this.zIndex = -1;
+    this.zIndex = -10;
     this.bounds = new Rectangle(this.x - 6, this.y - 12, 12, 12);
   }
 

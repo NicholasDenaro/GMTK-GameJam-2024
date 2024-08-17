@@ -20,6 +20,8 @@ export class MovingSolid extends Solid {
     this.y = path[0].y;
     this.bounds.x = this.x;
     this.bounds.y = this.y;
+
+    this.zIndex = -3;
   }
 
   tick(engine: Engine, scene: Scene): Promise<void> | void {

@@ -12,6 +12,7 @@ export class Sign extends SpriteEntity {
     this.myPainter.setEid(this.getId());
 
     this.bounds = new Rectangle(this.x - 8, this.y - 16, 16, 16);
+    this.zIndex = -2;
   }
 
   tick(engine: Engine, scene: Scene): Promise<void> | void {

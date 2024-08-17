@@ -8,6 +8,7 @@
     ],
     "fileStates": {
     },
+    "last.imagePath": "C:/Source/GMTK-GameJam-2024/assets",
     "map.height": 30,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
@@ -16,7 +17,12 @@
     "openFiles": [
     ],
     "project": "gmtk2024.tiled-project",
-    "property.type": "string",
+    "property.type": "int",
     "recentFiles": [
-    ]
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
 }

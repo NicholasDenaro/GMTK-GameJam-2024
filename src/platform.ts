@@ -1,9 +1,9 @@
-import { Engine, PainterContext, Rectangle, Scene, SpriteEntity, SpritePainter } from 'game-engine';
+import { Engine, PainterContext, Rectangle, Scene, Sprite, SpriteEntity, SpritePainter } from 'game-engine';
 import { Geometry } from './geometry.js';
 
 export class Platform extends SpriteEntity implements Geometry {
   constructor(bounds: Rectangle) {
-    super(new SpritePainter((ctx) => this.draw(ctx), {spriteWidth: bounds.width, spriteHeight: bounds.height}));
+    super(new SpritePainter(Sprite.Sprites['platform']), bounds.x, bounds.y);
     this.bounds = bounds;
   }
 
