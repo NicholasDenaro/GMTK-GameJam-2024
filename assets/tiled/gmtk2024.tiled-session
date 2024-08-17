@@ -16,7 +16,7 @@
     "openFiles": [
     ],
     "project": "gmtk2024.tiled-project",
-    "property.type": "int",
+    "property.type": "object",
     "recentFiles": [
     ]
 }

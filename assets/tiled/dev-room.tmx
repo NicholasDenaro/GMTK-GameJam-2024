@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="38">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="48">
  <layer id="1" name="Tile Layer 1" width="20" height="30">
   <properties>
    <property name="zindex" type="int" value="0"/>
@@ -41,7 +41,7 @@
   <object id="1" type="Solid" x="32" y="32" width="16" height="432"/>
   <object id="2" type="Solid" x="48" y="448" width="208" height="16"/>
   <object id="3" type="Solid" x="256" y="32" width="16" height="432"/>
-  <object id="4" type="Player" x="112" y="160" width="16" height="16"/>
+  <object id="4" type="Player" x="48" y="224" width="16" height="16"/>
   <object id="7" type="Solid" x="54.8831" y="416" width="57.1169" height="16"/>
   <object id="8" type="Solid" x="64" y="400" width="48" height="16"/>
   <object id="9" type="Solid" x="128" y="368" width="128" height="16"/>
@@ -52,11 +52,8 @@
   <object id="14" type="Solid" x="64" y="288" width="20.3636" height="32"/>
   <object id="15" type="Solid" x="92.5" y="288" width="20.7727" height="32"/>
   <object id="16" type="Solid" x="112" y="288" width="144" height="16"/>
-  <object id="17" type="Solid" x="48" y="288" width="16" height="16"/>
-  <object id="18" type="Solid" x="224" y="240" width="16" height="16"/>
+  <object id="17" type="Solid" x="48" y="240" width="16" height="16"/>
   <object id="19" type="Solid" x="48" y="32" width="208" height="16"/>
-  <object id="20" type="Solid" x="224" y="192" width="16" height="16"/>
-  <object id="21" type="Solid" x="224" y="144" width="16" height="16"/>
   <object id="22" type="Solid" x="112" y="176" width="16" height="16"/>
   <object id="23" type="Solid" x="128" y="144" width="16" height="48"/>
   <object id="25" type="Solid" x="80" y="112" width="32" height="48"/>
@@ -66,5 +63,33 @@
   <object id="33" type="Solid" x="48" y="176" width="16" height="16"/>
   <object id="34" type="Solid" x="64" y="128" width="16" height="32"/>
   <object id="37" type="Solid" x="75.0909" y="170.182" width="26.5455" height="2.54545"/>
+  <object id="38" type="Platform" x="224" y="240" width="16" height="5"/>
+  <object id="39" type="Platform" x="224" y="192" width="16" height="5"/>
+  <object id="40" type="Platform" x="224" y="144" width="16" height="5"/>
+  <object id="41" type="MovingSolid" x="80" y="272" width="16" height="5.25">
+   <properties>
+    <property name="path" type="object" value="42"/>
+   </properties>
+  </object>
+  <object id="42" name="Path" x="96" y="240">
+   <polyline points="0,48 32,16 32,-32 64,-16 96,-48 64,-80"/>
+  </object>
+  <object id="43" type="MovingSolid" x="192" y="272" width="16" height="16">
+   <properties>
+    <property name="path" type="object" value="44"/>
+   </properties>
+  </object>
+  <object id="44" x="176" y="272">
+   <polyline points="32,0 64,0"/>
+  </object>
+  <object id="45" type="MovingSolid" x="80" y="224" width="16" height="5.25">
+   <properties>
+    <property name="path" type="object" value="46"/>
+   </properties>
+  </object>
+  <object id="46" x="48" y="272">
+   <polyline points="1.75,-74.75 2.25,-37.5"/>
+  </object>
+  <object id="47" type="Solid" x="48" y="288" width="16" height="16"/>
  </objectgroup>
 </map>

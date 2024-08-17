@@ -1,7 +1,7 @@
 import { Engine, PainterContext, Rectangle, Scene, SpriteEntity, SpritePainter } from 'game-engine';
+import { Geometry } from './geometry.js';
 
-export class Solid extends SpriteEntity {
-  protected color: string = 'black';
+export class Platform extends SpriteEntity implements Geometry {
   constructor(bounds: Rectangle) {
     super(new SpritePainter((ctx) => this.draw(ctx), {spriteWidth: bounds.width, spriteHeight: bounds.height}));
     this.bounds = bounds;
@@ -10,8 +10,8 @@ export class Solid extends SpriteEntity {
   tick(engine: Engine, scene: Scene): Promise<void> | void {
   }
 
-  protected draw(ctx: PainterContext) {
-    ctx.fillStyle = this.color;
+  private draw(ctx: PainterContext) {
+    ctx.fillStyle = 'grey';
     ctx.fillRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
   }
 }
