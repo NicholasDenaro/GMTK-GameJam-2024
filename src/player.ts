@@ -9,8 +9,8 @@ const REJUMP_GRACE = 4;
 const JUMP_SPEED = -4;
 const JUMP_FLOAT_SPEED = -0.6;
 const MAX_HORIZONTAL = 1.5;
-const FRICTION = 0.2;
-const HORIZONTAL_PUSH = 0.3;
+const FRICTION = 0.28;
+const HORIZONTAL_PUSH = 0.5;
 
 type AnimationData = {
   start: number;
@@ -76,23 +76,45 @@ export class Player extends SpriteEntity {
 
     this.xVelocity = clamp(-MAX_HORIZONTAL, this.xVelocity, MAX_HORIZONTAL);
 
+    let xVelocityUsed = 0;
     for (let i = 0; i < this.xVelocity; i++) {
-      this.moveDelta(1, 0);
+      const toMove = clamp(0, this.xVelocity - i, 1);
+      //xVelocityUsed += toMove;
+      this.moveDelta(toMove, 0);
       if (this.checkCollisions(solids)) {
-        this.moveDelta(-1, 0);
+        this.moveDelta(-toMove, 0);
+        // TODO: bump up to wall
         this.xVelocity = 0;
         break;
       }
     }
 
     for (let i = 0; i > this.xVelocity; i--) {
-      this.moveDelta(-1, 0);
+      const toMove = clamp(-1, this.xVelocity - i, 0);
+      //xVelocityUsed += toMove;
+      this.moveDelta(toMove, 0);
       if (this.checkCollisions(solids)) {
-        this.moveDelta(1, 0);
+        this.moveDelta(-toMove, 0);
+        // TODO: bump up to wall
         this.xVelocity = 0;
         break;
       }
     }
+
+    // const xVelocityDiff = this.xVelocity - xVelocityUsed;
+    // this.moveDelta(xVelocityDiff, 0);
+    // if (this.checkCollisions(solids)) {
+    //   const wall = solids.find(solid => this.checkCollisions([solid]));
+    //   this.moveDelta(-xVelocityDiff, 0);
+    //   this.xVelocity = 0;
+    //   if (xVelocityDiff < 0) {
+    //     this.moveDelta(this.x - (wall.bounds.x + wall.bounds.width), 0);
+    //   }
+    //   if (xVelocityDiff > 0) {
+    //     this.moveDelta(this.x + this.bottomRight.x + 1 - wall.bounds.x, 0);
+    //   }
+    // }
+    
 
     if (this.onGround(solids)) {
       if (this.xVelocity > 0) {

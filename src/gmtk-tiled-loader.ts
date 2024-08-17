@@ -19,7 +19,7 @@ export class GmtkTiledLoder extends TiledLoader {
     const type = object.getAttribute('type');
     switch(type) {
       case 'Player':
-        scene.addEntity(new Player(bounds.x, bounds.y));
+        scene.addEntity(new Player(bounds.x + 8, bounds.y + 15));
         break;
       case 'Solid':
         scene.addEntity(new Solid(bounds));
