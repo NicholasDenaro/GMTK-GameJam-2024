@@ -6,10 +6,10 @@ import { MovingSolid } from './moving-solid.js';
 
 const COYOTE_TIME = 6;
 const JUMP_TIME = 5;
-const GRAVITY = 0.5;
+const GRAVITY = 0.3; //0.5;
 const REJUMP_GRACE = 4;
-const JUMP_SPEED = -4;
-const JUMP_FLOAT_SPEED = -0.6;
+const JUMP_SPEED = -3; //-4;
+const JUMP_FLOAT_SPEED = -0.4;// -0.6;
 const MAX_HORIZONTAL = 1.5;
 const FRICTION = 0.28;
 const HORIZONTAL_PUSH = 0.5;
@@ -31,6 +31,11 @@ const animations: { [key: string]: AnimationData } = {
 type Animation = keyof typeof animations;
 
 export class Player extends SpriteEntity {
+
+  public viewOffsetY = 0;
+  private viewScrollDirection: number = 0;
+  private scrollTime: number = 0;
+
   private myPainter: SpritePainter;
   private coyoteTime = COYOTE_TIME;
   private coyotePlatform: MovingSolid;
@@ -79,8 +84,6 @@ export class Player extends SpriteEntity {
     const moveRight = this.moveRight(engine);
     const move = moveLeft || moveRight;
 
-    //this.xVelocity = clamp(-MAX_HORIZONTAL, this.xVelocity, MAX_HORIZONTAL);
-
     for (let i = 0; i < this.xVelocity; i++) {
       const toMove = clamp(0, this.xVelocity - i, 1);
       this.moveDelta(toMove, 0);
@@ -116,6 +119,13 @@ export class Player extends SpriteEntity {
         this.xVelocity -= clamp(0, FRICTION * (Math.abs(this.xVelocity) ** 0.5), Math.abs(this.xVelocity));
       } else if (this.xVelocity < 0) {
         this.xVelocity += clamp(0, FRICTION * (Math.abs(this.xVelocity) ** 0.5), Math.abs(this.xVelocity));
+      }
+    } else if (!engine.isControl('left', ControllerState.Down) && !engine.isControl('right', ControllerState.Down)) {
+      // apply friction in air if let go of movement
+      if (this.xVelocity > 0) {
+        this.xVelocity -= clamp(0, FRICTION * 0.2 * (Math.abs(this.xVelocity) ** 0.5), Math.abs(this.xVelocity));
+      } else if (this.xVelocity < 0) {
+        this.xVelocity += clamp(0, FRICTION * 0.2 * (Math.abs(this.xVelocity) ** 0.5), Math.abs(this.xVelocity));
       }
     }
 
@@ -234,7 +244,29 @@ export class Player extends SpriteEntity {
 
     const view = scene.getView() as Canvas2DView;
 
-    view.setOffset(clamp(0, this.x - screenWidth / 2, 1000), clamp(0, this.y - screenHeight / 2, 1000));
+    // view.setOffset(clamp(0, this.x - screenWidth / 2, 1000), clamp(0, this.y - screenHeight / 2, 1000));
+
+
+    view.setOffset(0, this.viewOffsetY);
+    if (this.y > view.getOffset().y + screenHeight && this.viewScrollDirection === 0) {
+      console.log(`y: ${this.y}, view.y: ${view.getOffset().y}, view.y+H: ${view.getOffset().y + screenHeight}`);
+      this.viewScrollDirection = 1;
+      this.scrollTime = screenHeight / 4;
+    } else if (this.y < view.getOffset().y && this.viewScrollDirection === 0) {
+      this.viewScrollDirection = -1;
+      this.scrollTime = screenHeight / 4;
+    }
+
+    if (this.viewScrollDirection !== 0) {
+      this.viewOffsetY += this.viewScrollDirection * 4;
+      this.scrollTime--;
+      if (this.scrollTime === 0) {
+        this.viewScrollDirection = 0;
+      }
+    }
+
+    view.setOffset(0, this.viewOffsetY);
+
     // console.log(this.xVelocity);
   }
 
@@ -437,7 +469,7 @@ export class Player extends SpriteEntity {
   private fall(solids: Solid[], platforms: Platform[]): void {
     if (!this.onGround(solids, platforms)) {
       // air friction
-      const airFriction = this.yVelocity > 0 ? clamp(0, this.scaleX - 1, 1) * GRAVITY * 0.8 : 0;
+      const airFriction = clamp(-0.2, this.scaleX - 1, 1) * GRAVITY * 0.9 * Math.sign(this.yVelocity);
 
       this.yVelocity += GRAVITY - airFriction;
       this.coyoteTime--;
@@ -511,14 +543,14 @@ export class Player extends SpriteEntity {
     this.y = startY;
     this.x = startX;
 
-    ctx.fillStyle = 'lightblue';
-    ctx.fillRect(this.topLeft.x, this.topLeft.y, this.topLeft.width, this.topLeft.height);
-    ctx.fillStyle = 'pink';
-    ctx.fillRect(this.topRight.x, this.topRight.y, this.topRight.width, this.topRight.height);
+    // ctx.fillStyle = 'lightblue';
+    // ctx.fillRect(this.topLeft.x, this.topLeft.y, this.topLeft.width, this.topLeft.height);
+    // ctx.fillStyle = 'pink';
+    // ctx.fillRect(this.topRight.x, this.topRight.y, this.topRight.width, this.topRight.height);
 
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(this.bottomLeft.x, this.bottomLeft.y, this.bottomLeft.width, this.bottomLeft.height);
-    ctx.fillStyle = 'purple';
-    ctx.fillRect(this.bottomRight.x, this.bottomRight.y, this.bottomRight.width, this.bottomRight.height);
+    // ctx.fillStyle = 'blue';
+    // ctx.fillRect(this.bottomLeft.x, this.bottomLeft.y, this.bottomLeft.width, this.bottomLeft.height);
+    // ctx.fillStyle = 'purple';
+    // ctx.fillRect(this.bottomRight.x, this.bottomRight.y, this.bottomRight.width, this.bottomRight.height);
   }
 }

@@ -2,9 +2,10 @@ import { Canvas2DView, ControllerBinding, Engine, FixedTickEngine, GamepadContro
 import { Player } from './player.js';
 import { Solid } from './solid.js';
 import { GmtkTiledLoder } from './gmtk-tiled-loader.js';
+import { ViewStart } from './view-start.js';
 
-export const screenWidth = 240;
-export const screenHeight = 160;
+export const screenWidth = 320;
+export const screenHeight = 208;
 const scale = 5;
 export const FPS = 60;
 
@@ -82,6 +83,12 @@ async function init() {
   //     }
   //   }
   // });
+
+  const nextScene = engine.getScene('dev-room');
+  // nextScene.entitiesByType(Player)[0].viewOffsetX = nextScene.entitiesByType(ViewStart)[0].x;
+  nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
+
+  console.log(`yoffset to start: ${nextScene.entitiesByType(Player)[0].viewOffsetY}`);
 
   engine.switchToScene('dev-room');
 

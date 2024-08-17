@@ -1,8 +1,9 @@
-import { Rectangle, Scene, TiledLoader } from 'game-engine';
+import { Canvas2DView, Rectangle, Scene, TiledLoader } from 'game-engine';
 import { Solid } from './solid.js';
 import { Player } from './player.js';
 import { Platform } from './platform.js';
 import { MovingSolid } from './moving-solid.js';
+import { ViewStart } from './view-start.js';
 
 export class GmtkTiledLoder extends TiledLoader {
   constructor(private _mapData: __WebpackModuleApi.RequireContext, private _spriteData: __WebpackModuleApi.RequireContext) {
@@ -40,6 +41,9 @@ export class GmtkTiledLoder extends TiledLoader {
         const delay = Number(this.getProperty(path, 'delay') ?? 0);
         const launch = this.getProperty(object, 'launch') === 'true';
         scene.addEntity(new MovingSolid(bounds, points, steps, delay, launch));
+        break;
+      case 'ViewStart':
+        scene.addEntity(new ViewStart(Number(object.getAttribute('x')), Number(object.getAttribute('y'))));
         break;
     }
   }
