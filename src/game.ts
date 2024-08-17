@@ -110,20 +110,12 @@ const keyMap = [
     keys: ['ArrowDown', 's', 'S'],
   },
   {
-    binding: new ControllerBinding<undefined>('leftTurn'),
-    keys: ['q', 'Q'],
-  },
-  {
-    binding: new ControllerBinding<undefined>('rightTurn'),
-    keys: ['e', 'E'],
-  },
-  {
     binding: new ControllerBinding<undefined>('run'),
-    keys: ['Shift'],
+    keys: ['Shift', 'z', 'Z'],
   },
   {
     binding: new ControllerBinding<undefined>('action'),
-    keys: [' '],
+    keys: [' ', 'x', 'X'],
   },
 ];
 

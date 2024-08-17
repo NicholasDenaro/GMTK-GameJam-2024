@@ -6,6 +6,11 @@ const COYOTE_TIME = 10;
 const JUMP_TIME = 10;
 const GRAVITY = 0.7;
 const REJUMP_GRACE = 4;
+const JUMP_SPEED = -4;
+const JUMP_FLOAT_SPEED = -0.6;
+const MAX_HORIZONTAL = 1.5;
+const FRICTION = 0.2;
+const HORIZONTAL_PUSH = 0.3;
 
 type AnimationData = {
   start: number;
@@ -30,7 +35,13 @@ export class Player extends SpriteEntity {
   private bottomRight: Rectangle;
   private topLeft: Rectangle;
   private topRight: Rectangle;
+
+  private xVelocity: number = 0;
   private yVelocity: number = 0;
+
+  private maxJumps: number = 1;
+  private jumps: number = 1;
+
   private jumpingTime = JUMP_TIME;
   private jump = false;
   private rejumpTime = REJUMP_GRACE;
@@ -59,9 +70,37 @@ export class Player extends SpriteEntity {
 
     const solids = scene.entitiesByType(Solid);
 
-    const moveLeft = this.moveLeft(engine, solids);
-    const moveRight = this.moveRight(engine, solids);
+    const moveLeft = this.moveLeft(engine);
+    const moveRight = this.moveRight(engine);
     const move = moveLeft || moveRight;
+
+    this.xVelocity = clamp(-MAX_HORIZONTAL, this.xVelocity, MAX_HORIZONTAL);
+
+    for (let i = 0; i < this.xVelocity; i++) {
+      this.moveDelta(1, 0);
+      if (this.checkCollisions(solids)) {
+        this.moveDelta(-1, 0);
+        this.xVelocity = 0;
+        break;
+      }
+    }
+
+    for (let i = 0; i > this.xVelocity; i--) {
+      this.moveDelta(-1, 0);
+      if (this.checkCollisions(solids)) {
+        this.moveDelta(1, 0);
+        this.xVelocity = 0;
+        break;
+      }
+    }
+
+    if (this.onGround(solids)) {
+      if (this.xVelocity > 0) {
+        this.xVelocity -= clamp(0, this.xVelocity, FRICTION);
+      } else if (this.xVelocity < 0) {
+        this.xVelocity += clamp(0, -this.xVelocity, FRICTION);
+      }
+    }
 
     if (move && this.onGround(solids)) {
       if (this.animation !== 'land') {
@@ -91,21 +130,23 @@ export class Player extends SpriteEntity {
 
     if (onGround) {
       this.coyoteTime = COYOTE_TIME;
+      this.jumps = this.maxJumps;
+    }
 
-      const scaleUp = this.doScaleUp(engine, solids);
-      const scaleDown = this.doScaleDown(engine, solids);
+    const scaleUp = this.doScaleUp(engine, solids);
+    const scaleDown = this.doScaleDown(engine, solids);
 
-      if (!scaleUp && !scaleDown) {
-        this.scaleBack(engine, solids);
-      }
+    if (!scaleUp && !scaleDown) {
+      this.scaleBack(engine, solids);
     }
 
     this.rejumpTime--;
 
-    if (engine.isControl('action', ControllerState.Press) || (this.rejump && this.rejumpTime > 0)) {
-      if (onGround || this.coyoteTime > 0) {
-        this.yVelocity = -4;
+    if ((engine.isControl('action', ControllerState.Press) || (this.rejump && this.rejumpTime > 0))) {
+      if (this.jumps > 0 && (onGround || this.coyoteTime > 0)) {
+        this.yVelocity = JUMP_SPEED;
         this.jump = true;
+        this.jumps--;
         this.setAnimation('jump');
       } else if (!this.rejump) {
         this.rejumpTime = REJUMP_GRACE;
@@ -115,7 +156,7 @@ export class Player extends SpriteEntity {
 
     if (this.jump) {
       if (engine.isControl('action', ControllerState.Down) && this.jumpingTime > 0) {
-        this.yVelocity -= 0.6;
+        this.yVelocity += JUMP_FLOAT_SPEED;
         this.jumpingTime--;
       } else {
         this.jump = false;
@@ -157,11 +198,18 @@ export class Player extends SpriteEntity {
 
   private scaleBack(engine: Engine, solids: Solid[]): boolean {
     if (engine.isControl('down', ControllerState.Up) && engine.isControl('up', ControllerState.Up)) {
+      let scaled = false;
       if (this.scaleX < 1) {
-        return this.scaleDown(engine, solids);
+        scaled ||= this.scaleDown(solids);
       } else if (this.scaleX > 1) {
-        return this.scaleUp(engine, solids);
+        scaled ||= this.scaleUp(solids);
       }
+      if (this.scaleX < 1) {
+        scaled ||= this.scaleDown(solids);
+      } else if (this.scaleX > 1) {
+        scaled ||= this.scaleUp(solids);
+      }
+      return scaled;
     }
 
     return false;
@@ -169,7 +217,8 @@ export class Player extends SpriteEntity {
 
   private doScaleDown(engine: Engine, solids: Solid[]): boolean {
     if (engine.isControl('down', ControllerState.Down)) {
-      return this.scaleDown(engine, solids);
+      this.scaleDown(solids);
+      return true;
     }
 
     return false;
@@ -177,13 +226,14 @@ export class Player extends SpriteEntity {
 
   private doScaleUp(engine: Engine, solids: Solid[]): boolean {
     if (engine.isControl('up', ControllerState.Down)) {
-      return this.scaleUp(engine, solids);
+      this.scaleUp(solids);
+      return true;
     }
 
     return false;
   }
 
-  private scaleUp(engine: Engine, solids: Solid[]): boolean {
+  private scaleUp(solids: Solid[]): boolean {
     if (this.scaleY < 1.8) {
       this.scaleX -= 0.1;
       this.scaleY += 0.1;
@@ -206,6 +256,7 @@ export class Player extends SpriteEntity {
 
         this.topLeft.y += 1;
         this.topRight.y += 1;
+        return false;
       }
       return true;
     }
@@ -213,8 +264,8 @@ export class Player extends SpriteEntity {
     return false;
   }
 
-  private scaleDown(engine: Engine, solids: Solid[]): boolean {
-    if (this.scaleY < 2) {
+  private scaleDown(solids: Solid[], retry: boolean = true): boolean {
+    if (this.scaleX < 1.6) {
       this.scaleX += 0.1;
       this.scaleY -= 0.1;
       this.topLeft.x -= 0.5;
@@ -235,6 +286,25 @@ export class Player extends SpriteEntity {
 
         this.topLeft.y -= 1;
         this.topRight.y -= 1;
+
+        if (retry) {
+          // try again, but shift left
+          this.moveDelta(-0.5, 0);
+          if (this.scaleDown(solids, false)) {
+            return true;
+          } else {
+            this.moveDelta(0.5, 0);
+            // try again, but shift right
+            this.moveDelta(0.5, 0);
+            if (this.scaleDown(solids, false)) {
+              return true;
+            } else {
+              this.moveDelta(-0.5, 0);
+              return false;
+            }
+          }
+        }
+        return false;
       }
       return true;
     }
@@ -242,23 +312,17 @@ export class Player extends SpriteEntity {
     return false;
   }
 
-  private moveLeft(engine: Engine, solids: Solid[]): boolean {
+  private moveLeft(engine: Engine): boolean {
     if (engine.isControl('left', ControllerState.Down)) {
-      this.moveDelta(-1, 0);
-      if (this.checkCollisions(solids)) {
-        this.moveDelta(1, 0);
-      }
+      this.xVelocity -= HORIZONTAL_PUSH;
       return true;
     }
     return false;
   }
 
-  private moveRight(engine: Engine, solids: Solid[]): boolean {
+  private moveRight(engine: Engine): boolean {
     if (engine.isControl('right', ControllerState.Down)) {
-      this.moveDelta(1, 0);
-      if (this.checkCollisions(solids)) {
-        this.moveDelta(-1, 0);
-      }
+      this.xVelocity += HORIZONTAL_PUSH;
       return true;
     }
     return false;
@@ -291,6 +355,11 @@ export class Player extends SpriteEntity {
       this.coyoteTime--;
     } else {
       this.yVelocity = 0;
+      // this.moveDelta(0, 1);
+      // const floor = solids.find(solid => this.checkCollisions([solid]));
+      // const floorPos = floor.bounds;
+      // this.moveDelta(0, -1);
+      // this.moveDelta(0, floorPos.y - this.y - 1);
     }
   }
 
