@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="39" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="75">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="39" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="90">
  <layer id="1" name="Tile Layer 1" width="20" height="39">
   <properties>
    <property name="zindex" type="int" value="0"/>
@@ -73,7 +73,7 @@
   <object id="38" type="Platform" x="240" y="384" width="16" height="5"/>
   <object id="39" type="Platform" x="240" y="336" width="16" height="5"/>
   <object id="40" type="Platform" x="240" y="288" width="16" height="5"/>
-  <object id="41" type="MovingSolid" x="112" y="416" width="16" height="5.25">
+  <object id="41" type="MovingSolid" x="96" y="384" width="16" height="5.25">
    <properties>
     <property name="path" type="object" value="42"/>
    </properties>
@@ -82,7 +82,7 @@
    <properties>
     <property name="steps" type="int" value="120"/>
    </properties>
-   <polyline points="0,48 32,16 16,-16 48,-16 64,-32 64,-80"/>
+   <polyline points="0,16 48,16 0,-16 48,-16 64,-32 64,-80"/>
   </object>
   <object id="43" type="MovingSolid" x="192" y="416" width="16" height="16">
    <properties>
@@ -94,7 +94,7 @@
     <property name="delay" type="int" value="60"/>
     <property name="steps" type="int" value="60"/>
    </properties>
-   <polyline points="32,0 59.5,0"/>
+   <polyline points="32,0 64,0"/>
   </object>
   <object id="45" type="MovingSolid" x="64" y="368" width="16" height="5.25">
    <properties>
@@ -113,19 +113,19 @@
     <property name="path" type="object" value="49"/>
    </properties>
   </object>
-  <object id="49" x="128" y="496">
+  <object id="49" x="112" y="496">
    <properties>
     <property name="steps" type="int" value="240"/>
    </properties>
    <polyline points="0,0 80,0"/>
   </object>
-  <object id="50" type="Player" x="224" y="608">
+  <object id="50" type="Player" x="224" y="576">
    <point/>
   </object>
   <object id="54" type="Solid" x="224" y="288" width="8.5" height="5"/>
   <object id="55" type="MovingSolid" x="160" y="416" width="16" height="5.25">
    <properties>
-    <property name="launch" type="bool" value="false"/>
+    <property name="launch" type="bool" value="true"/>
     <property name="path" type="object" value="56"/>
    </properties>
   </object>
@@ -148,9 +148,76 @@
   <object id="71" type="Solid" x="112" y="256" width="144" height="16"/>
   <object id="72" type="Platform" x="80" y="448" width="16" height="2.75"/>
   <object id="73" type="Platform" x="48" y="240" width="16" height="2.75"/>
-  <object id="74" type="Sign" x="160" y="608">
+  <object id="74" type="Sign" x="224" y="608">
    <properties>
-    <property name="text" value="Hello!"/>
+    <property name="text" value="Move with arrows keys or WASD"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="76" type="Solid" x="144" y="592" width="16" height="16"/>
+  <object id="77" type="Sign" x="176" y="608">
+   <properties>
+    <property name="text" value="Jump with Spacebar or X"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="78" type="Sign" x="88" y="544">
+   <properties>
+    <property name="text" value="Squish down with down arrow or S"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="79" type="Sign" x="80" y="608">
+   <properties>
+    <property name="text" value="Squish up with up arrow or W"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="80" type="Sign" x="56" y="608">
+   <properties>
+    <property name="text" value="You can jump while squished"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="81" type="Sign" x="224" y="496">
+   <properties>
+    <property name="text" value="Moving platforms"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="82" type="Sign" x="88" y="496">
+   <properties>
+    <property name="text" value="Go up!"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="83" type="Sign" x="112" y="432">
+   <properties>
+    <property name="text" value="Platforms can help you jump or move around"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="84" type="Sign" x="144" y="432">
+   <properties>
+    <property name="text" value="They can also launch you"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="85" type="Sign" x="248" y="432">
+   <properties>
+    <property name="text" value="Don't get squished!"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="87" type="Sign" x="248" y="384">
+   <properties>
+    <property name="text" value="Jump through these"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="89" type="Sign" x="56" y="320">
+   <properties>
+    <property name="text" value="Squish up and jump|for extra height"/>
    </properties>
    <point/>
   </object>

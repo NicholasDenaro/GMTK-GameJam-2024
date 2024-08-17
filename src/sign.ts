@@ -40,7 +40,14 @@ export class Sign extends SpriteEntity {
     this.myPainter.paint(ctx);
     ctx.globalAlpha = this.textAlpha;
     ctx.textBaseline = 'bottom';
-    ctx.fillText(this.text, this.x - ctx.measureText(this.text).width / 2, this.y - 16 - 4);
+    const lines = this.text.split('|');
+    for (let i = 0; i < lines.length; i++) {
+      const text = lines[i];
+      ctx.strokeStyle = 'black';
+      ctx.strokeText(text, this.x - ctx.measureText(text).width / 2, this.y - 16 - 4 - 16 * (lines.length - i - 1));
+      ctx.fillStyle = 'white';
+      ctx.fillText(text, this.x - ctx.measureText(text).width / 2, this.y - 16 - 4 - 16 * (lines.length - i - 1));
+    }
     ctx.globalAlpha = 1;
   }
 }
