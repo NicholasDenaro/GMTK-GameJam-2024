@@ -2,10 +2,11 @@ import { Scene, Sound, Sprite, SpriteEntity, SpritePainter, ControllerState, Eng
 import { Solid } from './solid.js';
 import { clamp, screenHeight, screenWidth } from './game.js';
 import { Platform } from './platform.js';
+import { MovingSolid } from './moving-solid.js';
 
-const COYOTE_TIME = 10;
-const JUMP_TIME = 10;
-const GRAVITY = 0.7;
+const COYOTE_TIME = 6;
+const JUMP_TIME = 5;
+const GRAVITY = 0.5;
 const REJUMP_GRACE = 4;
 const JUMP_SPEED = -4;
 const JUMP_FLOAT_SPEED = -0.6;
@@ -56,8 +57,8 @@ export class Player extends SpriteEntity {
     super(new SpritePainter((ctx: PainterContext) => this.draw(ctx), Sprite.Sprites['slime'].getOptions()), x, y);
     this.myPainter = new SpritePainter(Sprite.Sprites['slime']);
     this.myPainter.setEid(this.getId());
-    this.bottomLeft = new Rectangle(this.x - 5, this.y - 1, 1, 1);
-    this.bottomRight = new Rectangle(this.x + 5, this.y - 1, 1, 1);
+    this.bottomLeft = new Rectangle(this.x - 5, this.y - 1, 5, 1);
+    this.bottomRight = new Rectangle(this.x, this.y - 1, 5, 1);
     this.topLeft = new Rectangle(this.x - 5, this.y - 8, 1, 8);
     this.topRight = new Rectangle(this.x + 5, this.y - 8, 1, 8);
 
@@ -71,6 +72,7 @@ export class Player extends SpriteEntity {
 
     const solids = scene.entitiesByType(Solid);
     const platforms = scene.entitiesByType(Platform);
+    const movingSolids = scene.entitiesByType(MovingSolid);
 
     const moveLeft = this.moveLeft(engine);
     const moveRight = this.moveRight(engine);
@@ -141,6 +143,7 @@ export class Player extends SpriteEntity {
 
     const onGround = this.onGround(solids, platforms);
     const onPlatform = this.onSolid(platforms);
+    const onMovingSolid = this.onSolid(movingSolids);
 
     if (onGround) {
       this.coyoteTime = COYOTE_TIME;
@@ -157,7 +160,7 @@ export class Player extends SpriteEntity {
     this.rejumpTime--;
 
     if ((engine.isControl('action', ControllerState.Press) || (this.rejump && this.rejumpTime > 0))) {
-      if (engine.isControl('down', ControllerState.Down) && onPlatform) {
+      if (engine.isControl('down', ControllerState.Down) && (onPlatform && !this.onSolid(solids))) {
         this.jumps--;
         this.yVelocity += GRAVITY;
         this.moveDelta(0, onPlatform.bounds.height);
@@ -167,6 +170,10 @@ export class Player extends SpriteEntity {
           this.jump = true;
           this.jumps--;
           this.setAnimation('jump');
+          if (onMovingSolid) {
+            this.xVelocity += onMovingSolid.xVelocity;
+            this.yVelocity += onMovingSolid.yVelocity;
+          }
         } else if (!this.rejump) {
           this.rejumpTime = REJUMP_GRACE;
           this.rejump = true;
@@ -271,6 +278,10 @@ export class Player extends SpriteEntity {
       this.topLeft.height += 1;
       this.topRight.height += 1;
 
+      this.bottomLeft.width -= 0.5;
+      this.bottomRight.x += 0.5;
+      this.bottomRight.width -= 0.5;
+
       if (this.checkCollisions(solids)) {
         this.scaleX += 0.1;
         this.scaleY -= 0.1;
@@ -284,6 +295,10 @@ export class Player extends SpriteEntity {
 
         this.topLeft.height -= 1;
         this.topRight.height -= 1;
+
+        this.bottomLeft.width += 0.5;
+        this.bottomRight.x -= 0.5;
+        this.bottomRight.width += 0.5;
         return false;
       }
       return true;
@@ -307,6 +322,10 @@ export class Player extends SpriteEntity {
       this.topLeft.height -= 1;
       this.topRight.height -= 1;
 
+      this.bottomLeft.width += 0.5;
+      this.bottomRight.x -= 0.5;
+      this.bottomRight.width += 0.5;
+
       if (this.checkCollisions(solids)) {
         this.scaleX -= 0.1;
         this.scaleY += 0.1;
@@ -320,6 +339,10 @@ export class Player extends SpriteEntity {
 
         this.topLeft.height += 1;
         this.topRight.height += 1;
+
+        this.bottomLeft.width -= 0.5;
+        this.bottomRight.x += 0.5;
+        this.bottomRight.width -= 0.5;
 
         if (retry) {
           // try again, but shift left
@@ -403,7 +426,7 @@ export class Player extends SpriteEntity {
     return inSolid;
   }
 
-  public onSolid(platforms: SpriteEntity[]): SpriteEntity {
+  public onSolid<T extends SpriteEntity>(platforms: T[]): T {
     if (this.yVelocity >= 0) {
       this.moveDelta(0, 1);
       const onGround = this.checkBottomCollisions(platforms);
@@ -423,7 +446,7 @@ export class Player extends SpriteEntity {
       || solid.bounds.intersects(this.topRight));
   }
 
-  private checkBottomCollisions(solids: SpriteEntity[]): SpriteEntity {
+  private checkBottomCollisions<T extends SpriteEntity>(solids: T[]): T {
     return solids.find(solid =>
       solid.bounds.intersects(this.bottomLeft)
       || solid.bounds.intersects(this.bottomRight));
@@ -444,10 +467,12 @@ export class Player extends SpriteEntity {
 
     ctx.fillStyle = 'lightblue';
     ctx.fillRect(this.topLeft.x, this.topLeft.y, this.topLeft.width, this.topLeft.height);
+    ctx.fillStyle = 'pink';
     ctx.fillRect(this.topRight.x, this.topRight.y, this.topRight.width, this.topRight.height);
 
     ctx.fillStyle = 'blue';
     ctx.fillRect(this.bottomLeft.x, this.bottomLeft.y, this.bottomLeft.width, this.bottomLeft.height);
+    ctx.fillStyle = 'purple';
     ctx.fillRect(this.bottomRight.x, this.bottomRight.y, this.bottomRight.width, this.bottomRight.height);
   }
 }

@@ -21,7 +21,7 @@ export class GmtkTiledLoder extends TiledLoader {
     const type = object.getAttribute('type');
     switch(type) {
       case 'Player':
-        scene.addEntity(new Player(bounds.x + 8, bounds.y + 15));
+        scene.addEntity(new Player(bounds.x, bounds.y - 1));
         break;
       case 'Solid':
         scene.addEntity(new Solid(bounds));
@@ -37,7 +37,8 @@ export class GmtkTiledLoder extends TiledLoader {
         const polyline = path.querySelector('polyline');
         const points = polyline.getAttribute('points').split(' ').map(point => point.split(',')).map(point => ({ x: baseX + Number(point[0]), y: baseY + Number(point[1])}));
         const steps = Number(this.getProperty(path, 'steps'));
-        scene.addEntity(new MovingSolid(bounds, points, steps));
+        const delay = Number(this.getProperty(path, 'delay') ?? 0);
+        scene.addEntity(new MovingSolid(bounds, points, steps, delay));
         break;
     }
   }

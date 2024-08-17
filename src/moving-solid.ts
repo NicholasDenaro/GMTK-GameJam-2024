@@ -2,11 +2,18 @@ import { Engine, PainterContext, Rectangle, Scene } from 'game-engine';
 import { Solid } from './solid.js';
 import { Player } from './player.js';
 
+const VELOCITY_DELAY = 6;
+
 export class MovingSolid extends Solid {
   private forwards: boolean = true;
   private sectionIndex: number = 0;
   private step: number = 0;
-  constructor(bounds: Rectangle, private path: {x: number, y: number}[], private steps: number) {
+  private delayTimer: number = 0;
+
+  public xVelocity: number;
+  public yVelocity: number;
+  public yVelocityDelay: number;
+  constructor(bounds: Rectangle, private path: {x: number, y: number}[], private steps: number, private delay: number = 0) {
     super(bounds);
     this.color = 'darkred';
     this.x = path[0].x;
@@ -16,6 +23,15 @@ export class MovingSolid extends Solid {
   }
 
   tick(engine: Engine, scene: Scene): Promise<void> | void {
+    if (this.delayTimer > 0) {
+      this.delayTimer--;
+      this.yVelocityDelay--;
+      if (this.yVelocityDelay < 0) {
+        this.yVelocity = 0;
+      }
+      return;
+    }
+
     this.step++;
 
     if (this.step > this.steps) {
@@ -24,6 +40,7 @@ export class MovingSolid extends Solid {
       } else {
         this.sectionIndex--;
       }
+      this.delayTimer = this.delay;
       this.step = 0;
       if (this.sectionIndex === this.path.length - 1) {
         this.forwards = false;
@@ -31,6 +48,11 @@ export class MovingSolid extends Solid {
       if (this.sectionIndex === 0) {
         this.forwards = true;
       }
+    }
+
+    if (this.delayTimer > 0) {
+      this.yVelocityDelay = VELOCITY_DELAY;
+      return;
     }
 
     if (this.forwards) {
@@ -82,6 +104,8 @@ export class MovingSolid extends Solid {
 
     this.x += dx;
     this.y += dy;
+    this.xVelocity = dx;
+    this.yVelocity = dy;
     this.bounds.x = this.x;
     this.bounds.y = this.y;
 
