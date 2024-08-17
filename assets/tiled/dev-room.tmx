@@ -61,7 +61,7 @@
   <object id="30" type="Solid" x="224" y="80" width="16" height="16"/>
   <object id="33" type="Solid" x="48" y="176" width="16" height="16"/>
   <object id="34" type="Solid" x="64" y="128" width="16" height="32"/>
-  <object id="37" type="Solid" x="75.0909" y="170.182" width="26.5455" height="2.54545"/>
+  <object id="37" type="Solid" x="75.0909" y="167.057" width="26.5455" height="1.92045"/>
   <object id="38" type="Platform" x="240" y="240" width="16" height="5"/>
   <object id="39" type="Platform" x="240" y="192" width="16" height="5"/>
   <object id="40" type="Platform" x="240" y="144" width="16" height="5"/>
@@ -83,9 +83,10 @@
   </object>
   <object id="44" x="176" y="272">
    <properties>
-    <property name="steps" type="int" value="120"/>
+    <property name="delay" type="int" value="60"/>
+    <property name="steps" type="int" value="60"/>
    </properties>
-   <polyline points="32,0 64,0"/>
+   <polyline points="32,0 59.5,0"/>
   </object>
   <object id="45" type="MovingSolid" x="80" y="224" width="16" height="5.25">
    <properties>
@@ -110,12 +111,13 @@
    </properties>
    <polyline points="0,0 80,0"/>
   </object>
-  <object id="50" type="Player" x="224" y="448">
+  <object id="50" type="Player" x="64" y="240">
    <point/>
   </object>
   <object id="54" type="Solid" x="224" y="144" width="8.5" height="5"/>
   <object id="55" type="MovingSolid" x="160" y="272" width="16" height="5.25">
    <properties>
+    <property name="launch" type="bool" value="false"/>
     <property name="path" type="object" value="56"/>
    </properties>
   </object>
@@ -124,7 +126,7 @@
     <property name="delay" type="int" value="60"/>
     <property name="steps" type="int" value="10"/>
    </properties>
-   <polyline points="0,0 0,-16"/>
+   <polyline points="0,0 16,-16"/>
   </object>
  </objectgroup>
 </map>

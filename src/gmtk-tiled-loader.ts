@@ -38,7 +38,8 @@ export class GmtkTiledLoder extends TiledLoader {
         const points = polyline.getAttribute('points').split(' ').map(point => point.split(',')).map(point => ({ x: baseX + Number(point[0]), y: baseY + Number(point[1])}));
         const steps = Number(this.getProperty(path, 'steps'));
         const delay = Number(this.getProperty(path, 'delay') ?? 0);
-        scene.addEntity(new MovingSolid(bounds, points, steps, delay));
+        const launch = this.getProperty(object, 'launch') === 'true';
+        scene.addEntity(new MovingSolid(bounds, points, steps, delay, launch));
         break;
     }
   }

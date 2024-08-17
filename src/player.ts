@@ -33,6 +33,7 @@ type Animation = keyof typeof animations;
 export class Player extends SpriteEntity {
   private myPainter: SpritePainter;
   private coyoteTime = COYOTE_TIME;
+  private coyotePlatform: MovingSolid;
   private bottomLeft: Rectangle;
   private bottomRight: Rectangle;
   private topLeft: Rectangle;
@@ -78,7 +79,7 @@ export class Player extends SpriteEntity {
     const moveRight = this.moveRight(engine);
     const move = moveLeft || moveRight;
 
-    this.xVelocity = clamp(-MAX_HORIZONTAL, this.xVelocity, MAX_HORIZONTAL);
+    //this.xVelocity = clamp(-MAX_HORIZONTAL, this.xVelocity, MAX_HORIZONTAL);
 
     for (let i = 0; i < this.xVelocity; i++) {
       const toMove = clamp(0, this.xVelocity - i, 1);
@@ -102,11 +103,19 @@ export class Player extends SpriteEntity {
       }
     }
 
+    // if (this.onGround(solids, platforms)) {
+    //   if (this.xVelocity > 0) {
+    //     this.xVelocity -= clamp(0, this.xVelocity, FRICTION);
+    //   } else if (this.xVelocity < 0) {
+    //     this.xVelocity += clamp(0, -this.xVelocity, FRICTION);
+    //   }
+    // }
+
     if (this.onGround(solids, platforms)) {
       if (this.xVelocity > 0) {
-        this.xVelocity -= clamp(0, this.xVelocity, FRICTION);
+        this.xVelocity -= clamp(0, FRICTION * (Math.abs(this.xVelocity) ** 0.5), Math.abs(this.xVelocity));
       } else if (this.xVelocity < 0) {
-        this.xVelocity += clamp(0, -this.xVelocity, FRICTION);
+        this.xVelocity += clamp(0, FRICTION * (Math.abs(this.xVelocity) ** 0.5), Math.abs(this.xVelocity));
       }
     }
 
@@ -144,6 +153,7 @@ export class Player extends SpriteEntity {
     const onGround = this.onGround(solids, platforms);
     const onPlatform = this.onSolid(platforms);
     const onMovingSolid = this.onSolid(movingSolids);
+    this.coyotePlatform = onMovingSolid ?? this.coyotePlatform;
 
     if (onGround) {
       this.coyoteTime = COYOTE_TIME;
@@ -170,9 +180,11 @@ export class Player extends SpriteEntity {
           this.jump = true;
           this.jumps--;
           this.setAnimation('jump');
-          if (onMovingSolid) {
-            this.xVelocity += onMovingSolid.xVelocity;
-            this.yVelocity += onMovingSolid.yVelocity;
+          const platformKick = onGround ? onMovingSolid : this.coyotePlatform;
+          if (platformKick) {
+            this.xVelocity += platformKick.xVelocity;
+            this.yVelocity += platformKick.yVelocity;
+            this.coyotePlatform = null;
           }
         } else if (!this.rejump) {
           this.rejumpTime = REJUMP_GRACE;
@@ -223,6 +235,12 @@ export class Player extends SpriteEntity {
     const view = scene.getView() as Canvas2DView;
 
     view.setOffset(clamp(0, this.x - screenWidth / 2, 1000), clamp(0, this.y - screenHeight / 2, 1000));
+    // console.log(this.xVelocity);
+  }
+
+  public launch(dxVelocity: number, dyVelocity: number) {
+    this.xVelocity += dxVelocity;
+    this.yVelocity += dyVelocity;
   }
 
   private scaleBack(engine: Engine, solids: Solid[]): boolean {
@@ -308,7 +326,7 @@ export class Player extends SpriteEntity {
   }
 
   public scaleDown(solids: Solid[], retry: boolean = true): boolean {
-    if (this.scaleX < 1.6) {
+    if (this.scaleX < 1.8) {
       this.scaleX += 0.1;
       this.scaleY -= 0.1;
       this.topLeft.x -= 0.5;
@@ -371,7 +389,12 @@ export class Player extends SpriteEntity {
 
   private moveLeft(engine: Engine): boolean {
     if (engine.isControl('left', ControllerState.Down)) {
-      this.xVelocity -= HORIZONTAL_PUSH;
+      if (this.xVelocity > -MAX_HORIZONTAL) {
+        this.xVelocity -= HORIZONTAL_PUSH;
+        if (!this.jump) {
+          this.xVelocity = clamp(-MAX_HORIZONTAL, this.xVelocity, MAX_HORIZONTAL);
+        }
+      }
       return true;
     }
     return false;
@@ -379,7 +402,12 @@ export class Player extends SpriteEntity {
 
   private moveRight(engine: Engine): boolean {
     if (engine.isControl('right', ControllerState.Down)) {
-      this.xVelocity += HORIZONTAL_PUSH;
+      if (this.xVelocity < MAX_HORIZONTAL) {
+        this.xVelocity += HORIZONTAL_PUSH;
+        if (!this.jump) {
+          this.xVelocity = clamp(-MAX_HORIZONTAL, this.xVelocity, MAX_HORIZONTAL);
+        }
+      }
       return true;
     }
     return false;
@@ -408,8 +436,14 @@ export class Player extends SpriteEntity {
 
   private fall(solids: Solid[], platforms: Platform[]): void {
     if (!this.onGround(solids, platforms)) {
-      this.yVelocity += GRAVITY;
+      // air friction
+      const airFriction = this.yVelocity > 0 ? clamp(0, this.scaleX - 1, 1) * GRAVITY * 0.8 : 0;
+
+      this.yVelocity += GRAVITY - airFriction;
       this.coyoteTime--;
+      if (this.coyoteTime <= 0) {
+        this.coyotePlatform = null;
+      }
     } else {
       this.yVelocity = 0;
     }
@@ -426,11 +460,21 @@ export class Player extends SpriteEntity {
     return inSolid;
   }
 
-  public onSolid<T extends SpriteEntity>(platforms: T[]): T {
+  public topInSolid(solids: Solid[]): Solid {
+    const inSolid = this.checkTopCollisions(solids);
+    return inSolid;
+  }
+
+  public bottomInSolid(solids: Solid[]): Solid {
+    const inSolid = this.checkBottomCollisions(solids);
+    return inSolid;
+  }
+
+  public onSolid<T extends SpriteEntity>(platforms: T[], amount: number = 1): T {
     if (this.yVelocity >= 0) {
-      this.moveDelta(0, 1);
+      this.moveDelta(0, amount);
       const onGround = this.checkBottomCollisions(platforms);
-      this.moveDelta(0, -1);
+      this.moveDelta(0, -amount);
 
       return onGround;
     }
@@ -447,9 +491,11 @@ export class Player extends SpriteEntity {
   }
 
   private checkBottomCollisions<T extends SpriteEntity>(solids: T[]): T {
-    return solids.find(solid =>
-      solid.bounds.intersects(this.bottomLeft)
-      || solid.bounds.intersects(this.bottomRight));
+    return solids.find(solid => solid.bounds.intersects(this.bottomLeft) || solid.bounds.intersects(this.bottomRight));
+  }
+
+  private checkTopCollisions<T extends SpriteEntity>(solids: T[]): T {
+    return solids.find(solid => solid.bounds.intersects(this.topLeft) || solid.bounds.intersects(this.topRight));
   }
 
   private draw(ctx: PainterContext) {

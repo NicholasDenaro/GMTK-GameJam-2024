@@ -163,3 +163,9 @@ init();
 export function clamp(low: number, val: number, high: number) {
   return Math.min(Math.max(low, val), high);
 }
+
+window.addEventListener("keydown", function (e) {
+  if (["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(e.code) > -1) {
+    e.preventDefault();
+  }
+}, false);
