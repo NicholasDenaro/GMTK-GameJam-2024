@@ -6,8 +6,7 @@ export class MovingSolid extends Solid {
   private forwards: boolean = true;
   private sectionIndex: number = 0;
   private step: number = 0;
-  private steps: number = 60;
-  constructor(bounds: Rectangle, private path: {x: number, y: number}[]) {
+  constructor(bounds: Rectangle, private path: {x: number, y: number}[], private steps: number) {
     super(bounds);
     this.color = 'darkred';
     this.x = path[0].x;
