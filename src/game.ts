@@ -7,8 +7,8 @@ import { Timer } from './timer.js';
 import { ImageEntity } from './image-entity.js';
 
 export const screenWidth = 320;
-export const screenHeight = 240;
-const scale = 5;
+export const screenHeight = 192;
+const scale = 4;
 export const FPS = 60;
 
 const rfont = require.context('../assets/premade', false, /\.ttf$/);
@@ -50,6 +50,11 @@ if (wavAssets('./premade/outputs/GAME_MENU_SCORE_SFX001416.ogg')) {
   new Sound('start', wavAssets('./premade/outputs/GAME_MENU_SCORE_SFX001416.ogg'));
 }
 
+export let Music: {
+  stop: () => void;
+  volume: (val: number) => void;
+};
+
 new Sound('loop1', wavAssets('./outputs/BeepBox-Song.ogg'), true);
 
 new Sprite('slime', spriteAssets('./slime.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 8, spriteOffsetY: 15 });
@@ -58,6 +63,7 @@ new Sprite('platform', spriteAssets('./platform.png'), { spriteWidth: 16, sprite
 new Sprite('movingblock', spriteAssets('./movingblock.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 0, spriteOffsetY: 0 });
 new Sprite('saw', spriteAssets('./saw.png'), { spriteWidth: 32, spriteHeight: 32, spriteOffsetX: 16, spriteOffsetY: 16 });
 new Sprite('gmtk-splash', spriteAssets('./premade/gmtk-splash.png'), { spriteWidth: 320, spriteHeight: 240, spriteOffsetX: 0, spriteOffsetY: 0 });
+new Sprite('music', spriteAssets('./music.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 0, spriteOffsetY: 0 });
 
 async function init() {
 
@@ -72,8 +78,8 @@ async function init() {
   engine.addController(new GamepadController(gamepadMap));
 
   const view = new Canvas2DView(screenWidth, screenHeight, { scale: scale, bgColor: '#BBBBBB' });
-  const devRoom = await loader.createSceneFromTMX(engine, './dev-room.tmx', 'dev-room', view);
-  engine.addScene(devRoom);
+  engine.addScene(await loader.createSceneFromTMX(engine, './dev-room.tmx', 'dev-room', view));
+  engine.addScene(await loader.createSceneFromTMX(engine, './w1s1.tmx', 'w1s1', view));
 
   const scenePause = new Scene('pause', view);
   engine.addScene(scenePause);
@@ -83,20 +89,19 @@ async function init() {
   engine.addScene(createMainMenu(view));
   engine.addScene(createCredits(view));
 
-  // engine.addActionPre('pause', () => {
-  //   if (engine.isControl('action', ControllerState.Press) || engine.isControl('interact1', ControllerState.Press)) {
-  //     if (engine.getActivatedScenes().some(scene => scene.key === 'main')) {
-  //       engine.switchToScene('pause');
-  //       Sound.Sounds['start'].play();
-  //     } else {
-  //       engine.switchToScene('main');
-  //     }
-  //   }
-  // });
+  engine.addActionPre('pause', () => {
+    if (engine.isControl('pause', ControllerState.Press) ) {
+      if (!engine.getActivatedScenes().some(scene => scene.key === 'main-menu')) {
+        engine.switchToScene('main-menu');
+        Music?.stop();
+        Music = null;
+      }
+    }
+  });
 
-  const nextScene = engine.getScene('dev-room');
+  // const nextScene = engine.getScene('dev-room');
   // nextScene.entitiesByType(Player)[0].viewOffsetX = nextScene.entitiesByType(ViewStart)[0].x;
-  nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
+  // nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
 
   engine.switchToScene('title');
   Sound.setVolume(0.3);
@@ -198,8 +203,8 @@ function createMainMenu(view: View): Scene {
   scene.addEntity(new Text(screenWidth / 2, screenHeight / 4, 'Slimb Climb', null, 16));
 
   scene.addEntity(new Text(screenWidth / 2, screenHeight * 3 / 4, 'Start', () => {
-    engine.switchToScene('dev-room');
-    Sound.Sounds['loop1'].play();
+    engine.switchToScene('w1s1');
+    Music = Sound.Sounds['loop1'].play();
   }, 16));
   scene.addEntity(new Text(screenWidth / 2, screenHeight * 3 / 4 + 16, 'Options', null, 16));
   scene.addEntity(new Text(screenWidth / 2, screenHeight * 3 / 4 + 16 + 16, 'Credits', null, 16));

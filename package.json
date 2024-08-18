@@ -14,7 +14,7 @@
     "http-server": "http-server -c-1 -p 8080 ./dist-web/",
     "start-web": "start http://localhost:8080",
     "start-electron": "cd .\\dist-electron\\dist\\Demo-win32-x64 && .\\Demo.exe",
-    "full-webpack": "npm run tsc-web && npm run build-webpack",
+    "full-webpack": "rimraf dist-web/ && npm run tsc-web && npm run build-webpack",
     "full-electron": "npm run full-webpack && npm run build-electron",
     "oggify": "node oggify.cjs",
     "zip-dist-web": "rimraf dist-web.zip &&  7z a dist-web.zip ./dist-web/*"

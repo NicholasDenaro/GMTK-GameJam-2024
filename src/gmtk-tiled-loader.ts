@@ -1,4 +1,4 @@
-import { Canvas2DView, Rectangle, Scene, TiledLoader } from 'game-engine';
+import { Canvas2DView, Rectangle, Scene, Sprite, TiledLoader } from 'game-engine';
 import { Solid } from './solid.js';
 import { Player } from './player.js';
 import { Platform } from './platform.js';
@@ -6,6 +6,7 @@ import { MovingSolid } from './moving-solid.js';
 import { ViewStart } from './view-start.js';
 import { Sign } from './sign.js';
 import { Saw } from './saw.js';
+import { MusicMuter } from './music-muter.js';
 
 export class GmtkTiledLoder extends TiledLoader {
   constructor(private _mapData: __WebpackModuleApi.RequireContext, private _spriteData: __WebpackModuleApi.RequireContext) {
@@ -52,6 +53,11 @@ export class GmtkTiledLoder extends TiledLoader {
         break;
       case 'Saw':
         scene.addEntity(new Saw(bounds.x, bounds.y));
+        break;
+      case 'Music':
+        const music = new MusicMuter(Sprite.Sprites['music'], bounds.x, bounds.y);
+        scene.addEntity(music);
+        music.zIndex = -100;
         break;
     }
   }

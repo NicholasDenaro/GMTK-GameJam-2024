@@ -7,9 +7,37 @@
     "expandedProjectPaths": [
     ],
     "fileStates": {
+        "C:/Source/GMTK-GameJam-2024/assets/tileset.tsx": {
+            "scaleInDock": 1
+        },
+        "dev-room.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 192.99999999999997,
+                "y": 331
+            }
+        },
+        "tileset.tsx": {
+            "scaleInEditor": 23
+        },
+        "world1/w1s1.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 3.42,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 160.08771929824562,
+                "y": 96.05263157894738
+            }
+        }
     },
     "last.imagePath": "C:/Source/GMTK-GameJam-2024/assets",
-    "map.height": 30,
+    "map.height": 12,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
@@ -19,6 +47,8 @@
     "project": "gmtk2024.tiled-project",
     "property.type": "int",
     "recentFiles": [
+        "tileset.tsx",
+        "world1/w1s1.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
