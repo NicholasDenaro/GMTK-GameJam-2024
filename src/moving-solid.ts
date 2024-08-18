@@ -108,7 +108,8 @@ export class MovingSolid extends Solid {
             player.scaleDown(solids);
             if (player.inSolid(solids)) {
               // crush?
-              console.log('CRUSHING UP');
+              //console.log('CRUSHING UP');
+              player.explode();
             }
           }
         }
@@ -139,7 +140,8 @@ export class MovingSolid extends Solid {
           if (player.inSolid(solidsNotThis)) {
             player.moveDelta(change * -Math.sign(dx), 0);
             if (!player.scaleUp([])) {
-              console.log('CRUSHED LEFT/RIGHT');
+              //console.log('CRUSHED LEFT/RIGHT');
+              player.explode();
               break;
             }
           }
@@ -167,7 +169,8 @@ export class MovingSolid extends Solid {
             if (player.inSolid(solidsNotThis)) {
               player.moveDelta(0, change * -Math.sign(dy));
               if (!player.scaleDown([])) {
-                console.log('CRUSHED DOWN');
+                //console.log('CRUSHED DOWN');
+                player.explode();
                 break;
               }
             }

@@ -39,6 +39,7 @@ new Sprite('slime', spriteAssets('./slime.png'), { spriteWidth: 16, spriteHeight
 new Sprite('sign', spriteAssets('./sign.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 8, spriteOffsetY: 15 });
 new Sprite('platform', spriteAssets('./platform.png'), { spriteWidth: 16, spriteHeight: 5, spriteOffsetX: 0, spriteOffsetY: 0 });
 new Sprite('movingblock', spriteAssets('./movingblock.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 0, spriteOffsetY: 0 });
+new Sprite('saw', spriteAssets('./saw.png'), { spriteWidth: 32, spriteHeight: 32, spriteOffsetX: 16, spriteOffsetY: 16 });
 
 async function init() {
 
@@ -172,6 +173,10 @@ init();
 
 export function clamp(low: number, val: number, high: number) {
   return Math.min(Math.max(low, val), high);
+}
+
+export function distance(a: {x: number, y: number}, b: {x: number, y: number}) {
+  return Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
 }
 
 window.addEventListener("keydown", function (e) {

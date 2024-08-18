@@ -21,17 +21,24 @@ type AnimationData = {
   nextAnimation?: Animation;
 }
 
-const animations: { [key: string]: AnimationData } = {
+const _animations = {
   stand: { start: 0, end: 0, animationDuration: 10 },
   walk: { start: 0, end: 1, animationDuration: 10 },
   jump: { start: 4, end: 6, animationDuration: 10 },
   land: { start: 8, end: 11, animationDuration: 3, nextAnimation: 'stand' },
-};
+  explode: { start: 12, end: 15, animationDuration: 5 },
+} as const;
 
-type Animation = keyof typeof animations;
+const animations: Record<string, AnimationData> = _animations;
+
+type Animation = keyof typeof _animations;
 
 export class Player extends SpriteEntity {
 
+  private resetSpawn: boolean = false;
+  private spawnX: number;
+  private spawnY: number;
+  private exploding: boolean = false;
   public viewOffsetY = 0;
   private viewScrollDirection: number = 0;
   private scrollTime: number = 0;
@@ -70,163 +77,176 @@ export class Player extends SpriteEntity {
 
     this.zIndex = -10;
     this.bounds = new Rectangle(this.x - 6, this.y - 12, 12, 12);
+
+    this.spawnX = x;
+    this.spawnY = y;
   }
 
   tick(engine: Engine, scene: Scene): Promise<void> | void {
-    if (engine.isControl('button1', ControllerState.Press)) {
-      Sound.Sounds['start']?.play();
-    }
+    if (this.exploding) {
+    } else {
 
-    const solids = scene.entitiesByType(Solid);
-    const platforms = scene.entitiesByType(Platform);
-    const movingSolids = scene.entitiesByType(MovingSolid);
-
-    const moveLeft = this.moveLeft(engine);
-    const moveRight = this.moveRight(engine);
-    const move = moveLeft || moveRight;
-
-    for (let i = 0; i < this.xVelocity; i++) {
-      const toMove = clamp(0, this.xVelocity - i, 1);
-      this.moveDelta(toMove, 0);
-      if (this.checkCollisions(solids)) {
-        this.moveDelta(-toMove, 0);
-        // TODO: bump up to wall
-        this.xVelocity = 0;
-        break;
+      if (engine.isControl('button1', ControllerState.Press)) {
+        Sound.Sounds['start']?.play();
       }
-    }
 
-    for (let i = 0; i > this.xVelocity; i--) {
-      const toMove = clamp(-1, this.xVelocity - i, 0);
-      this.moveDelta(toMove, 0);
-      if (this.checkCollisions(solids)) {
-        this.moveDelta(-toMove, 0);
-        // TODO: bump up to wall
-        this.xVelocity = 0;
-        break;
-      }
-    }
+      const solids = scene.entitiesByType(Solid);
+      const platforms = scene.entitiesByType(Platform);
+      const movingSolids = scene.entitiesByType(MovingSolid);
 
-    // if (this.onGround(solids, platforms)) {
-    //   if (this.xVelocity > 0) {
-    //     this.xVelocity -= clamp(0, this.xVelocity, FRICTION);
-    //   } else if (this.xVelocity < 0) {
-    //     this.xVelocity += clamp(0, -this.xVelocity, FRICTION);
-    //   }
-    // }
+      const moveLeft = this.moveLeft(engine);
+      const moveRight = this.moveRight(engine);
+      const move = moveLeft || moveRight;
 
-    if (this.onGround(solids, platforms)) {
-      if (this.xVelocity > 0) {
-        this.xVelocity -= clamp(0, FRICTION * (Math.abs(this.xVelocity) ** 0.5), Math.abs(this.xVelocity));
-      } else if (this.xVelocity < 0) {
-        this.xVelocity += clamp(0, FRICTION * (Math.abs(this.xVelocity) ** 0.5), Math.abs(this.xVelocity));
-      }
-    } else if (!engine.isControl('left', ControllerState.Down) && !engine.isControl('right', ControllerState.Down)) {
-      // apply friction in air if let go of movement
-      if (this.xVelocity > 0) {
-        this.xVelocity -= clamp(0, FRICTION * 0.2 * (Math.abs(this.xVelocity) ** 0.5), Math.abs(this.xVelocity));
-      } else if (this.xVelocity < 0) {
-        this.xVelocity += clamp(0, FRICTION * 0.2 * (Math.abs(this.xVelocity) ** 0.5), Math.abs(this.xVelocity));
-      }
-    }
-
-    if (move && this.onGround(solids, platforms)) {
-      if (this.animation !== 'land') {
-        this.setAnimation('walk');
-      }
-    } else if (this.onGround(solids, platforms)) {
-      if (this.animation !== 'land') {
-        this.setAnimation('stand');
-      }
-    }
-
-    this.fall(solids, platforms);
-
-    this.yVelocity = clamp(-10, this.yVelocity, 10);
-
-    // move down
-    for (let i = 0; i < this.yVelocity; i++) {
-      this.moveDelta(0, 1);
-      if (this.checkCollisions(solids) || this.checkBottomCollisions(platforms)) {
-        this.moveDelta(0, -1);
-        this.yVelocity = 0;
-        this.setAnimation('land');
-        break;
-      }
-    }
-
-    if (this.checkBottomCollisions(platforms) && this.yVelocity >= 0) {
-      // move to top of platform
-      const platform = platforms.find(platform => this.checkBottomCollisions([platform]));
-      this.moveDelta(0, this.y - platform.bounds.y);
-    }
-
-    const onGround = this.onGround(solids, platforms);
-    const onPlatform = this.onSolid(platforms);
-    const onMovingSolid = this.onSolid(movingSolids);
-    this.coyotePlatform = onMovingSolid ?? this.coyotePlatform;
-
-    if (onGround) {
-      this.coyoteTime = COYOTE_TIME;
-      this.jumps = this.maxJumps;
-    }
-
-    const scaleUp = this.doScaleUp(engine, solids);
-    const scaleDown = this.doScaleDown(engine, solids);
-
-    if (!scaleUp && !scaleDown) {
-      this.scaleBack(engine, solids);
-    }
-
-    this.rejumpTime--;
-
-    if ((engine.isControl('action', ControllerState.Press) || (this.rejump && this.rejumpTime > 0))) {
-      if (engine.isControl('down', ControllerState.Down) && (onPlatform && !this.onSolid(solids))) {
-        this.jumps--;
-        this.yVelocity += GRAVITY;
-        this.moveDelta(0, onPlatform.bounds.height);
-      } else {
-        if (this.jumps > 0 && (onGround || this.coyoteTime > 0)) {
-          this.yVelocity = JUMP_SPEED;
-          this.jump = true;
-          this.jumps--;
-          this.setAnimation('jump');
-          const platformKick = onGround ? onMovingSolid : this.coyotePlatform;
-          if (platformKick) {
-            this.xVelocity += platformKick.xVelocity;
-            this.yVelocity += platformKick.yVelocity;
-            this.coyotePlatform = null;
-          }
-        } else if (!this.rejump) {
-          this.rejumpTime = REJUMP_GRACE;
-          this.rejump = true;
+      for (let i = 0; i < this.xVelocity; i++) {
+        const toMove = clamp(0, this.xVelocity - i, 1);
+        this.moveDelta(toMove, 0);
+        if (this.checkCollisions(solids)) {
+          this.moveDelta(-toMove, 0);
+          // TODO: bump up to wall
+          this.xVelocity = 0;
+          break;
         }
       }
-      
-    }
 
-    if (this.jump) {
-      if (engine.isControl('action', ControllerState.Down) && this.jumpingTime > 0) {
-        this.yVelocity += JUMP_FLOAT_SPEED;
-        this.jumpingTime--;
-      } else {
+      for (let i = 0; i > this.xVelocity; i--) {
+        const toMove = clamp(-1, this.xVelocity - i, 0);
+        this.moveDelta(toMove, 0);
+        if (this.checkCollisions(solids)) {
+          this.moveDelta(-toMove, 0);
+          // TODO: bump up to wall
+          this.xVelocity = 0;
+          break;
+        }
+      }
+
+      // if (this.onGround(solids, platforms)) {
+      //   if (this.xVelocity > 0) {
+      //     this.xVelocity -= clamp(0, this.xVelocity, FRICTION);
+      //   } else if (this.xVelocity < 0) {
+      //     this.xVelocity += clamp(0, -this.xVelocity, FRICTION);
+      //   }
+      // }
+
+      if (this.onGround(solids, platforms)) {
+        if (this.xVelocity > 0) {
+          this.xVelocity -= clamp(0, FRICTION * (Math.abs(this.xVelocity) ** 0.5), Math.abs(this.xVelocity));
+        } else if (this.xVelocity < 0) {
+          this.xVelocity += clamp(0, FRICTION * (Math.abs(this.xVelocity) ** 0.5), Math.abs(this.xVelocity));
+        }
+      } else if (!engine.isControl('left', ControllerState.Down) && !engine.isControl('right', ControllerState.Down)) {
+        // apply friction in air if let go of movement
+        if (this.xVelocity > 0) {
+          this.xVelocity -= clamp(0, FRICTION * 0.2 * (Math.abs(this.xVelocity) ** 0.5), Math.abs(this.xVelocity));
+        } else if (this.xVelocity < 0) {
+          this.xVelocity += clamp(0, FRICTION * 0.2 * (Math.abs(this.xVelocity) ** 0.5), Math.abs(this.xVelocity));
+        }
+      }
+
+      if (move && this.onGround(solids, platforms)) {
+        if (this.animation !== 'land') {
+          this.setAnimation('walk');
+        }
+      } else if (this.onGround(solids, platforms)) {
+        if (this.animation !== 'land') {
+          this.setAnimation('stand');
+        }
+      }
+
+      this.fall(solids, platforms);
+
+      this.yVelocity = clamp(-10, this.yVelocity, 10);
+
+      // move down
+      for (let i = 0; i < this.yVelocity; i++) {
+        this.moveDelta(0, 1);
+        if (this.checkCollisions(solids) || this.checkBottomCollisions(platforms)) {
+          this.moveDelta(0, -1);
+          this.yVelocity = 0;
+          this.setAnimation('land');
+          break;
+        }
+      }
+
+      if (this.checkBottomCollisions(platforms) && this.yVelocity >= 0) {
+        // move to top of platform
+        const platform = platforms.find(platform => this.checkBottomCollisions([platform]));
+        this.moveDelta(0, this.y - platform.bounds.y);
+      }
+
+      const onGround = this.onGround(solids, platforms);
+      const onPlatform = this.onSolid(platforms);
+      const onMovingSolid = this.onSolid(movingSolids);
+      this.coyotePlatform = onMovingSolid ?? this.coyotePlatform;
+
+      if (onGround) {
+        this.coyoteTime = COYOTE_TIME;
+        this.jumps = this.maxJumps;
+
+        if (this.resetSpawn) {
+          this.spawnX = this.x;
+          this.spawnY = this.y;
+          this.resetSpawn = false;
+        }
+      }
+
+      const scaleUp = this.doScaleUp(engine, solids);
+      const scaleDown = this.doScaleDown(engine, solids);
+
+      if (!scaleUp && !scaleDown) {
+        this.scaleBack(engine, solids);
+      }
+
+      this.rejumpTime--;
+
+      if ((engine.isControl('action', ControllerState.Press) || (this.rejump && this.rejumpTime > 0))) {
+        if (engine.isControl('down', ControllerState.Down) && (onPlatform && !this.onSolid(solids))) {
+          this.jumps--;
+          this.yVelocity += GRAVITY;
+          this.moveDelta(0, onPlatform.bounds.height);
+        } else {
+          if (this.jumps > 0 && (onGround || this.coyoteTime > 0)) {
+            this.yVelocity = JUMP_SPEED;
+            this.jump = true;
+            this.jumps--;
+            this.setAnimation('jump');
+            const platformKick = onGround ? onMovingSolid : this.coyotePlatform;
+            if (platformKick) {
+              this.xVelocity += platformKick.xVelocity;
+              this.yVelocity += platformKick.yVelocity;
+              this.coyotePlatform = null;
+            }
+          } else if (!this.rejump) {
+            this.rejumpTime = REJUMP_GRACE;
+            this.rejump = true;
+          }
+        }
+        
+      }
+
+      if (this.jump) {
+        if (engine.isControl('action', ControllerState.Down) && this.jumpingTime > 0) {
+          this.yVelocity += JUMP_FLOAT_SPEED;
+          this.jumpingTime--;
+        } else {
+          this.jump = false;
+          this.jumpingTime = JUMP_TIME;
+        }
+      }
+
+      if (this.jumpingTime <= 0) {
         this.jump = false;
         this.jumpingTime = JUMP_TIME;
       }
-    }
 
-    if (this.jumpingTime <= 0) {
-      this.jump = false;
-      this.jumpingTime = JUMP_TIME;
-    }
-
-    // move up
-    for (let i = 0; i > this.yVelocity; i--) {
-      this.moveDelta(0, -1);
-      if (this.checkCollisions(solids)) {
-        this.moveDelta(0, 1);
-        this.yVelocity = 0;
-        break;
+      // move up
+      for (let i = 0; i > this.yVelocity; i--) {
+        this.moveDelta(0, -1);
+        if (this.checkCollisions(solids)) {
+          this.moveDelta(0, 1);
+          this.yVelocity = 0;
+          break;
+        }
       }
     }
 
@@ -239,6 +259,13 @@ export class Player extends SpriteEntity {
       }
 
       this.animationTime = animations[this.animation].animationDuration;
+
+      if (this.animation === 'explode') {
+        scene.removeEntity(this);
+        const player = new Player(this.spawnX, this.spawnY);
+        scene.addEntity(player);
+        player.viewOffsetY = this.viewOffsetY;
+      }
     }
     
     this.imageIndex = animations[this.animation].start + (this.animationIndex % (animations[this.animation].end - animations[this.animation].start + 1));
@@ -251,14 +278,16 @@ export class Player extends SpriteEntity {
     if (this.y > view.getOffset().y + screenHeight && this.viewScrollDirection === 0) {
       console.log(`y: ${this.y}, view.y: ${view.getOffset().y}, view.y+H: ${view.getOffset().y + screenHeight}`);
       this.viewScrollDirection = 1;
-      this.scrollTime = screenHeight / 4;
+      this.scrollTime = screenHeight / 8;
+      this.resetSpawn = true;
     } else if (this.y < view.getOffset().y && this.viewScrollDirection === 0) {
       this.viewScrollDirection = -1;
-      this.scrollTime = screenHeight / 4;
+      this.scrollTime = screenHeight / 8;
+      this.resetSpawn = true;
     }
 
     if (this.viewScrollDirection !== 0) {
-      this.viewOffsetY += this.viewScrollDirection * 4;
+      this.viewOffsetY += this.viewScrollDirection * 8;
       this.scrollTime--;
       if (this.scrollTime === 0) {
         this.viewScrollDirection = 0;
@@ -430,6 +459,7 @@ export class Player extends SpriteEntity {
           this.xVelocity = clamp(-MAX_HORIZONTAL, this.xVelocity, MAX_HORIZONTAL);
         }
       }
+      this.flipHorizontal = true;
       return true;
     }
     return false;
@@ -443,6 +473,7 @@ export class Player extends SpriteEntity {
           this.xVelocity = clamp(-MAX_HORIZONTAL, this.xVelocity, MAX_HORIZONTAL);
         }
       }
+      this.flipHorizontal = false;
       return true;
     }
     return false;
@@ -453,6 +484,7 @@ export class Player extends SpriteEntity {
       this.animation = key;
       this.animationTime = animations[key].animationDuration;
       this.animationIndex = 0;
+      console.log(`set animation to ${key}`);
     }
   }
 
@@ -467,6 +499,11 @@ export class Player extends SpriteEntity {
     this.bottomLeft.y += dy;
     this.bottomRight.x += dx;
     this.bottomRight.y += dy;
+  }
+
+  public explode() {
+    this.setAnimation('explode');
+    this.exploding = true;
   }
 
   private fall(solids: Solid[], platforms: Platform[]): void {

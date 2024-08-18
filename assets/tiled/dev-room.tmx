@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="39" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="96">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="39" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="99">
  <tileset firstgid="1" source="tileset.tsx"/>
  <layer id="3" name="background" width="20" height="39">
   <properties>
@@ -103,7 +103,7 @@
   <object id="10" type="Solid" x="80" y="512" width="32" height="16"/>
   <object id="11" type="Solid" x="96" y="496" width="16" height="16"/>
   <object id="12" type="Solid" x="48" y="464" width="176" height="16"/>
-  <object id="13" type="Solid" x="112" y="480" width="16" height="12.2045"/>
+  <object id="13" type="Solid" x="112" y="480" width="16" height="10.2045"/>
   <object id="14" type="Solid" x="64" y="400" width="20.3636" height="48"/>
   <object id="15" type="Solid" x="92.5" y="400" width="20.7727" height="48"/>
   <object id="16" type="Solid" x="112" y="400" width="144" height="16"/>
@@ -117,8 +117,8 @@
   <object id="30" type="Solid" x="224" y="176" width="16" height="16"/>
   <object id="33" type="Solid" x="48" y="288" width="16" height="16"/>
   <object id="37" type="Solid" x="80" y="282.182" width="16" height="5.818"/>
-  <object id="38" type="Platform" x="240" y="368" width="16" height="5"/>
-  <object id="39" type="Platform" x="240" y="336" width="16" height="5"/>
+  <object id="38" type="Platform" x="240" y="352" width="16" height="5"/>
+  <object id="39" type="Platform" x="240" y="320" width="16" height="5"/>
   <object id="41" type="MovingSolid" x="96" y="352" width="16" height="5.25">
    <properties>
     <property name="path" type="object" value="42"/>
@@ -182,7 +182,7 @@
    </properties>
    <polyline points="0,0 16,-16"/>
   </object>
-  <object id="57" type="Solid" x="176" y="480" width="64" height="11.6591"/>
+  <object id="57" type="Solid" x="176" y="480" width="64" height="11.75"/>
   <object id="58" type="Solid" x="224" y="464" width="26.4242" height="16"/>
   <object id="60" type="Solid" x="149.313" y="489.438" width="5" height="9.5625"/>
   <object id="62" type="Platform" x="48" y="248" width="16" height="2.75"/>
@@ -254,7 +254,7 @@
    </properties>
    <point/>
   </object>
-  <object id="87" type="Sign" x="248" y="368">
+  <object id="87" type="Sign" x="248" y="352">
    <properties>
     <property name="text" value="Jump through these"/>
    </properties>
@@ -269,7 +269,16 @@
   <object id="90" type="Solid" x="80" y="272" width="16" height="4.943"/>
   <object id="92" type="Platform" x="80" y="432" width="16" height="2.75"/>
   <object id="93" type="Platform" x="80" y="400" width="16" height="2.75"/>
-  <object id="94" type="Platform" x="240" y="304" width="16" height="5"/>
-  <object id="95" type="Platform" x="240" y="272" width="16" height="5"/>
+  <object id="94" type="Platform" x="240" y="288" width="16" height="5"/>
+  <object id="95" type="Platform" x="240" y="256" width="16" height="5"/>
+  <object id="96" type="Saw" x="112" y="192">
+   <point/>
+  </object>
+  <object id="97" type="Saw" x="144" y="160">
+   <point/>
+  </object>
+  <object id="98" type="Saw" x="176" y="192">
+   <point/>
+  </object>
  </objectgroup>
 </map>
