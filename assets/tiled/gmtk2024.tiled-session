@@ -24,15 +24,29 @@
         "tileset.tsx": {
             "scaleInEditor": 23
         },
-        "world1/w1s1.tmx": {
+        "w1s1.tmx": {
             "expandedObjectLayers": [
                 3
             ],
             "scale": 3.42,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 160.08771929824562,
-                "y": 96.05263157894738
+                "x": 162.4269005847953,
+                "y": 137.28070175438594
+            }
+        },
+        "world1/tileset.tsx": {
+            "scaleInDock": 1
+        },
+        "world1/w1s1.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 153.83333333333331,
+                "y": 479.16666666666663
             }
         }
     },
@@ -47,6 +61,7 @@
     "project": "gmtk2024.tiled-project",
     "property.type": "int",
     "recentFiles": [
+        "w1s1.tmx",
         "tileset.tsx",
         "world1/w1s1.tmx"
     ],

@@ -55,7 +55,13 @@ export let Music: {
   volume: (val: number) => void;
 };
 
+export function PlayLoop(loop: string) {
+  Music?.stop();
+  Music = Sound.Sounds[loop].play();
+}
+
 new Sound('loop1', wavAssets('./outputs/BeepBox-Song.ogg'), true);
+new Sound('loop2', wavAssets('./outputs/BeepBox-Song2.ogg'), true);
 
 new Sprite('slime', spriteAssets('./slime.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 8, spriteOffsetY: 15 });
 new Sprite('sign', spriteAssets('./sign.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 8, spriteOffsetY: 15 });
@@ -79,7 +85,7 @@ async function init() {
 
   const view = new Canvas2DView(screenWidth, screenHeight, { scale: scale, bgColor: '#BBBBBB' });
   engine.addScene(await loader.createSceneFromTMX(engine, './dev-room.tmx', 'dev-room', view));
-  engine.addScene(await loader.createSceneFromTMX(engine, './w1s1.tmx', 'w1s1', view));
+  engine.addScene(await loader.createSceneFromTMX(engine, './world1/w1s1.tmx', 'w1s1', view));
 
   const scenePause = new Scene('pause', view);
   engine.addScene(scenePause);
@@ -182,6 +188,24 @@ const gamepadMap = [
 
 init();
 
+function nextStage() {
+  const scene = engine.getActivatedScenes()[0];
+  let nextScene: Scene;
+  switch (scene.key) {
+    case 'main-menu':
+      nextScene = engine.getScene('w1s1');
+      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
+      engine.switchToScene('w1s1');
+      break;
+    // case 'w1s1':
+    //   engine.switchToScene('w2s2');
+    //   break;
+    default:
+      engine.switchToScene('main-menu');
+      break;
+  }
+}
+
 function createTitleScreen(view: View): Scene {
   const scene = new Scene('title', view);
   scene.addEntity(new Text(screenWidth / 2, screenHeight / 2, 'node-game-engine', null, 16));
@@ -203,8 +227,8 @@ function createMainMenu(view: View): Scene {
   scene.addEntity(new Text(screenWidth / 2, screenHeight / 4, 'Slimb Climb', null, 16));
 
   scene.addEntity(new Text(screenWidth / 2, screenHeight * 3 / 4, 'Start', () => {
-    engine.switchToScene('w1s1');
-    Music = Sound.Sounds['loop1'].play();
+    nextStage();
+    PlayLoop('loop1');
   }, 16));
   scene.addEntity(new Text(screenWidth / 2, screenHeight * 3 / 4 + 16, 'Options', null, 16));
   scene.addEntity(new Text(screenWidth / 2, screenHeight * 3 / 4 + 16 + 16, 'Credits', null, 16));

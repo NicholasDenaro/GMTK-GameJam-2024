@@ -47,7 +47,7 @@
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9
 </data>
  </layer>
- <layer id="1" name="foreground" width="20" height="39">
+ <layer id="1" name="foreground" width="20" height="39" opacity="0.9">
   <properties>
    <property name="zindex" type="int" value="-1"/>
   </properties>

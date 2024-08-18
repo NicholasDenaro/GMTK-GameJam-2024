@@ -14,11 +14,11 @@ export class GmtkTiledLoder extends TiledLoader {
   }
 
   spriteData(path: string): string {
-    return this._spriteData(path);
+    return this._spriteData(path.replaceAll('../', ''));
   }
   
   mapData(path: string): string {
-    return this._mapData(path);
+    return this._mapData(path.replaceAll('../', ''));
   }
 
   loadObject(scene: Scene, bounds: Rectangle, gid: number, object: Element): void {
