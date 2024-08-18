@@ -484,7 +484,6 @@ export class Player extends SpriteEntity {
       this.animation = key;
       this.animationTime = animations[key].animationDuration;
       this.animationIndex = 0;
-      console.log(`set animation to ${key}`);
     }
   }
 

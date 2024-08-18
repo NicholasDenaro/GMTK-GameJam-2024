@@ -38,6 +38,7 @@ export class Sign extends SpriteEntity {
   }
   
   draw(ctx: PainterContext) {
+    ctx.font = '13px game';
     this.myPainter.paint(ctx);
     ctx.globalAlpha = this.textAlpha;
     ctx.textBaseline = 'bottom';
