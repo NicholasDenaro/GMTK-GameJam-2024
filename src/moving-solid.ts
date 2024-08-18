@@ -1,4 +1,4 @@
-import { Engine, PainterContext, Rectangle, Scene } from 'game-engine';
+import { Engine, PainterContext, Rectangle, Scene, Sprite } from 'game-engine';
 import { Solid } from './solid.js';
 import { Player } from './player.js';
 
@@ -14,7 +14,7 @@ export class MovingSolid extends Solid {
   public yVelocity: number;
   public velocityDelay: number;
   constructor(bounds: Rectangle, private path: {x: number, y: number}[], private steps: number, private delay: number = 0, private launch: boolean = false) {
-    super(bounds);
+    super(bounds, Sprite.Sprites['movingblock']);
     this.color = 'darkred';
     this.x = path[0].x;
     this.y = path[0].y;
@@ -22,6 +22,9 @@ export class MovingSolid extends Solid {
     this.bounds.y = this.y;
 
     this.zIndex = -3;
+
+    this.scaleX = this.bounds.width / 16;
+    this.scaleY = this.bounds.height / 16;
   }
 
   tick(engine: Engine, scene: Scene): Promise<void> | void {

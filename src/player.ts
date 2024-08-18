@@ -5,12 +5,12 @@ import { Platform } from './platform.js';
 import { MovingSolid } from './moving-solid.js';
 
 const COYOTE_TIME = 6;
-const JUMP_TIME = 5;
-const GRAVITY = 0.3; //0.5;
+const JUMP_TIME = 6; //5; //5;
+const GRAVITY = 0.2; //0.3; //0.5;
 const REJUMP_GRACE = 4;
-const JUMP_SPEED = -3; //-4;
-const JUMP_FLOAT_SPEED = -0.4;// -0.6;
-const MAX_HORIZONTAL = 1.5;
+const JUMP_SPEED = -2; //-3; //-4;
+const JUMP_FLOAT_SPEED = -0.2; //-0.4;// -0.6;
+const MAX_HORIZONTAL = 1.3; //1.5;
 const FRICTION = 0.28;
 const HORIZONTAL_PUSH = 0.5;
 
