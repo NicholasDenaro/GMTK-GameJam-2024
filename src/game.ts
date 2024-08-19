@@ -156,6 +156,18 @@ async function init() {
     const player = nextScene.entitiesByType(Player)[0];
     player.viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
 
+
+    if (world[1] === '1') {
+      playerAbilities.squishUp = false;
+      playerAbilities.squishDown = false;
+      playerAbilities.unSquish = false;
+    }
+    if (world[1] === '2') {
+      playerAbilities.squishUp = true;
+      playerAbilities.squishDown = true;
+      playerAbilities.unSquish = true;
+    }
+
     if (positionCheat) {
       const position = positionCheat.split('=')[1].split(',').map(coord => Number(coord));
       player.moveDelta(-player.getPos().x + position[0], -player.getPos().y + position[1]);
@@ -356,6 +368,18 @@ export function nextStage(stage: string = undefined) {
     engine.switchToScene(nextScene.key);
     return;
   }
+
+  if (World === 1) {
+    playerAbilities.squishUp = false;
+    playerAbilities.squishDown = false;
+    playerAbilities.unSquish = false;
+  }
+  if (World === 2) {
+    playerAbilities.squishUp = true;
+    playerAbilities.squishDown = true;
+    playerAbilities.unSquish = true;
+  }
+
 
   nextScene = engine.getScene(WorldStages.find(world => world.world === World).stages.find(stage => stage.stage === Stage).key);
   nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;

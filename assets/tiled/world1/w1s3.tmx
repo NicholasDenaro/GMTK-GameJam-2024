@@ -84,7 +84,7 @@
 2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,2,
-2,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,2
+2,15,15,15,15,15,15,15,15,15,15,15,2,15,15,15,15,15,15,2
 </data>
  </layer>
  <objectgroup id="3" name="Object Layer 1">
@@ -250,7 +250,7 @@
   </object>
   <object id="80" type="Sign" x="80" y="560">
    <properties>
-    <property name="text" value="Platfors can launch you|if you time your jump right"/>
+    <property name="text" value="Platforms can launch you|if you time your jump right"/>
    </properties>
    <point/>
   </object>

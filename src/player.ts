@@ -594,7 +594,11 @@ export class Player extends SpriteEntity {
     if (!this.onGround(solids, platforms)) {
       this.inAirLastFrame = true;
       // air friction
-      const airFriction = clamp(-0.2, this.scaleX - 1, 1) * GRAVITY * 0.9 * Math.sign(this.yVelocity);
+      let airFriction = clamp(-0.2, this.scaleX - 1, 1) * GRAVITY * 0.9 * Math.sign(this.yVelocity); // good
+
+      if (this.yVelocity > 0 && this.scaleX > 1) {
+        airFriction = clamp(0, airFriction + this.scaleX - 1, GRAVITY * 0.9);
+      }
 
       // let airFriction = 0;
       // if (this.scaleX >= 1) {
@@ -678,18 +682,18 @@ export class Player extends SpriteEntity {
     this.y = startY;
     this.x = startX;
 
-    ctx.fillStyle = 'green';
-    ctx.fillRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
+    // ctx.fillStyle = 'green';
+    // ctx.fillRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
 
-    ctx.fillStyle = 'lightblue';
-    ctx.fillRect(this.topLeft.x, this.topLeft.y, this.topLeft.width, this.topLeft.height);
-    ctx.fillStyle = 'pink';
-    ctx.fillRect(this.topRight.x, this.topRight.y, this.topRight.width, this.topRight.height);
+    // ctx.fillStyle = 'lightblue';
+    // ctx.fillRect(this.topLeft.x, this.topLeft.y, this.topLeft.width, this.topLeft.height);
+    // ctx.fillStyle = 'pink';
+    // ctx.fillRect(this.topRight.x, this.topRight.y, this.topRight.width, this.topRight.height);
 
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(this.bottomLeft.x, this.bottomLeft.y, this.bottomLeft.width, this.bottomLeft.height);
-    ctx.fillStyle = 'purple';
-    ctx.fillRect(this.bottomRight.x, this.bottomRight.y, this.bottomRight.width, this.bottomRight.height);
+    // ctx.fillStyle = 'blue';
+    // ctx.fillRect(this.bottomLeft.x, this.bottomLeft.y, this.bottomLeft.width, this.bottomLeft.height);
+    // ctx.fillStyle = 'purple';
+    // ctx.fillRect(this.bottomRight.x, this.bottomRight.y, this.bottomRight.width, this.bottomRight.height);
   }
 
   override spriteTransform(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): { undo: () => void; } {

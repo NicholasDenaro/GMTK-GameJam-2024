@@ -54,8 +54,8 @@
             "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 217.16666666666669,
-                "y": 35.833333333333314
+                "x": 183.16666666666669,
+                "y": 430.16666666666663
             }
         },
         "world1/w1s2.tmx": {
@@ -76,8 +76,8 @@
             "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 132.83333333333331,
-                "y": 179.49999999999997
+                "x": 166.16666666666669,
+                "y": 471.8333333333333
             }
         },
         "world1/w1s4.tmx": {
@@ -100,11 +100,14 @@
             }
         },
         "world2/w2s1.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
             "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 170.49999999999997,
-                "y": 476.8333333333333
+                "x": 106.16666666666666,
+                "y": 346.16666666666663
             }
         }
     },
@@ -119,11 +122,11 @@
     "project": "gmtk2024.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "world1/w1s2.tmx",
+        "world1/w1s1.tmx",
+        "world1/w1s3.tmx",
         "world1/w1s4.tmx",
         "dev-room.tmx",
-        "world1/w1s3.tmx",
-        "world1/w1s1.tmx",
-        "world1/w1s2.tmx",
         "world1/w1template.tmx",
         "tileset.tsx",
         "w1template.tmx",
