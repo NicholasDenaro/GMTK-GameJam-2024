@@ -51,7 +51,8 @@ new Sound('key', wavAssets('./premade/outputs/GAME_MENU_SCORE_SFX001410.ogg'));
 new Sound('lock', wavAssets('./premade/outputs/sfxE09.ogg'));
 new Sound('stage', wavAssets('./premade/outputs/sfxX09.ogg'));
 
-new Sound('spring', wavAssets('./premade/outputs/freesound/663831__efindlay__springy-jump.ogg')); // https://freesound.org/people/EFindlay/sounds/663831/
+//new Sound('spring', wavAssets('./premade/outputs/freesound/663831__efindlay__springy-jump.ogg')); // https://freesound.org/people/EFindlay/sounds/663831/
+new Sound('spring', wavAssets('./premade/outputs/Pixabay/Pixabay/toy-button-105724.ogg'));
 
 new Sound('slime-move', wavAssets('./premade/outputs/Pixabay/Pixabay/slime-2-30099.ogg'));
 new Sound('slime-jump', wavAssets('./premade/outputs/Pixabay/Pixabay/slimejump-6913.ogg'));
@@ -120,7 +121,6 @@ async function init() {
   engine.addScene(await loader.createSceneFromTMX(engine, './world1/w1s2.tmx', 'w1s2', view));
   engine.addScene(await loader.createSceneFromTMX(engine, './world1/w1s3.tmx', 'w1s3', view));
   engine.addScene(await loader.createSceneFromTMX(engine, './world1/w1s4.tmx', 'w1s4', view));
-  engine.addScene(await loader.createSceneFromTMX(engine, './world1/w1s5.tmx', 'w1s5', view));
 
   const scenePause = new Scene('pause', view);
   engine.addScene(scenePause);
@@ -128,6 +128,7 @@ async function init() {
   engine.addScene(createTitleScreen(view));
   engine.addScene(createGMTKSplashScreen(view));
   engine.addScene(createMainMenu(view));
+  engine.addScene(createWorldSelect(view));
   engine.addScene(createCredits(view));
 
   engine.addActionPre('pause', () => {
@@ -195,6 +196,10 @@ const keyMap = [
     binding: new ControllerBinding<undefined>('pause'),
     keys: ['Escape', 'Enter'],
   },
+  {
+    binding: new ControllerBinding<undefined>('reset'),
+    keys: ['r', 'R'],
+  },
 ];
 
 const mouseMap = [
@@ -237,9 +242,16 @@ const gamepadMap = [
 
 init();
 
-export function nextStage() {
-  const scene = engine.getActivatedScenes()[0];
+export function nextStage(stage: string = undefined) {
   let nextScene: Scene;
+  if (stage) {
+    nextScene = engine.getScene(stage);
+    nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
+    engine.switchToScene(stage);
+    return;
+  }
+
+  const scene = engine.getActivatedScenes()[0];
   switch (scene.key) {
     case 'main-menu':
       nextScene = engine.getScene('w1s1');
@@ -262,7 +274,23 @@ export function nextStage() {
       engine.switchToScene(nextScene.key);
       break;
     case 'w1s4':
-      nextScene = engine.getScene('w1s5');
+      nextScene = engine.getScene('w2s1');
+      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
+      engine.switchToScene(nextScene.key);
+      PlayLoop('loop2');
+      break;
+    case 'w2s1':
+      nextScene = engine.getScene('w2s2');
+      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
+      engine.switchToScene(nextScene.key);
+      break;
+    case 'w2s2':
+      nextScene = engine.getScene('w2s3');
+      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
+      engine.switchToScene(nextScene.key);
+      break;
+    case 'w2s3':
+      nextScene = engine.getScene('w2s4');
       nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
       engine.switchToScene(nextScene.key);
       break;
@@ -293,11 +321,30 @@ function createMainMenu(view: View): Scene {
   scene.addEntity(new Text(screenWidth / 2, screenHeight / 4, 'Slimb Climb', null, 16));
 
   scene.addEntity(new Text(screenWidth / 2, screenHeight * 3 / 4, 'Start', () => {
-    nextStage();
-    PlayLoop('loop1');
+    // nextStage();
+    // PlayLoop('loop1');
+    engine.switchToScene('world-select');
   }, 16));
   scene.addEntity(new Text(screenWidth / 2, screenHeight * 3 / 4 + 16, 'Options', null, 16));
   scene.addEntity(new Text(screenWidth / 2, screenHeight * 3 / 4 + 16 + 16, 'Credits', null, 16));
+  return scene;
+}
+
+function createWorldSelect(view: View): Scene {
+  const scene = new Scene('world-select', view);
+
+  for (let w = 1; w < 4; w++) {
+    scene.addEntity(new Text(32, 32 + (w - 1) * 32, `World${w}`, () => { }, 16));
+    for (let s = 1; s < 5; s++) {
+      const world = w;
+      const stage = s;
+      scene.addEntity(new Text(31 + (s - 1) * 64, 48 + (w - 1) * 32, `Stage ${s}`, () => {
+        nextStage(`w${world}s${stage}`);
+        PlayLoop('loop1');
+      }, 13));
+    }
+  }
+  
   return scene;
 }
 

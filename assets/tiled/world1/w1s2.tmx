@@ -57,9 +57,9 @@
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,15,15,2,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,2,
-2,2,2,2,15,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,
-2,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,3,3,0,0,0,0,0,15,0,0,0,0,0,0,0,0,2,
+2,2,2,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,
+2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,3,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,2,
 2,15,15,15,15,15,15,15,15,15,2,15,15,15,15,15,15,0,15,2,
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,2,2,
 2,0,0,0,0,0,0,2,0,0,0,0,0,0,2,0,0,0,0,2,
@@ -277,15 +277,15 @@
   <object id="96" type="Platform" x="272" y="240" width="16" height="3"/>
   <object id="97" type="Platform" x="272" y="176" width="16" height="3"/>
   <object id="98" type="Platform" x="272" y="208" width="16" height="3"/>
-  <object id="99" type="Solid" x="224" y="208" width="16" height="70"/>
+  <object id="99" type="Solid" x="224" y="208" width="16" height="71"/>
   <object id="100" type="Solid" x="256" y="256" width="48" height="32"/>
-  <object id="101" type="MovingSolid" x="216" y="270" width="16" height="8">
+  <object id="101" type="MovingSolid" x="216" y="271" width="16" height="8">
    <properties>
     <property name="launch" type="bool" value="false"/>
     <property name="path" type="object" value="102"/>
    </properties>
   </object>
-  <object id="102" x="216" y="258">
+  <object id="102" x="216" y="259">
    <properties>
     <property name="steps" type="int" value="120"/>
    </properties>
@@ -327,9 +327,9 @@
    </properties>
    <point/>
   </object>
-  <object id="121" type="Solid" x="48" y="144" width="32" height="16"/>
-  <object id="122" type="Solid" x="16" y="128" width="64" height="16"/>
-  <object id="123" type="Solid" x="48" y="160" width="32" height="10"/>
+  <object id="121" type="Solid" x="48" y="144" width="16" height="16"/>
+  <object id="122" type="Solid" x="16" y="128" width="48" height="16"/>
+  <object id="123" type="Solid" x="48" y="160" width="16" height="10"/>
   <object id="124" type="Solid" x="160" y="160" width="16" height="16"/>
   <object id="125" type="MovingSolid" x="296" y="159" width="16" height="8">
    <properties>
@@ -389,7 +389,7 @@
   <object id="155" type="Platform" x="256" y="96" width="16" height="3"/>
   <object id="156" type="Platform" x="272" y="96" width="16" height="3"/>
   <object id="157" type="Platform" x="288" y="96" width="16" height="3"/>
-  <object id="158" type="Platform" x="80" y="136" width="16" height="3">
+  <object id="158" type="Platform" x="64" y="136" width="16" height="3">
    <properties>
     <property name="button" value="A"/>
    </properties>
@@ -433,12 +433,6 @@
    <properties>
     <property name="button" value="B"/>
    </properties>
-  </object>
-  <object id="170" type="Saw" x="112" y="128">
-   <point/>
-  </object>
-  <object id="171" type="Saw" x="144" y="128">
-   <point/>
   </object>
   <object id="172" type="Saw" x="208" y="128">
    <point/>

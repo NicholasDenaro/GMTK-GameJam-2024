@@ -33,7 +33,7 @@ const animations: Record<string, AnimationData> = _animations;
 
 type Animation = keyof typeof _animations;
 
-const playerAbilities = {
+export const playerAbilities = {
   unSquish: false,
   squishDown: false,
   squishUp: false,
@@ -80,10 +80,10 @@ export class Player extends SpriteEntity {
     super(new SpritePainter((ctx: PainterContext) => this.draw(ctx), Sprite.Sprites['slime'].getOptions()), x, y);
     this.myPainter = new SpritePainter(Sprite.Sprites['slime']);
     this.myPainter.setEid(this.getId());
-    this.bottomLeft = new Rectangle(this.x - 5, this.y - 1, 5, 1);
-    this.bottomRight = new Rectangle(this.x, this.y - 1, 5, 1);
-    this.topLeft = new Rectangle(this.x - 5, this.y - 8, 1, 8);
-    this.topRight = new Rectangle(this.x + 5, this.y - 8, 1, 8);
+    this.bottomLeft = new Rectangle(Math.round(this.x - 5), Math.round(this.y - 1), 5, 1);
+    this.bottomRight = new Rectangle(Math.round(this.x), Math.round(this.y - 1), 5, 1);
+    this.topLeft = new Rectangle(Math.round(this.x - 5), Math.round(this.y - 8), 1, 8);
+    this.topRight = new Rectangle(Math.round(this.x + 5), Math.round(this.y - 8), 1, 8);
 
     this.zIndex = -10;
     this.bounds = new Rectangle(this.x - 6, this.y - 12, 12, 12);
@@ -93,6 +93,9 @@ export class Player extends SpriteEntity {
   }
 
   tick(engine: Engine, scene: Scene): Promise<void> | void {
+    if (!this.exploding && engine.isControl('reset', ControllerState.Down)) {
+      this.explode();
+    }
 
     this.inAirLastFrame = false;
     if (this.exploding) {
@@ -187,8 +190,8 @@ export class Player extends SpriteEntity {
           this.setAnimation('land');
           Sound.Sounds['slime-land'].play();
           // console.log(`landed on ground`);
-          // console.log(this.bounds);
-          // console.log(this.y);
+          console.log(this.bounds);
+          console.log(this.y);
           break;
         }
       }
@@ -346,7 +349,14 @@ export class Player extends SpriteEntity {
 
   public snapToSolid(solid: Solid | Platform) {
     this.moveDelta(0, solid.bounds.y - this.y - 1);
-    console.log('snap to solid');
+
+    // nudge to integer
+    if (Math.abs(Math.round(this.bounds.height) - this.bounds.height) < 0.00001) {
+      this.topLeft.y += Math.round(this.bounds.height) - this.bounds.height;
+      this.topRight.y += Math.round(this.bounds.height) - this.bounds.height;
+    }
+
+    //console.log('snap to solid');
   }
 
   private updateBounds() {
@@ -661,18 +671,18 @@ export class Player extends SpriteEntity {
     this.y = startY;
     this.x = startX;
 
-    // ctx.fillStyle = 'green';
-    // ctx.fillRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
+    ctx.fillStyle = 'green';
+    ctx.fillRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
 
-    // ctx.fillStyle = 'lightblue';
-    // ctx.fillRect(this.topLeft.x, this.topLeft.y, this.topLeft.width, this.topLeft.height);
-    // ctx.fillStyle = 'pink';
-    // ctx.fillRect(this.topRight.x, this.topRight.y, this.topRight.width, this.topRight.height);
+    ctx.fillStyle = 'lightblue';
+    ctx.fillRect(this.topLeft.x, this.topLeft.y, this.topLeft.width, this.topLeft.height);
+    ctx.fillStyle = 'pink';
+    ctx.fillRect(this.topRight.x, this.topRight.y, this.topRight.width, this.topRight.height);
 
-    // ctx.fillStyle = 'blue';
-    // ctx.fillRect(this.bottomLeft.x, this.bottomLeft.y, this.bottomLeft.width, this.bottomLeft.height);
-    // ctx.fillStyle = 'purple';
-    // ctx.fillRect(this.bottomRight.x, this.bottomRight.y, this.bottomRight.width, this.bottomRight.height);
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(this.bottomLeft.x, this.bottomLeft.y, this.bottomLeft.width, this.bottomLeft.height);
+    ctx.fillStyle = 'purple';
+    ctx.fillRect(this.bottomRight.x, this.bottomRight.y, this.bottomRight.width, this.bottomRight.height);
   }
 
   override spriteTransform(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): { undo: () => void; } {
