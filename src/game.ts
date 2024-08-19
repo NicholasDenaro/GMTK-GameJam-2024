@@ -51,7 +51,6 @@ new Sound('key', wavAssets('./premade/outputs/GAME_MENU_SCORE_SFX001410.ogg'));
 new Sound('lock', wavAssets('./premade/outputs/sfxE09.ogg'));
 new Sound('stage', wavAssets('./premade/outputs/sfxX09.ogg'));
 
-//new Sound('spring', wavAssets('./premade/outputs/freesound/663831__efindlay__springy-jump.ogg')); // https://freesound.org/people/EFindlay/sounds/663831/
 new Sound('spring', wavAssets('./premade/outputs/Pixabay/Pixabay/toy-button-105724.ogg'));
 
 new Sound('slime-move', wavAssets('./premade/outputs/Pixabay/Pixabay/slime-2-30099.ogg'));
@@ -76,20 +75,27 @@ export function isMuted() {
 }
 
 export let Music: {
+  song: string;
   stop: () => void;
   volume: (val: number) => void;
 };
 
 export function PlayLoop(loop: string) {
-  Music?.stop();
-  Music = Sound.Sounds[loop].play();
-  if(isMuted()) {
-    mute();
+  if (Music.song !== loop) {
+    Music?.stop();
+    Music = {
+      song: loop,
+      ...Sound.Sounds[loop].play()
+    };
+    if (isMuted()) {
+      mute();
+    }
   }
 }
 
 new Sound('loop1', wavAssets('./outputs/BeepBox-Song.ogg'), true);
 new Sound('loop2', wavAssets('./outputs/BeepBox-Song2.ogg'), true);
+new Sound('loop3', wavAssets('./outputs/BeepBox-Song3.ogg'), true);
 
 new Sprite('slime', spriteAssets('./slime.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 8, spriteOffsetY: 15 });
 new Sprite('sign', spriteAssets('./sign.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 8, spriteOffsetY: 15 });
@@ -334,6 +340,7 @@ export function nextStage(stage: string = undefined) {
     playerAbilities.squishDown = true;
     playerAbilities.unSquish = true;
   }
+  PlayLoop(`loop${World}`);
 
   let nextScene: Scene;
   if (stage) {
@@ -384,6 +391,7 @@ export function nextStage(stage: string = undefined) {
   nextScene = engine.getScene(WorldStages.find(world => world.world === World).stages.find(stage => stage.stage === Stage).key);
   nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
   SaveData.lastStage = {world: World, stage: Stage};
+  PlayLoop(`loop${World}`);
   saveData();
   engine.switchToScene(nextScene.key);
 }
@@ -471,7 +479,7 @@ function createWorldSelect(view: View): Scene {
             World = world;
             Stage = stage;
             nextStage(`w${world}s${stage}`);
-            PlayLoop('loop1');
+            PlayLoop(`loop${world}`);
           }, 13, false));
         }
       }

@@ -114,11 +114,11 @@
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 3,
+            "scale": 4,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 129.5,
-                "y": 466.49999999999994
+                "x": 153.125,
+                "y": 152.875
             }
         },
         "world2/w2s3.tmx": {
@@ -157,14 +157,14 @@
     "project": "gmtk2024.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "world2/w2s2.tmx",
+        "world2/w2s1.tmx",
         "world1/w1s4.tmx",
         "world2/w2s4.tmx",
         "world2/w2s3.tmx",
-        "world2/w2s2.tmx",
         "world2/w2template.tmx",
         "world1/w1s1.tmx",
         "world1/w1s3.tmx",
-        "world2/w2s1.tmx",
         "world1/w1s2.tmx",
         "dev-room.tmx",
         "world1/w1template.tmx",
