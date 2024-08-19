@@ -1,6 +1,8 @@
 import { Engine, Scene, Sprite, SpriteEntity, SpritePainter } from 'game-engine';
 import { Player } from './player.js';
-import { distance } from './game.js';
+import { clamp, distance } from './game.js';
+
+const SAW_RADIUS = 10;
 
 export class Saw extends SpriteEntity {
   private angle: number = 0;
@@ -12,11 +14,16 @@ export class Saw extends SpriteEntity {
     this.angle += Math.PI / 3;
 
     const player = scene.entitiesByType(Player)[0];
-    const playerPos = player.getPos();
-    playerPos.y -= 4;
-    if (distance(this.getPos(), playerPos) < 16) {
+    if (this.checkCollisionWithPlayer(player)) {
       player.explode();
     }
+  }
+
+  checkCollisionWithPlayer(player: Player): boolean {
+    const cx = clamp(this.x, player.bounds.x, player.bounds.x + player.bounds.width);
+    const cy = clamp(this.y, player.bounds.y, player.bounds.y + player.bounds.height);
+
+    return Math.sqrt((this.x - cx) ** 2 + (this.y - cy) ** 2) < SAW_RADIUS;
   }
 
   spriteTransform(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): { undo: () => void; } {

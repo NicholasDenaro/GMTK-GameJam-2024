@@ -7,6 +7,7 @@ import { ViewStart } from './view-start.js';
 import { Sign } from './sign.js';
 import { Saw } from './saw.js';
 import { MusicMuter } from './music-muter.js';
+import { Exit } from './exit.js';
 
 export class GmtkTiledLoder extends TiledLoader {
   constructor(private _mapData: __WebpackModuleApi.RequireContext, private _spriteData: __WebpackModuleApi.RequireContext) {
@@ -58,6 +59,11 @@ export class GmtkTiledLoder extends TiledLoader {
         const music = new MusicMuter(Sprite.Sprites['music'], bounds.x, bounds.y);
         scene.addEntity(music);
         music.zIndex = -100;
+        break;
+      case 'Exit':
+        const exit = new Exit(bounds.x, bounds.y);
+        scene.addEntity(exit);
+        exit.zIndex = -2;
         break;
     }
   }

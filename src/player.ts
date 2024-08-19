@@ -33,6 +33,14 @@ const animations: Record<string, AnimationData> = _animations;
 
 type Animation = keyof typeof _animations;
 
+const playerAbilities = {
+  unSquish: false,
+  squishDown: false,
+  squishUp: false,
+  slowFall: false,
+  highJump: false,
+}
+
 export class Player extends SpriteEntity {
 
   private resetSpawn: boolean = false;
@@ -190,11 +198,13 @@ export class Player extends SpriteEntity {
         }
       }
 
-      const scaleUp = this.doScaleUp(engine, solids);
-      const scaleDown = this.doScaleDown(engine, solids);
+      const scaleUp = playerAbilities.squishUp && this.doScaleUp(engine, solids);
+      const scaleDown = playerAbilities.squishDown && this.doScaleDown(engine, solids);
 
       if (!scaleUp && !scaleDown) {
-        this.scaleBack(engine, solids);
+        if (playerAbilities.unSquish) {
+          this.scaleBack(engine, solids);
+        }
       }
 
       this.rejumpTime--;
@@ -267,6 +277,11 @@ export class Player extends SpriteEntity {
         player.viewOffsetY = this.viewOffsetY;
       }
     }
+
+    this.bounds.x = this.topLeft.x;
+    this.bounds.y = this.topLeft.y;
+    this.bounds.width = this.topRight.x - this.topLeft.x;
+    this.bounds.height = this.bottomLeft.y - this.topLeft.y;
     
     this.imageIndex = animations[this.animation].start + (this.animationIndex % (animations[this.animation].end - animations[this.animation].start + 1));
 
@@ -295,11 +310,6 @@ export class Player extends SpriteEntity {
     }
 
     view.setOffset(0, this.viewOffsetY);
-
-    // console.log(this.xVelocity);
-
-    this.bounds.x = this.x - 6;
-    this.bounds.y = this.y - 12;
   }
 
   public launch(dxVelocity: number, dyVelocity: number) {
@@ -348,6 +358,7 @@ export class Player extends SpriteEntity {
     if (this.scaleY < 1.8) {
       this.scaleX -= 0.1;
       this.scaleY += 0.1;
+      console.log(`scale: ${this.scaleX}, ${this.scaleY}`);
 
       this.topLeft.x += 0.5;
       this.bottomLeft.x += 0.5;
@@ -393,6 +404,8 @@ export class Player extends SpriteEntity {
     if (this.scaleX < 1.8) {
       this.scaleX += 0.1;
       this.scaleY -= 0.1;
+      console.log(`scale: ${this.scaleX}, ${this.scaleY}`);
+
       this.topLeft.x -= 0.5;
       this.bottomLeft.x -= 0.5;
       this.topRight.x += 0.5;
@@ -582,6 +595,9 @@ export class Player extends SpriteEntity {
     this.y = startY;
     this.x = startX;
 
+    // ctx.fillStyle = 'green';
+    // ctx.fillRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
+
     // ctx.fillStyle = 'lightblue';
     // ctx.fillRect(this.topLeft.x, this.topLeft.y, this.topLeft.width, this.topLeft.height);
     // ctx.fillStyle = 'pink';
@@ -591,5 +607,21 @@ export class Player extends SpriteEntity {
     // ctx.fillRect(this.bottomLeft.x, this.bottomLeft.y, this.bottomLeft.width, this.bottomLeft.height);
     // ctx.fillStyle = 'purple';
     // ctx.fillRect(this.bottomRight.x, this.bottomRight.y, this.bottomRight.width, this.bottomRight.height);
+  }
+
+  override spriteTransform(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): { undo: () => void; } {
+    ctx.save();
+    // ctx.transform(
+    //   (this.flipHorizontal ? -1 : 1) * this.scaleX, 0,
+    //   0, 1 * this.scaleY,
+      
+    //   0, 0);
+    ctx.transform(this.flipHorizontal ? -this.scaleX : this.scaleX, 0, 0, this.flipVertical ? -this.scaleY : this.scaleY, this.flipHorizontal ? this.scaleX : 0, this.flipVertical ? this.scaleY : 0);
+
+    return {
+      undo: () => {
+        ctx.restore();
+      }
+    }
   }
 }

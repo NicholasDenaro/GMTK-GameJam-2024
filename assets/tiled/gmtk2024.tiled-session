@@ -14,14 +14,15 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 1.5,
+            "scale": 2,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 192.99999999999997,
-                "y": 331
+                "x": 146.75,
+                "y": 305.75
             }
         },
         "tileset.tsx": {
+            "scaleInDock": 4,
             "scaleInEditor": 23
         },
         "w1s1.tmx": {
@@ -35,6 +36,14 @@
                 "y": 137.28070175438594
             }
         },
+        "w1template.tmx": {
+            "scale": 1.9989583333333332,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 159.83324648254302,
+                "y": 287.89994788952583
+            }
+        },
         "world1/tileset.tsx": {
             "scaleInDock": 1
         },
@@ -45,13 +54,46 @@
             "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 153.83333333333331,
-                "y": 479.16666666666663
+                "x": 167.49999999999997,
+                "y": 438.8333333333333
+            }
+        },
+        "world1/w1s2.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 187.49999999999997,
+                "y": 279.5
+            }
+        },
+        "world1/w1s3.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 126.83333333333331,
+                "y": 168.49999999999997
+            }
+        },
+        "world1/w1template.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 163.25,
+                "y": 339.75
             }
         }
     },
     "last.imagePath": "C:/Source/GMTK-GameJam-2024/assets",
-    "map.height": 12,
+    "map.height": 36,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
@@ -61,9 +103,13 @@
     "project": "gmtk2024.tiled-project",
     "property.type": "int",
     "recentFiles": [
-        "w1s1.tmx",
+        "world1/w1template.tmx",
+        "world1/w1s2.tmx",
         "tileset.tsx",
-        "world1/w1s1.tmx"
+        "w1template.tmx",
+        "world1/w1s1.tmx",
+        "dev-room.tmx",
+        "w1s1.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

@@ -50,6 +50,20 @@ if (wavAssets('./premade/outputs/GAME_MENU_SCORE_SFX001416.ogg')) {
   new Sound('start', wavAssets('./premade/outputs/GAME_MENU_SCORE_SFX001416.ogg'));
 }
 
+let _mute: boolean = true;
+export function mute() {
+  _mute = true;
+  Music?.volume(0);
+}
+export function unmute() {
+  _mute = false;
+  Music?.volume(1);
+}
+
+export function isMuted() {
+  return _mute;
+}
+
 export let Music: {
   stop: () => void;
   volume: (val: number) => void;
@@ -58,6 +72,9 @@ export let Music: {
 export function PlayLoop(loop: string) {
   Music?.stop();
   Music = Sound.Sounds[loop].play();
+  if(isMuted()) {
+    mute();
+  }
 }
 
 new Sound('loop1', wavAssets('./outputs/BeepBox-Song.ogg'), true);
@@ -70,6 +87,7 @@ new Sprite('movingblock', spriteAssets('./movingblock.png'), { spriteWidth: 16, 
 new Sprite('saw', spriteAssets('./saw.png'), { spriteWidth: 32, spriteHeight: 32, spriteOffsetX: 16, spriteOffsetY: 16 });
 new Sprite('gmtk-splash', spriteAssets('./premade/gmtk-splash.png'), { spriteWidth: 320, spriteHeight: 240, spriteOffsetX: 0, spriteOffsetY: 0 });
 new Sprite('music', spriteAssets('./music.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 0, spriteOffsetY: 0 });
+new Sprite('ladder', spriteAssets('./ladder.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 0, spriteOffsetY: 0 });
 
 async function init() {
 
@@ -86,6 +104,10 @@ async function init() {
   const view = new Canvas2DView(screenWidth, screenHeight, { scale: scale, bgColor: '#BBBBBB' });
   engine.addScene(await loader.createSceneFromTMX(engine, './dev-room.tmx', 'dev-room', view));
   engine.addScene(await loader.createSceneFromTMX(engine, './world1/w1s1.tmx', 'w1s1', view));
+  engine.addScene(await loader.createSceneFromTMX(engine, './world1/w1s2.tmx', 'w1s2', view));
+  engine.addScene(await loader.createSceneFromTMX(engine, './world1/w1s3.tmx', 'w1s3', view));
+  engine.addScene(await loader.createSceneFromTMX(engine, './world1/w1s4.tmx', 'w1s4', view));
+  engine.addScene(await loader.createSceneFromTMX(engine, './world1/w1s5.tmx', 'w1s5', view));
 
   const scenePause = new Scene('pause', view);
   engine.addScene(scenePause);
@@ -105,11 +127,25 @@ async function init() {
     }
   });
 
-  // const nextScene = engine.getScene('dev-room');
-  // nextScene.entitiesByType(Player)[0].viewOffsetX = nextScene.entitiesByType(ViewStart)[0].x;
-  // nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
+  const hashCheats = (window.location.hash ?? '').split(';');
+  const worldCheat = hashCheats.find(cheat => cheat.includes('world='));
+  const positionCheat = hashCheats.find(cheat => cheat.includes('position='));
+  if (worldCheat) {
+    const world = worldCheat.split('=')[1];
+    const nextScene = engine.getScene(world);
+    const player = nextScene.entitiesByType(Player)[0];
+    player.viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
 
-  engine.switchToScene('title');
+    if (positionCheat) {
+      const position = positionCheat.split('=')[1].split(',').map(coord => Number(coord));
+      player.moveDelta(-player.getPos().x + position[0], -player.getPos().y + position[1]);
+    }
+
+    engine.switchToScene(nextScene.key);
+  } else {
+    engine.switchToScene('title');
+  }
+
   Sound.setVolume(0.3);
 
   Sound.Sounds['start'].play();
@@ -188,7 +224,7 @@ const gamepadMap = [
 
 init();
 
-function nextStage() {
+export function nextStage() {
   const scene = engine.getActivatedScenes()[0];
   let nextScene: Scene;
   switch (scene.key) {
@@ -197,9 +233,26 @@ function nextStage() {
       nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
       engine.switchToScene('w1s1');
       break;
-    // case 'w1s1':
-    //   engine.switchToScene('w2s2');
-    //   break;
+    case 'w1s1':
+      nextScene = engine.getScene('w1s2');
+      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
+      engine.switchToScene(nextScene.key);
+      break;
+    case 'w1s2':
+      nextScene = engine.getScene('w1s3');
+      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
+      engine.switchToScene(nextScene.key);
+      break;
+    case 'w1s3':
+      nextScene = engine.getScene('w1s4');
+      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
+      engine.switchToScene(nextScene.key);
+      break;
+    case 'w1s4':
+      nextScene = engine.getScene('w1s5');
+      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
+      engine.switchToScene(nextScene.key);
+      break;
     default:
       engine.switchToScene('main-menu');
       break;
@@ -257,7 +310,6 @@ export function collisionPoint(bounds: Rectangle, point: { x: number, y: number 
 
 window.addEventListener("click", function (e) {
   window.focus();
-  console.log('focus');
 }, false);
 
 window.addEventListener("keydown", function (e) {

@@ -164,16 +164,30 @@ export class MovingSolid extends Solid {
           while (ddy > 0) {
             const change = Math.min(ddy, 1);
             ddy -= change;
-            player.scaleDown([]);
-            player.moveDelta(0, change * Math.sign(dy));
-            if (player.inSolid(solidsNotThis)) {
-              player.moveDelta(0, change * -Math.sign(dy));
-              if (!player.scaleDown([])) {
-                //console.log('CRUSHED DOWN');
-                player.explode();
-                break;
+            if (player.scaleDown([])) {
+              if (player.inSolid(solidsNotThis)) {
+                player.scaleUp([]);
+                if (player.scaleDown(solidsNotThis)) {
+                } else {
+                  player.explode();
+                  break;
+                }
               }
+            } else {
+              player.explode();
+              break;
             }
+            
+
+            // player.moveDelta(0, change * Math.sign(dy));
+            // if (player.inSolid(solidsNotThis)) {
+            //   player.moveDelta(0, change * -Math.sign(dy));
+            //   if (!player.scaleDown([])) {
+            //     //console.log('CRUSHED DOWN');
+            //     player.explode();
+            //     break;
+            //   }
+            // }
           }
         }
       }
