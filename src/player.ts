@@ -3,6 +3,7 @@ import { Solid } from './solid.js';
 import { clamp, screenHeight, screenWidth } from './game.js';
 import { Platform } from './platform.js';
 import { MovingSolid } from './moving-solid.js';
+import { DialogWindow } from './dialog-window.js';
 
 const COYOTE_TIME = 6;
 const JUMP_TIME = 6; //5; //5;
@@ -95,6 +96,12 @@ export class Player extends SpriteEntity {
   tick(engine: Engine, scene: Scene): Promise<void> | void {
     if (!this.exploding && engine.isControl('reset', ControllerState.Down)) {
       this.explode();
+    }
+
+    if (scene.entitiesByType(DialogWindow).length > 0) {
+      this.moveSound?.stop();
+      this.moveSound = null;
+      return;
     }
 
     this.inAirLastFrame = false;

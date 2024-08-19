@@ -1,5 +1,5 @@
 import { Canvas2DView, ControllerBinding, Engine, FixedTickEngine, GamepadController, KeyboardController, Scene, MouseController, Sprite, Sound, ControllerState, Rectangle, TiledLoader, View, SpriteEntity, Entity } from 'game-engine';
-import { Player } from './player.js';
+import { Player, playerAbilities } from './player.js';
 import { GmtkTiledLoder } from './gmtk-tiled-loader.js';
 import { ViewStart } from './view-start.js';
 import { Text } from './text.js';
@@ -102,6 +102,7 @@ new Sprite('ladder', spriteAssets('./ladder.png'), { spriteWidth: 16, spriteHeig
 new Sprite('key', spriteAssets('./key.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 8, spriteOffsetY: 8 });
 new Sprite('lock', spriteAssets('./lock.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 0, spriteOffsetY: 0 });
 new Sprite('button', spriteAssets('./button.png'), { spriteWidth: 16, spriteHeight: 5, spriteOffsetX: 0, spriteOffsetY: 0 });
+new Sprite('orb', spriteAssets('./orb.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 8, spriteOffsetY: 8 });
 
 async function init() {
 
@@ -116,25 +117,30 @@ async function init() {
   engine.addController(new GamepadController(gamepadMap));
 
   const view = new Canvas2DView(screenWidth, screenHeight, { scale: scale, bgColor: '#BBBBBB' });
-  engine.addScene(await loader.createSceneFromTMX(engine, './dev-room.tmx', 'dev-room', view));
-  engine.addScene(await loader.createSceneFromTMX(engine, './world1/w1s1.tmx', 'w1s1', view));
-  engine.addScene(await loader.createSceneFromTMX(engine, './world1/w1s2.tmx', 'w1s2', view));
-  engine.addScene(await loader.createSceneFromTMX(engine, './world1/w1s3.tmx', 'w1s3', view));
-  engine.addScene(await loader.createSceneFromTMX(engine, './world1/w1s4.tmx', 'w1s4', view));
+
+  for (let world of WorldStages) {
+    for (let stage of world.stages) {
+      engine.addScene(await loader.createSceneFromTMX(engine, `./world${world.world}/${stage.key}.tmx`, stage.key, view));
+    }
+  }
 
   const scenePause = new Scene('pause', view);
   engine.addScene(scenePause);
 
+  loadSaveData();
   engine.addScene(createTitleScreen(view));
   engine.addScene(createGMTKSplashScreen(view));
   engine.addScene(createMainMenu(view));
+  engine.addScene(createOptions(view));
   engine.addScene(createWorldSelect(view));
   engine.addScene(createCredits(view));
+  engine.addScene(createVictory(view));
 
-  engine.addActionPre('pause', () => {
+  engine.addActionPost('pause', () => {
     if (engine.isControl('pause', ControllerState.Press) ) {
       if (!engine.getActivatedScenes().some(scene => scene.key === 'main-menu')) {
         engine.switchToScene('main-menu');
+        view.setOffset(0, 0);
         Music?.stop();
         Music = null;
       }
@@ -242,62 +248,143 @@ const gamepadMap = [
 
 init();
 
+const WorldStages = [
+  {
+    world: 1,
+    name: 'The Basics',
+    stages: [
+      {
+        stage: 1,
+        key: 'w1s1',
+      },
+      {
+        stage: 2,
+        key: 'w1s2',
+      },
+      {
+        stage: 3,
+        key: 'w1s3',
+      },
+      {
+        stage: 4,
+        key: 'w1s4',
+      }
+    ]
+  },
+  {
+    world: 2,
+    name: 'Self Control',
+    stages: [
+      {
+        stage: 1,
+        key: 'w2s1',
+      },
+      {
+        stage: 2,
+        key: 'w2s2',
+      },
+      {
+        stage: 3,
+        key: 'w2s3',
+      },
+      {
+        stage: 4,
+        key: 'w2s4',
+      }
+    ]
+  },
+  {
+    world: 3,
+    name: 'The Climb',
+    stages: [
+      {
+        stage: 1,
+        key: 'w3s1',
+      },
+      {
+        stage: 2,
+        key: 'w3s2',
+      },
+    ]
+  },
+]
+let World = 1;
+let Stage = 1;
 export function nextStage(stage: string = undefined) {
+
+  if (World === 1) {
+    playerAbilities.squishUp = false;
+    playerAbilities.squishDown = false;
+    playerAbilities.unSquish = false;
+  }
+  if (World === 2) {
+    playerAbilities.squishUp = true;
+    playerAbilities.squishDown = true;
+    playerAbilities.unSquish = true;
+  }
+
   let nextScene: Scene;
   if (stage) {
     nextScene = engine.getScene(stage);
     nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
     engine.switchToScene(stage);
+    saveData();
     return;
   }
 
-  const scene = engine.getActivatedScenes()[0];
-  switch (scene.key) {
-    case 'main-menu':
-      nextScene = engine.getScene('w1s1');
-      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
-      engine.switchToScene('w1s1');
-      break;
-    case 'w1s1':
-      nextScene = engine.getScene('w1s2');
-      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
-      engine.switchToScene(nextScene.key);
-      break;
-    case 'w1s2':
-      nextScene = engine.getScene('w1s3');
-      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
-      engine.switchToScene(nextScene.key);
-      break;
-    case 'w1s3':
-      nextScene = engine.getScene('w1s4');
-      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
-      engine.switchToScene(nextScene.key);
-      break;
-    case 'w1s4':
-      nextScene = engine.getScene('w2s1');
-      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
-      engine.switchToScene(nextScene.key);
-      PlayLoop('loop2');
-      break;
-    case 'w2s1':
-      nextScene = engine.getScene('w2s2');
-      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
-      engine.switchToScene(nextScene.key);
-      break;
-    case 'w2s2':
-      nextScene = engine.getScene('w2s3');
-      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
-      engine.switchToScene(nextScene.key);
-      break;
-    case 'w2s3':
-      nextScene = engine.getScene('w2s4');
-      nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
-      engine.switchToScene(nextScene.key);
-      break;
-    default:
-      engine.switchToScene('main-menu');
-      break;
+  const nextStage = Stage + 1;
+
+  if (WorldStages.find(world => world.world === World).stages.find(stage => stage.stage === nextStage)) {
+    if (!SaveData.unlocked.find(world => world.world === World).stages.find(stage => stage === nextStage)) {
+      SaveData.unlocked.find(world => world.world === World).stages.push(nextStage);
+    }
+    Stage = nextStage;
+    console.log(`next stage: ${Stage}`);
+  } else if (WorldStages.find(world => world.world === World + 1)) {
+    World += 1;
+    Stage = 1;
+    if (!SaveData.unlocked.find(world => world.world === World)) {
+      SaveData.unlocked.push({
+        stages: [Stage],
+        world: World
+      });
+    }
+    console.log(`next world: ${World}`);
+  } else {
+    nextScene = engine.getScene(`victory`);
+    saveData();
+    engine.switchToScene(nextScene.key);
+    return;
   }
+
+  nextScene = engine.getScene(WorldStages.find(world => world.world === World).stages.find(stage => stage.stage === Stage).key);
+  nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
+  SaveData.lastStage = {world: World, stage: Stage};
+  saveData();
+  engine.switchToScene(nextScene.key);
+}
+
+export const SaveData = {
+  unlocked: <{world: number, stages: number[]}[]>[{
+    world: 1,
+    stages: [1]
+  }],
+  lastStage: <{world: number, stage: number}>undefined,
+};
+function loadSaveData() {
+  const unlockedString = window.localStorage.getItem('unlocked');
+  if (unlockedString) {
+    SaveData.unlocked = JSON.parse(unlockedString);
+  }
+  const lastStageString = window.localStorage.getItem('lastStage');
+  if (lastStageString) {
+    SaveData.lastStage = JSON.parse(lastStageString);
+  }
+}
+
+function saveData() {
+  window.localStorage.setItem('unlocked', JSON.stringify(SaveData.unlocked));
+  window.localStorage.setItem('lastStage', JSON.stringify(SaveData.lastStage));
 }
 
 function createTitleScreen(view: View): Scene {
@@ -320,13 +407,28 @@ function createMainMenu(view: View): Scene {
   const scene = new Scene('main-menu', view);
   scene.addEntity(new Text(screenWidth / 2, screenHeight / 4, 'Slimb Climb', null, 16));
 
-  scene.addEntity(new Text(screenWidth / 2, screenHeight * 3 / 4, 'Start', () => {
-    // nextStage();
-    // PlayLoop('loop1');
+  let i = 0;
+  const baseY = screenHeight * 3 / 4 - 32;
+
+  scene.addEntity(new Text(screenWidth / 2, baseY + i++, 'Start', () => {
     engine.switchToScene('world-select');
   }, 16));
-  scene.addEntity(new Text(screenWidth / 2, screenHeight * 3 / 4 + 16, 'Options', null, 16));
-  scene.addEntity(new Text(screenWidth / 2, screenHeight * 3 / 4 + 16 + 16, 'Credits', null, 16));
+
+  if (SaveData.lastStage) {
+    scene.addEntity(new Text(screenWidth / 2, baseY + i++ * 16, 'Continue', () => {
+      Stage = SaveData.lastStage.stage;
+      World = SaveData.lastStage.world;
+      const key = `w${SaveData.lastStage.world}s${SaveData.lastStage.stage}`;
+      nextStage(key);
+    }, 16));
+  }
+
+  scene.addEntity(new Text(screenWidth / 2, baseY + i++ * 16, 'Options', () => {
+    engine.switchToScene('options');
+  }, 16));
+  scene.addEntity(new Text(screenWidth / 2, baseY + i++ * 16, 'Credits', () => {
+    engine.switchToScene('credits');
+  }, 16));
   return scene;
 }
 
@@ -334,23 +436,41 @@ function createWorldSelect(view: View): Scene {
   const scene = new Scene('world-select', view);
 
   for (let w = 1; w < 4; w++) {
-    scene.addEntity(new Text(32, 32 + (w - 1) * 32, `World${w}`, () => { }, 16));
-    for (let s = 1; s < 5; s++) {
-      const world = w;
-      const stage = s;
-      scene.addEntity(new Text(31 + (s - 1) * 64, 48 + (w - 1) * 32, `Stage ${s}`, () => {
-        nextStage(`w${world}s${stage}`);
-        PlayLoop('loop1');
-      }, 13));
+    if (SaveData.unlocked.find(unlock => unlock.world === w)) {
+      scene.addEntity(new Text(32, 32 + (w - 1) * 32, `Chapter ${w} - ${WorldStages.find(world => world.world === w).name}`, () => { }, 16, false));
+      for (let s = 1; s < 5; s++) {
+        if (SaveData.unlocked.find(unlock => unlock.world === w).stages.find(st => st === s)) {
+          const world = w;
+          const stage = s;
+          scene.addEntity(new Text(32 + (s - 1) * 64, 48 + (w - 1) * 32, `Stage ${s}`, () => {
+            SaveData.lastStage = {world, stage};
+            World = world;
+            Stage = stage;
+            nextStage(`w${world}s${stage}`);
+            PlayLoop('loop1');
+          }, 13, false));
+        }
+      }
     }
   }
   
   return scene;
 }
+function createOptions(view: View): Scene {
+  const scene = new Scene('options', view);
+  scene.addEntity(new Text(screenWidth / 2, screenHeight / 4, 'Options', null, 16));
+  return scene;
+}
 
 function createCredits(view: View): Scene {
   const scene = new Scene('credits', view);
+  scene.addEntity(new Text(screenWidth / 2, screenHeight / 4, 'Credits', null, 16));
+  return scene;
+}
 
+function createVictory(view: View): Scene {
+  const scene = new Scene('victory', view);
+  scene.addEntity(new Text(screenWidth / 2, screenHeight / 4, 'Victory', null, 16));
   return scene;
 }
 

@@ -11,6 +11,7 @@ import { Exit } from './exit.js';
 import { Key } from './key.js';
 import { Gate } from './gate.js';
 import { Button } from './button.js';
+import { Orb } from './orb.js';
 
 export class GmtkTiledLoder extends TiledLoader {
   constructor(private _mapData: __WebpackModuleApi.RequireContext, private _spriteData: __WebpackModuleApi.RequireContext) {
@@ -83,6 +84,11 @@ export class GmtkTiledLoder extends TiledLoader {
         const button = new Button(bounds, this.getProperty(object, 'button'));
         scene.addEntity(button);
         button.zIndex = -2;
+        break;
+      case 'Orb':
+        const orb = new Orb(bounds.x, bounds.y, this.getProperty(object, 'text'));
+        scene.addEntity(orb);
+        orb.zIndex = -2;
         break;
     }
   }
