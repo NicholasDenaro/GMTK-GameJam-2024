@@ -81,11 +81,11 @@
             }
         },
         "world1/w1s4.tmx": {
-            "scale": 8,
+            "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 212.6875,
-                "y": 494.5625
+                "x": 150.83333333333331,
+                "y": 522.1666666666666
             }
         },
         "world1/w1template.tmx": {
@@ -103,19 +103,22 @@
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 16,
+            "scale": 5.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 46.59375,
-                "y": 20.15625
+                "x": 212.8181818181818,
+                "y": 364.4545454545455
             }
         },
         "world2/w2s2.tmx": {
-            "scale": 1.9989583333333332,
-            "selectedLayer": 0,
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 3,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 159.83324648254302,
-                "y": 287.89994788952583
+                "x": 129.5,
+                "y": 466.49999999999994
             }
         },
         "world2/w2s3.tmx": {
@@ -154,15 +157,18 @@
     "project": "gmtk2024.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "world1/w1s2.tmx",
+        "world1/w1s4.tmx",
+        "world2/w2s4.tmx",
+        "world2/w2s3.tmx",
+        "world2/w2s2.tmx",
+        "world2/w2template.tmx",
         "world1/w1s1.tmx",
         "world1/w1s3.tmx",
-        "world1/w1s4.tmx",
+        "world2/w2s1.tmx",
+        "world1/w1s2.tmx",
         "dev-room.tmx",
         "world1/w1template.tmx",
-        "tileset.tsx",
-        "w1template.tmx",
-        "w1s1.tmx"
+        "tileset.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
