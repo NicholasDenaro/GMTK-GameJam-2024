@@ -43,6 +43,8 @@ const playerAbilities = {
 
 export class Player extends SpriteEntity {
 
+  private moveSound: {stop: () => void};
+  private inAirLastFrame: boolean = false;
   private resetSpawn: boolean = false;
   private spawnX: number;
   private spawnY: number;
@@ -91,6 +93,8 @@ export class Player extends SpriteEntity {
   }
 
   tick(engine: Engine, scene: Scene): Promise<void> | void {
+
+    this.inAirLastFrame = false;
     if (this.exploding) {
     } else {
 
@@ -166,32 +170,39 @@ export class Player extends SpriteEntity {
       this.yVelocity = clamp(-10, this.yVelocity, 10);
 
       // move down
+      let dy = this.yVelocity;
       for (let i = 0; i < this.yVelocity; i++) {
-        this.moveDelta(0, 1);
+        const change = clamp(0, dy, 1);
+        dy -= change;
+        this.moveDelta(0, change);
         const collision = this.checkCollisions(solids);
         const collisionBottom = this.checkBottomCollisions(platforms);
-        const collided = collision ?? collisionBottom;
+        const onGround = this.onSolid([...solids, ...platforms]);
+        const collided = collision ?? collisionBottom ?? onGround;
         if (collided) {
-          this.moveDelta(0, -1);
+          this.moveDelta(0, -change);
           //this.moveDelta(0, collided.bounds.y - this.y - 1);
           this.snapToSolid(collided);
           this.yVelocity = 0;
           this.setAnimation('land');
-          console.log(this.y);
+          Sound.Sounds['slime-land'].play();
+          // console.log(`landed on ground`);
+          // console.log(this.bounds);
+          // console.log(this.y);
           break;
         }
-      }
-
-      if (this.checkBottomCollisions(platforms) && this.yVelocity >= 0) {
-        // move to top of platform
-        const platform = platforms.find(platform => this.checkBottomCollisions([platform]));
-        this.moveDelta(0, this.y - platform.bounds.y);
       }
 
       const onGround = this.onGround(solids, platforms);
       const onPlatform = this.onSolid(platforms);
       const onMovingSolid = this.onSolid(movingSolids);
       this.coyotePlatform = onMovingSolid ?? this.coyotePlatform;
+
+      if (this.checkBottomCollisions(platforms) && this.yVelocity >= 0 && !onMovingSolid) {
+        // move to top of platform
+        const platform = platforms.find(platform => this.checkBottomCollisions([platform]));
+        this.moveDelta(0, this.y - platform.bounds.y);
+      }
 
       if (onGround) {
         this.coyoteTime = COYOTE_TIME;
@@ -202,6 +213,20 @@ export class Player extends SpriteEntity {
           this.spawnY = this.y;
           this.resetSpawn = false;
         }
+
+        if (move) {
+          if (!this.moveSound) {
+            this.moveSound = Sound.Sounds['slime-move'].play();
+          }
+        } else {
+          if (this.moveSound) {
+            this.moveSound.stop();
+            this.moveSound = null;
+          }
+        }
+      } else {
+        this.moveSound?.stop();
+        this.moveSound = null;
       }
 
       const scaleUp = playerAbilities.squishUp && this.doScaleUp(engine, solids);
@@ -226,12 +251,15 @@ export class Player extends SpriteEntity {
             this.jump = true;
             this.jumps--;
             this.setAnimation('jump');
-            console.log('jumped???');
+            Sound.Sounds['slime-jump'].play();
             const platformKick = onGround ? onMovingSolid : this.coyotePlatform;
             if (platformKick) {
               this.xVelocity += platformKick.xVelocity;
               this.yVelocity += platformKick.yVelocity;
               this.coyotePlatform = null;
+              if (platformKick.yVelocity < -0.5) {
+                Sound.Sounds['spring'].play();
+              }
             }
           } else if (!this.rejump) {
             this.rejumpTime = REJUMP_GRACE;
@@ -318,6 +346,7 @@ export class Player extends SpriteEntity {
 
   public snapToSolid(solid: Solid | Platform) {
     this.moveDelta(0, solid.bounds.y - this.y - 1);
+    console.log('snap to solid');
   }
 
   private updateBounds() {
@@ -537,18 +566,26 @@ export class Player extends SpriteEntity {
   public explode() {
     this.setAnimation('explode');
     this.exploding = true;
+    this.moveSound?.stop();
   }
 
   public isFalling() {
-    return this.yVelocity > 0;
+    return this.yVelocity > 0 || this.inAirLastFrame;
   }
 
   private fall(solids: Solid[], platforms: Platform[]): void {
     if (!this.onGround(solids, platforms)) {
+      this.inAirLastFrame = true;
       // air friction
       const airFriction = clamp(-0.2, this.scaleX - 1, 1) * GRAVITY * 0.9 * Math.sign(this.yVelocity);
 
-      console.log('falling'); // why is falling when moving solid brings you through platforms?
+      // let airFriction = 0;
+      // if (this.scaleX >= 1) {
+      //   airFriction = clamp(0, this.scaleX - 1, 1) * GRAVITY * 0.9 * Math.sign(this.yVelocity);
+      // } else {
+      //   airFriction = clamp(-0.2, -0.2 + (1 - this.scaleX) * 0.2, 0) * GRAVITY * 0.9 * -Math.sign(this.yVelocity);
+      // }
+
       this.yVelocity += GRAVITY - airFriction;
       this.coyoteTime--;
       if (this.coyoteTime <= 0) {
@@ -581,6 +618,7 @@ export class Player extends SpriteEntity {
   }
 
   public onSolid<T extends SpriteEntity>(platforms: T[], amount: number = 1): T {
+    amount += Number.EPSILON * 100000;
     if (this.yVelocity >= 0) {
       this.moveDelta(0, amount);
       const onGround = this.checkBottomCollisions(platforms);
@@ -588,6 +626,8 @@ export class Player extends SpriteEntity {
 
       return onGround;
     }
+
+
 
     return null;
   }

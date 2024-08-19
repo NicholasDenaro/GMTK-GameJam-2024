@@ -11,7 +11,7 @@ export class Key extends SpriteEntity {
   tick(engine: Engine, scene: Scene): Promise<void> | void {
     const player = scene.entitiesByType(Player)[0];
     if (player.collision(this)) {
-      // Sound.Sounds['key'].play();
+      Sound.Sounds['key'].play();
       scene.removeEntity(this);
     }
   }

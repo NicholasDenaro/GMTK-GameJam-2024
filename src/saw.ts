@@ -1,10 +1,12 @@
-import { Engine, Scene, Sprite, SpriteEntity, SpritePainter } from 'game-engine';
+import { Engine, Scene, Sound, Sprite, SpriteEntity, SpritePainter } from 'game-engine';
 import { Player } from './player.js';
 import { clamp, distance } from './game.js';
 
 const SAW_RADIUS = 10;
 
 export class Saw extends SpriteEntity {
+
+  private playSawSound: number = 0;
   private angle: number = 0;
   constructor(x: number, y: number) {
     super(new SpritePainter(Sprite.Sprites['saw']), x, y);
@@ -12,10 +14,15 @@ export class Saw extends SpriteEntity {
   
   tick(engine: Engine, scene: Scene): Promise<void> | void {
     this.angle += Math.PI / 3;
+    this.playSawSound--;
 
     const player = scene.entitiesByType(Player)[0];
     if (this.checkCollisionWithPlayer(player)) {
       player.explode();
+      if (this.playSawSound < 0) {
+        Sound.Sounds['slime-saw'].play();
+        this.playSawSound = 120;
+      }
     }
   }
 

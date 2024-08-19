@@ -13,7 +13,7 @@ export class Gate extends Solid {
     const keys = scene.entitiesByType(Key).filter(key => key.key === this.keys);
 
     if (keys.length === 0) {
-      // Sound.Sounds['unlock'].play();
+      Sound.Sounds['lock'].play();
       scene.removeEntity(this);
     }
   }

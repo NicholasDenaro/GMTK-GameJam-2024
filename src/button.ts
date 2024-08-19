@@ -1,4 +1,4 @@
-import { Engine, Rectangle, Scene, Sprite, SpriteEntity, SpritePainter } from "game-engine";
+import { Engine, Rectangle, Scene, Sound, Sprite, SpriteEntity, SpritePainter } from "game-engine";
 import { Player } from './player.js';
 
 export class Button extends SpriteEntity {
@@ -17,6 +17,7 @@ export class Button extends SpriteEntity {
         if (player.isFalling()) {
           this.pressed = true;
           this.imageIndex = 1;
+          Sound.Sounds['button'].play();
         }
       }
     }

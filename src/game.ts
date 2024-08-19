@@ -46,9 +46,19 @@ export const spriteAssets = require.context('../assets/', true, /\.png$/);
 const wavAssets = require.context('../assets/', true, /\.ogg$/);
 const mapAssets = require.context('../assets/tiled', true, /\.tmx$|\.tsx$/);
 
-if (wavAssets('./premade/outputs/GAME_MENU_SCORE_SFX001416.ogg')) {
-  new Sound('start', wavAssets('./premade/outputs/GAME_MENU_SCORE_SFX001416.ogg'));
-}
+new Sound('start', wavAssets('./premade/outputs/GAME_MENU_SCORE_SFX001416.ogg'));
+new Sound('key', wavAssets('./premade/outputs/GAME_MENU_SCORE_SFX001410.ogg'));
+new Sound('lock', wavAssets('./premade/outputs/sfxE09.ogg'));
+new Sound('stage', wavAssets('./premade/outputs/sfxX09.ogg'));
+
+new Sound('spring', wavAssets('./premade/outputs/freesound/663831__efindlay__springy-jump.ogg')); // https://freesound.org/people/EFindlay/sounds/663831/
+
+new Sound('slime-move', wavAssets('./premade/outputs/Pixabay/Pixabay/slime-2-30099.ogg'));
+new Sound('slime-jump', wavAssets('./premade/outputs/Pixabay/Pixabay/slimejump-6913.ogg'));
+new Sound('slime-land', wavAssets('./premade/outputs/Pixabay/floraphonic/slime-splatter-4-220263.ogg'));
+new Sound('slime-saw', wavAssets('./premade/outputs/Pixabay/floraphonic/goopy-slime-28-229644.ogg'));
+
+new Sound('button', wavAssets('./premade/outputs/Pixabay/Pixabay/button-press-85188.ogg'))
 
 let _mute: boolean = true;
 export function mute() {

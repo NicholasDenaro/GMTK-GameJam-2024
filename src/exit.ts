@@ -1,4 +1,4 @@
-import { Engine, Scene, Sprite, SpriteEntity, SpritePainter } from 'game-engine';
+import { Engine, Scene, Sound, Sprite, SpriteEntity, SpritePainter } from 'game-engine';
 import { Player } from './player.js';
 import { distance, nextStage } from './game.js';
 
@@ -12,6 +12,7 @@ export class Exit extends SpriteEntity {
     const playerPos = player.getPos();
     playerPos.y -= 4;
     if (distance(this.getPos(), playerPos) < 16) {
+      Sound.Sounds['stage'].play();
       nextStage();
     }
   }
