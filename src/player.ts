@@ -197,8 +197,8 @@ export class Player extends SpriteEntity {
           this.setAnimation('land');
           Sound.Sounds['slime-land'].play();
           // console.log(`landed on ground`);
-          console.log(this.bounds);
-          console.log(this.y);
+          // console.log(this.bounds);
+          // console.log(this.y);
           break;
         }
       }

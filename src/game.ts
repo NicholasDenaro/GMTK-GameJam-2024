@@ -380,7 +380,7 @@ export function nextStage(stage: string = undefined) {
     playerAbilities.unSquish = true;
   }
 
-
+  // TODO: reset the state of the level
   nextScene = engine.getScene(WorldStages.find(world => world.world === World).stages.find(stage => stage.stage === Stage).key);
   nextScene.entitiesByType(Player)[0].viewOffsetY = nextScene.entitiesByType(ViewStart)[0].y;
   SaveData.lastStage = {world: World, stage: Stage};
