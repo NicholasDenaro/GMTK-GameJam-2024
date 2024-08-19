@@ -11,9 +11,9 @@ export class MovingSolid extends Solid {
   private step: number = 0;
   private delayTimer: number = 0;
 
-  public xVelocity: number;
-  public yVelocity: number;
-  public velocityDelay: number;
+  public xVelocity: number = 0;
+  public yVelocity: number = 0;
+  public velocityDelay: number = 0;
   constructor(bounds: Rectangle, private path: {x: number, y: number}[], private steps: number, private delay: number = 0, private launch: boolean = false, private button: string = undefined) {
     super(bounds, Sprite.Sprites['movingblock']);
     this.color = 'darkred';
@@ -100,6 +100,7 @@ export class MovingSolid extends Solid {
   private moveDelta(scene: Scene, dx: number, dy: number) {
     const player = scene.entitiesByType(Player)[0];
     const solids = scene.entitiesByType(Solid);
+    const solidsNotThis = solids.filter(solid => solid !== this);
 
     if (player.onSolid([this])) {
       player.moveDelta(dx, dy);
@@ -112,13 +113,17 @@ export class MovingSolid extends Solid {
         }
 
         player.moveDelta(0, dy);
-        if (player.inSolid(solids)) {
+        const inSolid = player.inSolid(solidsNotThis);
+        if (inSolid) {
+          console.log('in solid up/down');
+          console.log(inSolid);
           if (dy < 0) {
+            console.log('in solid up');
             // crush on top
-            player.scaleDown(solids);
-            if (player.inSolid(solids)) {
+            player.scaleDown(solidsNotThis);
+            if (player.inSolid(solidsNotThis)) {
               // crush?
-              //console.log('CRUSHING UP');
+              console.log('CRUSHING UP');
               player.explode();
             }
           }
@@ -132,8 +137,6 @@ export class MovingSolid extends Solid {
 
     this.x += dx;
     this.bounds.x = this.x;
-
-    const solidsNotThis = solids.filter(solid => solid !== this);
 
     if (player.inSolid([this]) && !playerOnPlatform) {
       // LEFT/RIGHT
@@ -170,36 +173,60 @@ export class MovingSolid extends Solid {
         if (player.inSolid(solidsNotThis)) {
           player.moveDelta(0, -dy);
 
-          // slide to wall
+          // move player down to ground
           let ddy = Math.abs(dy);
           while (ddy > 0) {
             const change = Math.min(ddy, 1);
             ddy -= change;
-            if (player.scaleDown([])) {
-              if (player.inSolid(solidsNotThis)) {
-                player.scaleUp([]);
-                if (player.scaleDown(solidsNotThis)) {
-                } else {
-                  player.explode();
-                  break;
-                }
-              }
-            } else {
-              player.explode();
+            player.moveDelta(0, change);
+            const inSolid = player.inSolid(solidsNotThis);
+            if (inSolid) {
+              player.snapToSolid(inSolid);
+              console.log(`player squished into ground`);
+              console.log(player.bounds);
               break;
             }
+          }
+
+          let scaleOp: boolean = true;
+          // now squish the player
+          while (player.inSolid([this]) && (scaleOp = player.scaleDown(solidsNotThis))) {
+          }
+
+          if (!scaleOp) {
+            player.explode();
+          }
+
+          // // slide to wall
+          // let ddy = Math.abs(dy);
+          // while (ddy > 0) {
+          //   const change = Math.min(ddy, 1);
+          //   ddy -= change;
+          //   if (player.scaleDown([])) {
+          //     if (player.inSolid(solidsNotThis)) {
+          //       player.scaleUp([]);
+          //       if (player.scaleDown(solidsNotThis)) {
+          //       } else {
+          //         player.explode();
+          //         break;
+          //       }
+          //     }
+          //   } else {
+          //     player.explode();
+          //     break;
+          //   }
             
 
-            // player.moveDelta(0, change * Math.sign(dy));
-            // if (player.inSolid(solidsNotThis)) {
-            //   player.moveDelta(0, change * -Math.sign(dy));
-            //   if (!player.scaleDown([])) {
-            //     //console.log('CRUSHED DOWN');
-            //     player.explode();
-            //     break;
-            //   }
-            // }
-          }
+          //   // player.moveDelta(0, change * Math.sign(dy));
+          //   // if (player.inSolid(solidsNotThis)) {
+          //   //   player.moveDelta(0, change * -Math.sign(dy));
+          //   //   if (!player.scaleDown([])) {
+          //   //     //console.log('CRUSHED DOWN');
+          //   //     player.explode();
+          //   //     break;
+          //   //   }
+          //   // }
+          // }
         }
       }
     }

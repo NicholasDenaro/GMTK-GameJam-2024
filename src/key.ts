@@ -5,7 +5,7 @@ export class Key extends SpriteEntity {
 
   constructor(x: number, y: number, public key: string) {
     super(new SpritePainter(Sprite.Sprites['key']), x, y);
-    this.bounds = new Rectangle(x + 4, y + 2, 8, 12);
+    this.bounds = new Rectangle(x + 4 - Sprite.Sprites['key'].getOptions().spriteOffsetX, y + 2 - Sprite.Sprites['key'].getOptions().spriteOffsetY, 8, 12);
   }
 
   tick(engine: Engine, scene: Scene): Promise<void> | void {

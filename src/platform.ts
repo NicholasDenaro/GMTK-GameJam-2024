@@ -2,6 +2,7 @@ import { Engine, PainterContext, Rectangle, Scene, Sprite, SpriteEntity, SpriteP
 import { Geometry } from './geometry.js';
 
 export class Platform extends SpriteEntity implements Geometry {
+  private platform: boolean = true;
   constructor(bounds: Rectangle) {
     super(new SpritePainter(Sprite.Sprites['platform']), bounds.x, bounds.y);
     this.bounds = bounds;

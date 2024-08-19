@@ -168,10 +168,16 @@ export class Player extends SpriteEntity {
       // move down
       for (let i = 0; i < this.yVelocity; i++) {
         this.moveDelta(0, 1);
-        if (this.checkCollisions(solids) || this.checkBottomCollisions(platforms)) {
+        const collision = this.checkCollisions(solids);
+        const collisionBottom = this.checkBottomCollisions(platforms);
+        const collided = collision ?? collisionBottom;
+        if (collided) {
           this.moveDelta(0, -1);
+          //this.moveDelta(0, collided.bounds.y - this.y - 1);
+          this.snapToSolid(collided);
           this.yVelocity = 0;
           this.setAnimation('land');
+          console.log(this.y);
           break;
         }
       }
@@ -215,11 +221,12 @@ export class Player extends SpriteEntity {
           this.yVelocity += GRAVITY;
           this.moveDelta(0, onPlatform.bounds.height);
         } else {
-          if (this.jumps > 0 && (onGround || this.coyoteTime > 0)) {
+          if (this.jumps > 0 && (onGround || onMovingSolid || this.coyoteTime > 0)) {
             this.yVelocity = JUMP_SPEED;
             this.jump = true;
             this.jumps--;
             this.setAnimation('jump');
+            console.log('jumped???');
             const platformKick = onGround ? onMovingSolid : this.coyotePlatform;
             if (platformKick) {
               this.xVelocity += platformKick.xVelocity;
@@ -278,10 +285,7 @@ export class Player extends SpriteEntity {
       }
     }
 
-    this.bounds.x = this.topLeft.x;
-    this.bounds.y = this.topLeft.y;
-    this.bounds.width = this.topRight.x - this.topLeft.x;
-    this.bounds.height = this.bottomLeft.y - this.topLeft.y;
+    this.updateBounds();
     
     this.imageIndex = animations[this.animation].start + (this.animationIndex % (animations[this.animation].end - animations[this.animation].start + 1));
 
@@ -310,6 +314,17 @@ export class Player extends SpriteEntity {
     }
 
     view.setOffset(0, this.viewOffsetY);
+  }
+
+  public snapToSolid(solid: Solid | Platform) {
+    this.moveDelta(0, solid.bounds.y - this.y - 1);
+  }
+
+  private updateBounds() {
+    this.bounds.x = this.topLeft.x;
+    this.bounds.y = this.topLeft.y;
+    this.bounds.width = this.topRight.x - this.topLeft.x;
+    this.bounds.height = this.bottomLeft.y - this.topLeft.y;
   }
 
   public launch(dxVelocity: number, dyVelocity: number) {
@@ -394,6 +409,9 @@ export class Player extends SpriteEntity {
         this.bottomRight.width += 0.5;
         return false;
       }
+
+      this.updateBounds();
+      console.log(this.bounds);
       return true;
     }
 
@@ -405,6 +423,7 @@ export class Player extends SpriteEntity {
       this.scaleX += 0.1;
       this.scaleY -= 0.1;
       console.log(`scale: ${this.scaleX}, ${this.scaleY}`);
+      console.log(this.bounds);
 
       this.topLeft.x -= 0.5;
       this.bottomLeft.x -= 0.5;
@@ -511,6 +530,8 @@ export class Player extends SpriteEntity {
     this.bottomLeft.y += dy;
     this.bottomRight.x += dx;
     this.bottomRight.y += dy;
+
+    this.updateBounds();
   }
 
   public explode() {
@@ -527,6 +548,7 @@ export class Player extends SpriteEntity {
       // air friction
       const airFriction = clamp(-0.2, this.scaleX - 1, 1) * GRAVITY * 0.9 * Math.sign(this.yVelocity);
 
+      console.log('falling'); // why is falling when moving solid brings you through platforms?
       this.yVelocity += GRAVITY - airFriction;
       this.coyoteTime--;
       if (this.coyoteTime <= 0) {

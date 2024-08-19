@@ -11,11 +11,13 @@ export class Button extends SpriteEntity {
   }
 
   tick(engine: Engine, scene: Scene): void | Promise<void> {
-    const player = scene.entitiesByType(Player)[0];
-    if (this.collision(player)) {
-      if (player.isFalling()) {
-        this.pressed = true;
-        this.imageIndex++;
+    if (!this.pressed) {
+      const player = scene.entitiesByType(Player)[0];
+      if (this.collision(player)) {
+        if (player.isFalling()) {
+          this.pressed = true;
+          this.imageIndex = 1;
+        }
       }
     }
   }
