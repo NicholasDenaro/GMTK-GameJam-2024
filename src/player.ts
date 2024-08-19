@@ -518,6 +518,10 @@ export class Player extends SpriteEntity {
     this.exploding = true;
   }
 
+  public isFalling() {
+    return this.yVelocity > 0;
+  }
+
   private fall(solids: Solid[], platforms: Platform[]): void {
     if (!this.onGround(solids, platforms)) {
       // air friction

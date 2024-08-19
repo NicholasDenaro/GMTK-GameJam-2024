@@ -8,6 +8,9 @@ import { Sign } from './sign.js';
 import { Saw } from './saw.js';
 import { MusicMuter } from './music-muter.js';
 import { Exit } from './exit.js';
+import { Key } from './key.js';
+import { Gate } from './gate.js';
+import { Button } from './button.js';
 
 export class GmtkTiledLoder extends TiledLoader {
   constructor(private _mapData: __WebpackModuleApi.RequireContext, private _spriteData: __WebpackModuleApi.RequireContext) {
@@ -44,7 +47,8 @@ export class GmtkTiledLoder extends TiledLoader {
         const steps = Number(this.getProperty(path, 'steps'));
         const delay = Number(this.getProperty(path, 'delay') ?? 0);
         const launch = this.getProperty(object, 'launch') === 'true';
-        scene.addEntity(new MovingSolid(bounds, points, steps, delay, launch));
+        const buttonName = this.getProperty(object, 'button');
+        scene.addEntity(new MovingSolid(bounds, points, steps, delay, launch, buttonName));
         break;
       case 'ViewStart':
         scene.addEntity(new ViewStart(bounds.x, bounds.y));
@@ -64,6 +68,21 @@ export class GmtkTiledLoder extends TiledLoader {
         const exit = new Exit(bounds.x, bounds.y);
         scene.addEntity(exit);
         exit.zIndex = -2;
+        break;
+      case 'Key':
+        const key = new Key(bounds.x, bounds.y, this.getProperty(object, 'key'));
+        scene.addEntity(key);
+        key.zIndex = -2;
+        break;
+      case 'Gate':
+        const gate = new Gate(bounds, this.getProperty(object, 'keys'));
+        scene.addEntity(gate);
+        gate.zIndex = -2;
+        break;
+      case 'Button':
+        const button = new Button(bounds, this.getProperty(object, 'button'));
+        scene.addEntity(button);
+        button.zIndex = -2;
         break;
     }
   }

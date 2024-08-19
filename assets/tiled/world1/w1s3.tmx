@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="36" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="128">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="36" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="129">
  <tileset firstgid="1" source="../tileset.tsx"/>
  <layer id="2" name="Background" width="20" height="36">
   <properties>
@@ -49,7 +49,7 @@
    <property name="zindex" type="int" value="-1"/>
   </properties>
   <data encoding="csv">
-2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,2,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
@@ -94,7 +94,7 @@
   <object id="2" type="Player" x="48" y="512">
    <point/>
   </object>
-  <object id="3" type="Solid" x="0" y="0" width="320" height="16"/>
+  <object id="3" type="Solid" x="0" y="0" width="48" height="16"/>
   <object id="4" type="Solid" x="0" y="560" width="320" height="16"/>
   <object id="5" type="Solid" x="304" y="384" width="16" height="16"/>
   <object id="6" type="Solid" x="0" y="384" width="256" height="16"/>
@@ -248,15 +248,9 @@
    </properties>
    <polyline points="0,0 16,0"/>
   </object>
-  <object id="79" type="Sign" x="48" y="560">
-   <properties>
-    <property name="text" value="Platforms can help you jump or move around"/>
-   </properties>
-   <point/>
-  </object>
   <object id="80" type="Sign" x="80" y="560">
    <properties>
-    <property name="text" value="They can also launch you|If you time your jump right"/>
+    <property name="text" value="Platfors can launch you|if you time your jump right"/>
    </properties>
    <point/>
   </object>
@@ -412,5 +406,6 @@
   <object id="124" type="Exit" x="48" y="16" width="16" height="16"/>
   <object id="126" type="Exit" x="48" y="32" width="16" height="16"/>
   <object id="127" type="Exit" x="48" y="0" width="16" height="16"/>
+  <object id="128" type="Solid" x="64" y="0" width="256" height="16"/>
  </objectgroup>
 </map>

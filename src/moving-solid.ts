@@ -1,6 +1,7 @@
 import { Engine, PainterContext, Rectangle, Scene, Sprite } from 'game-engine';
 import { Solid } from './solid.js';
 import { Player } from './player.js';
+import { Button } from './button.js';
 
 const VELOCITY_DELAY = 6;
 
@@ -13,7 +14,7 @@ export class MovingSolid extends Solid {
   public xVelocity: number;
   public yVelocity: number;
   public velocityDelay: number;
-  constructor(bounds: Rectangle, private path: {x: number, y: number}[], private steps: number, private delay: number = 0, private launch: boolean = false) {
+  constructor(bounds: Rectangle, private path: {x: number, y: number}[], private steps: number, private delay: number = 0, private launch: boolean = false, private button: string = undefined) {
     super(bounds, Sprite.Sprites['movingblock']);
     this.color = 'darkred';
     this.x = path[0].x;
@@ -28,6 +29,15 @@ export class MovingSolid extends Solid {
   }
 
   tick(engine: Engine, scene: Scene): Promise<void> | void {
+
+    if (this.button) {
+      const buttons = scene.entitiesByType(Button).filter(button => button.button === this.button);
+
+      if (!buttons.every(button => button.isPressed())) {
+        return;
+      }
+    }
+
     if (this.delayTimer > 0) {
       this.delayTimer--;
       this.velocityDelay--;
@@ -116,6 +126,7 @@ export class MovingSolid extends Solid {
       }
     }
 
+    const playerOnPlatform = player.onSolid([this], 3)
     this.yVelocity = dy;
     this.xVelocity = dx;
 
@@ -124,7 +135,7 @@ export class MovingSolid extends Solid {
 
     const solidsNotThis = solids.filter(solid => solid !== this);
 
-    if (player.inSolid([this]) && !player.onSolid([this], 3)) {
+    if (player.inSolid([this]) && !playerOnPlatform) {
       // LEFT/RIGHT
       player.moveDelta(dx, 0);
       if (player.inSolid(solidsNotThis)) {

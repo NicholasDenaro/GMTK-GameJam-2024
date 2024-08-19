@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="36" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="105">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="36" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="170">
  <tileset firstgid="1" source="../tileset.tsx"/>
  <layer id="2" name="Background" width="20" height="36">
   <properties>
@@ -49,18 +49,18 @@
    <property name="zindex" type="int" value="-1"/>
   </properties>
   <data encoding="csv">
-2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,2,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,2,2,2,0,0,0,0,0,3,0,0,0,2,
+2,15,15,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,0,15,2,
+2,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,15,15,2,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,2,
+2,2,2,2,15,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,
+2,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,3,3,0,0,0,0,0,15,0,0,0,0,0,0,0,0,2,
+2,15,15,15,15,15,15,15,15,15,2,15,15,15,15,15,15,0,15,2,
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,2,2,
 2,0,0,0,0,0,0,2,0,0,0,0,0,0,2,0,0,0,0,2,
 2,15,0,15,15,12,15,2,0,0,0,0,0,0,2,0,0,0,0,2,
@@ -94,7 +94,7 @@
   <object id="2" type="Player" x="39" y="528">
    <point/>
   </object>
-  <object id="3" type="Solid" x="0" y="0" width="320" height="16"/>
+  <object id="3" type="Solid" x="0" y="0" width="48" height="16"/>
   <object id="4" type="Solid" x="0" y="560" width="320" height="16"/>
   <object id="5" type="Solid" x="80" y="384" width="240" height="16"/>
   <object id="6" type="Solid" x="0" y="384" width="64" height="16"/>
@@ -146,7 +146,6 @@
   </object>
   <object id="29" type="Solid" x="64" y="544" width="16" height="16"/>
   <object id="30" type="Solid" x="208" y="544" width="16" height="16"/>
-  <object id="32" type="Exit" x="48" y="32" width="16" height="16"/>
   <object id="33" type="Saw" x="256" y="528">
    <point/>
   </object>
@@ -293,5 +292,147 @@
    <polyline points="0,-8 0,12"/>
   </object>
   <object id="104" type="Solid" x="192" y="240" width="14" height="48"/>
+  <object id="105" type="Sign" x="56" y="320">
+   <properties>
+    <property name="text" value="To jump higher|squish up"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="115" type="Gate" x="48" y="32" width="16" height="16">
+   <properties>
+    <property name="keys" value="A"/>
+   </properties>
+  </object>
+  <object id="117" type="Key" x="32" y="160">
+   <properties>
+    <property name="key" value="A"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="118" type="Key" x="280" y="32">
+   <properties>
+    <property name="key" value="A"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="119" type="Key" x="32" y="96">
+   <properties>
+    <property name="key" value="A"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="120" type="Key" x="24" y="32">
+   <properties>
+    <property name="key" value="A"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="121" type="Solid" x="48" y="144" width="32" height="16"/>
+  <object id="122" type="Solid" x="16" y="128" width="64" height="16"/>
+  <object id="123" type="Solid" x="48" y="160" width="32" height="10"/>
+  <object id="124" type="Solid" x="160" y="160" width="16" height="16"/>
+  <object id="125" type="MovingSolid" x="296" y="159" width="16" height="8">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="126"/>
+   </properties>
+  </object>
+  <object id="126" x="296" y="147">
+   <properties>
+    <property name="steps" type="int" value="120"/>
+   </properties>
+   <polyline points="0,-8 0,12"/>
+  </object>
+  <object id="128" type="Solid" x="16" y="64" width="48" height="16"/>
+  <object id="129" type="Solid" x="32" y="16" width="16" height="32"/>
+  <object id="130" type="Solid" x="64" y="16" width="16" height="32"/>
+  <object id="132" type="Solid" x="48" y="96" width="16" height="16"/>
+  <object id="134" type="Solid" x="16" y="112" width="48" height="16"/>
+  <object id="137" type="MovingSolid" x="160" y="146" width="16" height="8">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="138"/>
+   </properties>
+  </object>
+  <object id="138" x="160" y="134">
+   <properties>
+    <property name="steps" type="int" value="120"/>
+   </properties>
+   <polyline points="0,-8 0,12"/>
+  </object>
+  <object id="139" type="MovingSolid" x="148" y="168" width="8" height="16">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="140"/>
+   </properties>
+  </object>
+  <object id="140" x="144" y="168">
+   <properties>
+    <property name="steps" type="int" value="60"/>
+   </properties>
+   <polyline points="-9,0 4,0"/>
+  </object>
+  <object id="141" type="Solid" x="160" y="128" width="16" height="16"/>
+  <object id="142" type="Solid" x="160" y="112" width="16" height="16"/>
+  <object id="143" type="Platform" x="64" y="96" width="16" height="3"/>
+  <object id="144" type="Platform" x="80" y="96" width="16" height="3"/>
+  <object id="145" type="Platform" x="96" y="96" width="16" height="3"/>
+  <object id="146" type="Platform" x="112" y="96" width="16" height="3"/>
+  <object id="147" type="Platform" x="128" y="96" width="16" height="3"/>
+  <object id="148" type="Platform" x="144" y="96" width="16" height="3"/>
+  <object id="149" type="Platform" x="160" y="96" width="16" height="3"/>
+  <object id="150" type="Platform" x="176" y="96" width="16" height="3"/>
+  <object id="151" type="Platform" x="192" y="96" width="16" height="3"/>
+  <object id="152" type="Platform" x="208" y="96" width="16" height="3"/>
+  <object id="153" type="Platform" x="224" y="96" width="16" height="3"/>
+  <object id="154" type="Platform" x="240" y="96" width="16" height="3"/>
+  <object id="155" type="Platform" x="256" y="96" width="16" height="3"/>
+  <object id="156" type="Platform" x="272" y="96" width="16" height="3"/>
+  <object id="157" type="Platform" x="288" y="96" width="16" height="3"/>
+  <object id="158" type="Platform" x="80" y="136" width="16" height="3">
+   <properties>
+    <property name="button" value="A"/>
+   </properties>
+  </object>
+  <object id="159" type="Solid" x="64" y="0" width="256" height="16"/>
+  <object id="160" type="Platform" x="272" y="56" width="16" height="3"/>
+  <object id="161" name="Button" type="Button" x="128" y="45" width="16" height="3">
+   <properties>
+    <property name="button" value="A"/>
+   </properties>
+  </object>
+  <object id="162" type="MovingSolid" x="225" y="176" width="16" height="8">
+   <properties>
+    <property name="button" value="A"/>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="163"/>
+   </properties>
+  </object>
+  <object id="163" x="225" y="164">
+   <properties>
+    <property name="steps" type="int" value="120"/>
+   </properties>
+   <polyline points="-1,-68 0,12"/>
+  </object>
+  <object id="164" type="Solid" x="112" y="48" width="48" height="16"/>
+  <object id="166" type="Solid" x="240" y="48" width="16" height="8"/>
+  <object id="167" type="MovingSolid" x="160" y="48" width="16" height="8">
+   <properties>
+    <property name="button" value="B"/>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="168"/>
+   </properties>
+  </object>
+  <object id="168" x="160" y="36">
+   <properties>
+    <property name="steps" type="int" value="120"/>
+   </properties>
+   <polyline points="0,12 64,12"/>
+  </object>
+  <object id="169" name="Button" type="Button" x="160" y="109" width="16" height="3">
+   <properties>
+    <property name="button" value="B"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
