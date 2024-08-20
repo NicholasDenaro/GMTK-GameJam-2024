@@ -71,7 +71,7 @@ export function mute() {
 }
 export function unmute() {
   _mute = false;
-  Music?.volume(1);
+  Music?.volume(mainVolume / 100 * bgmVolume / 100);
   SaveData.mute = false;
   saveData();
 }
@@ -93,7 +93,7 @@ export function PlayLoop(loop: string) {
       song: loop,
       ...Sound.Sounds[loop].play()
     };
-    Music.volume(bgmVolume / 100);
+    Music.volume(mainVolume / 100 * bgmVolume / 100);
     if (isMuted()) {
       mute();
     }
