@@ -553,6 +553,7 @@ function createMainMenu(view: View): Scene {
   const baseY = screenHeight * 3 / 4 - 32;
 
   scene.addEntity(new Text(screenWidth / 2, baseY + i++, 'Start', () => {
+    engine.addScene(createWorldSelect(view));
     engine.switchToScene('world-select');
   }, 16));
 
