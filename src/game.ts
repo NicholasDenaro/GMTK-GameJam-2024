@@ -130,6 +130,7 @@ new Sprite('orb', spriteAssets('./orb.png'), { spriteWidth: 16, spriteHeight: 16
 new Sprite('title', spriteAssets('./title.png'), { spriteWidth: 320, spriteHeight: 192, spriteOffsetX: 0, spriteOffsetY: 0 });
 new Sprite('world-select', spriteAssets('./world-select.png'), { spriteWidth: 320, spriteHeight: 192, spriteOffsetX: 0, spriteOffsetY: 0 });
 new Sprite('options', spriteAssets('./options.png'), { spriteWidth: 320, spriteHeight: 192, spriteOffsetX: 0, spriteOffsetY: 0 });
+new Sprite('credits', spriteAssets('./credits.png'), { spriteWidth: 320, spriteHeight: 192, spriteOffsetX: 0, spriteOffsetY: 0 });
 
 async function init() {
 
@@ -706,6 +707,7 @@ function createOptions(view: View): Scene {
 
 function createCredits(view: View): Scene {
   const scene = new Scene('credits', view);
+  scene.addEntity(new ImageEntity(Sprite.Sprites['credits'], 0, 0));
   scene.addEntity(new Text(16, 16, 'X', () => {
     engine.switchToScene('main-menu');
   }, 16));
