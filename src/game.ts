@@ -713,6 +713,7 @@ function createCredits(view: View): Scene {
   const scene = new Scene('credits', view);
   scene.addEntity(new ImageEntity(Sprite.Sprites['credits'], 0, 0));
   scene.addEntity(new Text(16, 16, 'X', () => {
+    engine.addScene(createMainMenu(view));
     engine.switchToScene('main-menu');
   }, 16));
   let i = 0;
