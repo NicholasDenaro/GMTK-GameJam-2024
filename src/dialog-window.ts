@@ -8,14 +8,14 @@ export class DialogWindow extends SpriteEntity {
     this.zIndex = -20;
   }
 
-  tick(engine: Engine, scene: Scene): Promise<void> | void {
+  async tick(engine: Engine, scene: Scene): Promise<void> {
     const view = scene.getView() as Canvas2DView;
     this.x = view.getOffset().x;
     this.y = view.getOffset().y;
     this.delay--;
     if (this.delay <= 0) {
       if (engine.isControl('action', ControllerState.Press)) {
-        nextStage();
+        await nextStage();
       }
     }
   }

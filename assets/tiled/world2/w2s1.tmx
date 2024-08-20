@@ -187,7 +187,7 @@
   </object>
   <object id="53" type="Platform" x="288" y="480" width="16" height="3"/>
   <object id="54" type="Platform" x="272" y="480" width="16" height="3"/>
-  <object id="55" type="Sign" x="288" y="456">
+  <object id="55" type="Sign" x="280" y="456">
    <properties>
     <property name="text" value="Transform while|in the air"/>
    </properties>
@@ -341,7 +341,7 @@
    </properties>
    <polyline points="-16,-16 -16,-32"/>
   </object>
-  <object id="120" type="MovingSolid" x="224" y="16" width="16" height="32">
+  <object id="120" type="MovingSolid" x="224" y="16" width="14" height="32">
    <properties>
     <property name="launch" type="bool" value="false"/>
     <property name="path" type="object" value="119"/>
@@ -354,7 +354,7 @@
    </properties>
    <polyline points="-16,-16 -16,-32"/>
   </object>
-  <object id="124" type="MovingSolid" x="200" y="16" width="16" height="32">
+  <object id="124" type="MovingSolid" x="200" y="16" width="14" height="32">
    <properties>
     <property name="launch" type="bool" value="false"/>
     <property name="path" type="object" value="123"/>
@@ -367,7 +367,7 @@
    </properties>
    <polyline points="-16,-16 -16,-32"/>
   </object>
-  <object id="126" type="MovingSolid" x="176" y="16" width="16" height="32">
+  <object id="126" type="MovingSolid" x="176" y="16" width="14" height="32">
    <properties>
     <property name="launch" type="bool" value="false"/>
     <property name="path" type="object" value="125"/>
@@ -380,7 +380,7 @@
    </properties>
    <polyline points="-16,-16 -16,-32"/>
   </object>
-  <object id="128" type="MovingSolid" x="152" y="16" width="16" height="32">
+  <object id="128" type="MovingSolid" x="152" y="16" width="14" height="32">
    <properties>
     <property name="launch" type="bool" value="false"/>
     <property name="path" type="object" value="127"/>
@@ -393,7 +393,7 @@
    </properties>
    <polyline points="-16,-16 -16,-32"/>
   </object>
-  <object id="130" type="MovingSolid" x="128" y="16" width="16" height="32">
+  <object id="130" type="MovingSolid" x="128" y="16" width="14" height="32">
    <properties>
     <property name="launch" type="bool" value="false"/>
     <property name="path" type="object" value="129"/>

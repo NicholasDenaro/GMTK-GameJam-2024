@@ -600,34 +600,34 @@
   </object>
   <object id="210" type="Gate" x="16" y="192" width="16" height="16">
    <properties>
-    <property name="keys" value="E"/>
+    <property name="keys" value="G"/>
    </properties>
   </object>
   <object id="211" type="Gate" x="32" y="192" width="16" height="16">
    <properties>
-    <property name="keys" value="D"/>
+    <property name="keys" value="F"/>
    </properties>
   </object>
   <object id="212" type="Key" x="240" y="240">
    <properties>
-    <property name="key" value="E"/>
+    <property name="key" value="F"/>
    </properties>
    <point/>
   </object>
   <object id="213" type="Key" x="128" y="224">
    <properties>
-    <property name="key" value="D"/>
+    <property name="key" value="G"/>
    </properties>
    <point/>
   </object>
   <object id="214" type="Gate" x="32" y="176" width="16" height="16">
    <properties>
-    <property name="keys" value="D"/>
+    <property name="keys" value="F"/>
    </properties>
   </object>
   <object id="215" type="Gate" x="16" y="176" width="16" height="16">
    <properties>
-    <property name="keys" value="E"/>
+    <property name="keys" value="G"/>
    </properties>
   </object>
   <object id="216" type="Solid" x="48" y="160" width="256" height="16"/>
@@ -635,34 +635,34 @@
   <object id="218" type="Solid" x="160" y="192" width="144" height="16"/>
   <object id="219" type="Key" x="80" y="64">
    <properties>
-    <property name="key" value="F"/>
+    <property name="key" value="H"/>
    </properties>
    <point/>
   </object>
   <object id="220" type="Gate" x="240" y="96" width="16" height="16">
    <properties>
-    <property name="keys" value="F"/>
+    <property name="keys" value="H"/>
    </properties>
   </object>
   <object id="221" type="Gate" x="208" y="64" width="16" height="16">
    <properties>
-    <property name="keys" value="G"/>
+    <property name="keys" value="I"/>
    </properties>
   </object>
   <object id="222" type="Gate" x="176" y="32" width="16" height="16">
    <properties>
-    <property name="keys" value="H"/>
+    <property name="keys" value="J"/>
    </properties>
   </object>
   <object id="223" type="Key" x="144" y="96">
    <properties>
-    <property name="key" value="G"/>
+    <property name="key" value="I"/>
    </properties>
    <point/>
   </object>
   <object id="224" type="Key" x="176" y="112">
    <properties>
-    <property name="key" value="H"/>
+    <property name="key" value="J"/>
    </properties>
    <point/>
   </object>

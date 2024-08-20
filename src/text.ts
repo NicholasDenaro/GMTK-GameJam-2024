@@ -3,7 +3,7 @@ import { collisionPoint } from './game.js';
 
 export class Text extends SpriteEntity {
   private width: number;
-  constructor(x: number, y: number, private text: string, private action: () => void, private size: number = 12, private center: boolean = true) {
+  constructor(x: number, y: number, private text: string, private action: () => void, private size: number = 12, private center: boolean = true, private color: string = 'black') {
     const canvas = new OffscreenCanvas(1, 1);
     const ctx = canvas.getContext('2d');
     ctx.font = `${size}px game`;
@@ -21,19 +21,19 @@ export class Text extends SpriteEntity {
     this.text = text;
   }
 
-  tick(engine: Engine, scene: Scene): Promise<void> | void {
+  async tick(engine: Engine, scene: Scene): Promise<void> {
     if (engine.isControl('interact1', ControllerState.Press)) {
       const details = engine.controlDetails('interact1', scene.getView()) as MouseDetails;
 
       if (this.action && collisionPoint(this.bounds, details)) {
-        this.action();
+        await this.action();
       }
     }
   }
 
   draw(ctx: PainterContext) {
     ctx.font = `${this.size}px game`;
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = this.color ?? 'black';
     ctx.textBaseline = 'top';
     const x = this.x - (this.center ? this.width / 2 : 0);
     const y = this.y - (this.center ? this.size / 2 : 0);

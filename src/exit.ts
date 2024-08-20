@@ -7,13 +7,13 @@ export class Exit extends SpriteEntity {
     super(new SpritePainter(Sprite.Sprites['ladder']), x, y);
   }
 
-  tick(engine: Engine, scene: Scene): Promise<void> | void {
+  async tick(engine: Engine, scene: Scene): Promise<void> {
     const player = scene.entitiesByType(Player)[0];
     const playerPos = player.getPos();
     playerPos.y -= 4;
     if (distance(this.getPos(), playerPos) < 16) {
       Sound.Sounds['stage'].play();
-      nextStage();
+      await nextStage();
     }
   }
   

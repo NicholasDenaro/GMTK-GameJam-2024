@@ -54,19 +54,19 @@
             "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 173.49999999999997,
-                "y": 133.5
+                "x": 187.83333333333331,
+                "y": 282.5
             }
         },
         "world1/w1s2.tmx": {
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 3,
+            "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 129.16666666666669,
-                "y": 433.16666666666663
+                "x": 160.33333333333331,
+                "y": 423.66666666666663
             }
         },
         "world1/w1s3.tmx": {
@@ -74,10 +74,10 @@
                 3
             ],
             "scale": 3,
-            "selectedLayer": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 154.16666666666669,
-                "y": 146.5
+                "x": 181.16666666666669,
+                "y": 243.83333333333331
             }
         },
         "world1/w1s4.tmx": {
@@ -87,8 +87,8 @@
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 161.83333333333331,
-                "y": 417.5
+                "x": 190.16666666666669,
+                "y": 351.5
             }
         },
         "world1/w1template.tmx": {
@@ -109,19 +109,19 @@
             "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 151.5,
-                "y": 118.49999999999999
+                "x": 145.83333333333331,
+                "y": 360.16666666666663
             }
         },
         "world2/w2s2.tmx": {
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 4,
+            "scale": 1.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 143.625,
-                "y": 447.125
+                "x": 117.66666666666663,
+                "y": 359.66666666666663
             }
         },
         "world2/w2s3.tmx": {
@@ -155,11 +155,11 @@
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 1,
-            "selectedLayer": 1,
+            "scale": 3,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 229.5,
-                "y": 848.5
+                "x": 183.49999999999997,
+                "y": 342.16666666666663
             }
         },
         "world3/w3s2.tmx": {
@@ -196,17 +196,17 @@
     "project": "gmtk2024.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "world3/w3s1.tmx",
-        "world2/w2s3.tmx",
-        "world2/w2s2.tmx",
-        "world2/w2s1.tmx",
+        "world1/w1s1.tmx",
+        "world1/w1s2.tmx",
         "world1/w1s3.tmx",
+        "world2/w2s1.tmx",
+        "world3/w3s1.tmx",
+        "world2/w2s2.tmx",
+        "world1/w1s4.tmx",
+        "world2/w2s3.tmx",
         "world4/w4s1.tmx",
         "world3/w3s2.tmx",
-        "world1/w1s1.tmx",
         "tileset.tsx",
-        "world1/w1s4.tmx",
-        "world1/w1s2.tmx",
         "world2/w2s4.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",

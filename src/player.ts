@@ -1,6 +1,6 @@
 import { Scene, Sound, Sprite, SpriteEntity, SpritePainter, ControllerState, Engine, Rectangle, PainterContext, Canvas2DView } from "game-engine";
 import { Solid } from './solid.js';
-import { clamp, screenHeight, screenWidth } from './game.js';
+import { clamp, SaveData, screenHeight, screenWidth } from './game.js';
 import { Platform } from './platform.js';
 import { MovingSolid } from './moving-solid.js';
 import { DialogWindow } from './dialog-window.js';
@@ -98,6 +98,13 @@ export class Player extends SpriteEntity {
   }
 
   tick(engine: Engine, scene: Scene): Promise<void> | void {
+
+    if (SaveData.colorblind) {
+      this.myPainter.setSprite(Sprite.Sprites['slime-colorblind']);
+    } else {
+      this.myPainter.setSprite(Sprite.Sprites['slime']);
+    }
+
     if (this.justSpawned) {
       this.justSpawned = false;
       const solids = scene.entitiesByType(Solid);
