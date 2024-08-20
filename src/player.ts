@@ -79,6 +79,8 @@ export class Player extends SpriteEntity {
 
   private justSpawned: boolean;
 
+  private landSound = 20;
+
   constructor(x: number, y: number) {
     super(new SpritePainter((ctx: PainterContext) => this.draw(ctx), Sprite.Sprites['slime'].getOptions()), x, y);
     this.myPainter = new SpritePainter(Sprite.Sprites['slime']);
@@ -98,6 +100,7 @@ export class Player extends SpriteEntity {
   }
 
   tick(engine: Engine, scene: Scene): Promise<void> | void {
+    this.landSound--;
 
     if (SaveData.colorblind) {
       this.myPainter.setSprite(Sprite.Sprites['slime-colorblind']);
@@ -219,7 +222,10 @@ export class Player extends SpriteEntity {
           this.snapToSolid(collided);
           this.yVelocity = 0;
           this.setAnimation('land');
-          // Sound.Sounds['slime-land'].play();
+          if (this.landSound < 0) {
+            Sound.Sounds['slime-land'].play();
+            this.landSound = 10;
+          }
 
           console.log('---');
           console.log(`on ground check`, this.onGround(solids, platforms));
