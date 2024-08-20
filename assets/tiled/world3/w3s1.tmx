@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="36" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="22">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="72" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="188">
  <tileset firstgid="1" source="../tileset.tsx"/>
- <layer id="2" name="Background" width="20" height="36">
+ <layer id="2" name="Background" width="20" height="72">
   <properties>
    <property name="zindex" type="int" value="0"/>
   </properties>
@@ -41,76 +41,516 @@
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9
 </data>
  </layer>
- <layer id="1" name="Foreground" width="20" height="36">
+ <layer id="1" name="Foreground" width="20" height="72">
   <properties>
    <property name="zindex" type="int" value="-1"/>
   </properties>
   <data encoding="csv">
-2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,2,2,2,2,2,2,2,2,0,2,2,2,2,2,2,2,2,2,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,15,15,15,15,15,15,15,15,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,15,2,15,15,15,15,15,15,15,15,15,15,15,15,15,0,0,2,
+2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,2,
+2,0,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,0,2,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,15,0,0,15,0,0,0,0,15,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,2,
-2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,15,15,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,
+2,0,0,4,4,4,4,4,4,4,4,4,4,4,4,4,3,0,0,2,
+2,0,0,0,15,0,0,15,0,0,15,0,0,15,0,0,15,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,15,0,0,0,15,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,2,
-2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,2
 </data>
  </layer>
  <objectgroup id="3" name="Object Layer 1">
-  <object id="1" type="ViewStart" x="0" y="384">
+  <object id="1" type="ViewStart" x="0" y="960">
    <point/>
   </object>
-  <object id="2" type="Player" x="48" y="560">
+  <object id="2" type="Player" x="48" y="1136">
    <point/>
   </object>
-  <object id="3" type="Solid" x="0" y="0" width="320" height="16"/>
-  <object id="4" type="Solid" x="0" y="560" width="320" height="16"/>
-  <object id="5" type="Solid" x="160" y="384" width="160" height="16"/>
-  <object id="6" type="Solid" x="0" y="384" width="160" height="16"/>
-  <object id="9" type="Solid" x="0" y="16" width="16" height="160"/>
-  <object id="10" type="Solid" x="304" y="16" width="16" height="160"/>
-  <object id="11" type="Solid" x="304" y="208" width="16" height="160"/>
-  <object id="12" type="Solid" x="0" y="208" width="16" height="160"/>
-  <object id="13" type="Solid" x="0" y="400" width="16" height="160"/>
-  <object id="14" type="Solid" x="304" y="400" width="16" height="160"/>
-  <object id="15" type="Solid" x="0" y="368" width="160" height="16"/>
-  <object id="16" type="Solid" x="160" y="368" width="160" height="16"/>
-  <object id="17" type="Solid" x="160" y="192" width="160" height="16"/>
-  <object id="18" type="Solid" x="0" y="192" width="160" height="16"/>
-  <object id="19" type="Solid" x="0" y="176" width="160" height="16"/>
-  <object id="20" type="Solid" x="160" y="176" width="160" height="16"/>
-  <object id="21" type="Music" x="304" y="560">
+  <object id="4" type="Solid" x="0" y="1136" width="320" height="16"/>
+  <object id="13" type="Solid" x="0" y="960" width="16" height="176"/>
+  <object id="21" type="Music" x="304" y="1136">
+   <point/>
+  </object>
+  <object id="22" type="Solid" x="0" y="0" width="144" height="16"/>
+  <object id="23" type="Solid" x="160" y="0" width="160" height="16"/>
+  <object id="24" type="Exit" x="144" y="0" width="16" height="16"/>
+  <object id="25" type="Exit" x="144" y="16" width="16" height="16"/>
+  <object id="26" type="Exit" x="144" y="32" width="16" height="16"/>
+  <object id="27" type="Solid" x="0" y="768" width="16" height="192"/>
+  <object id="28" type="Solid" x="304" y="768" width="16" height="192"/>
+  <object id="29" type="Solid" x="304" y="960" width="16" height="176"/>
+  <object id="30" type="Solid" x="304" y="576" width="16" height="192"/>
+  <object id="31" type="Solid" x="304" y="384" width="16" height="192"/>
+  <object id="32" type="Solid" x="304" y="192" width="16" height="192"/>
+  <object id="33" type="Solid" x="304" y="16" width="16" height="176"/>
+  <object id="34" type="Solid" x="0" y="16" width="16" height="176"/>
+  <object id="35" type="Solid" x="0" y="192" width="16" height="192"/>
+  <object id="36" type="Solid" x="0" y="384" width="16" height="192"/>
+  <object id="37" type="Solid" x="0" y="576" width="16" height="192"/>
+  <object id="38" type="Solid" x="96" y="1104" width="16" height="16"/>
+  <object id="39" type="Solid" x="128" y="1072" width="16" height="16"/>
+  <object id="40" type="Solid" x="160" y="1040" width="16" height="16"/>
+  <object id="41" type="Solid" x="192" y="1008" width="16" height="16"/>
+  <object id="42" type="Solid" x="256" y="1008" width="16" height="16"/>
+  <object id="43" type="Solid" x="256" y="944" width="16" height="16"/>
+  <object id="44" type="Platform" x="288" y="984" width="16" height="3"/>
+  <object id="45" type="Platform" x="288" y="944" width="16" height="3"/>
+  <object id="46" type="Platform" x="272" y="944" width="16" height="3"/>
+  <object id="47" type="Solid" x="208" y="944" width="16" height="16"/>
+  <object id="48" type="Solid" x="160" y="944" width="16" height="16"/>
+  <object id="49" type="Solid" x="112" y="944" width="16" height="16"/>
+  <object id="51" type="Solid" x="48" y="928" width="224" height="8"/>
+  <object id="52" type="Solid" x="256" y="912" width="16" height="16"/>
+  <object id="53" type="Solid" x="256" y="896" width="48" height="16"/>
+  <object id="54" type="Platform" x="48" y="944" width="16" height="3"/>
+  <object id="55" type="Platform" x="16" y="944" width="16" height="3"/>
+  <object id="56" type="Solid" x="64" y="944" width="16" height="16"/>
+  <object id="57" x="288" y="896">
+   <properties>
+    <property name="delay" type="int" value="60"/>
+    <property name="steps" type="int" value="10"/>
+   </properties>
+   <polyline points="-16,0 -16,-32"/>
+  </object>
+  <object id="58" type="MovingSolid" x="256" y="880" width="16" height="8">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="57"/>
+   </properties>
+  </object>
+  <object id="59" type="Saw" x="272" y="784">
+   <point/>
+  </object>
+  <object id="60" type="Saw" x="240" y="784">
+   <point/>
+  </object>
+  <object id="61" type="Saw" x="200" y="800">
+   <point/>
+  </object>
+  <object id="62" type="Saw" x="160" y="800">
+   <point/>
+  </object>
+  <object id="63" type="Saw" x="120" y="800">
+   <point/>
+  </object>
+  <object id="65" type="Platform" x="48" y="800" width="16" height="3"/>
+  <object id="66" type="Solid" x="64" y="784" width="32" height="8"/>
+  <object id="67" type="Solid" x="64" y="752" width="240" height="32"/>
+  <object id="68" type="Solid" x="96" y="832" width="16" height="16"/>
+  <object id="69" type="Solid" x="144" y="832" width="16" height="16"/>
+  <object id="70" type="Solid" x="224" y="832" width="16" height="16"/>
+  <object id="71" type="Saw" x="192" y="864">
+   <point/>
+  </object>
+  <object id="73" x="88.2424" y="496">
+   <properties>
+    <property name="delay" type="int" value="60"/>
+    <property name="steps" type="int" value="10"/>
+   </properties>
+   <polyline points="-8.24242,0 8.24242,-16"/>
+  </object>
+  <object id="74" type="MovingSolid" x="64" y="480" width="16" height="8">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="73"/>
+   </properties>
+  </object>
+  <object id="75" x="80" y="752">
+   <properties>
+    <property name="delay" type="int" value="20"/>
+    <property name="steps" type="int" value="10"/>
+   </properties>
+   <polyline points="0,0 0,-32"/>
+  </object>
+  <object id="76" type="MovingSolid" x="80" y="752" width="16" height="8">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="75"/>
+   </properties>
+  </object>
+  <object id="78" x="192" y="688">
+   <properties>
+    <property name="delay" type="int" value="0"/>
+    <property name="steps" type="int" value="60"/>
+   </properties>
+   <polyline points="-32,-32 80,-32 80,-80"/>
+  </object>
+  <object id="79" type="MovingSolid" x="160" y="656" width="16" height="8">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="78"/>
+   </properties>
+  </object>
+  <object id="80" type="Platform" x="48" y="768" width="16" height="3"/>
+  <object id="81" type="Platform" x="256" y="560" width="16" height="3"/>
+  <object id="82" type="Platform" x="272" y="560" width="16" height="3"/>
+  <object id="83" type="Platform" x="240" y="560" width="16" height="3"/>
+  <object id="84" type="Platform" x="288" y="560" width="16" height="3"/>
+  <object id="86" x="256" y="560">
+   <properties>
+    <property name="delay" type="int" value="60"/>
+    <property name="steps" type="int" value="10"/>
+   </properties>
+   <polyline points="-16,0 -48,-32"/>
+  </object>
+  <object id="87" type="MovingSolid" x="224" y="544" width="16" height="8">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="86"/>
+   </properties>
+  </object>
+  <object id="88" type="Platform" x="208" y="416" width="16" height="3"/>
+  <object id="89" type="Saw" x="224" y="496">
+   <point/>
+  </object>
+  <object id="90" type="Saw" x="288" y="496">
+   <point/>
+  </object>
+  <object id="91" type="Saw" x="256" y="496">
+   <point/>
+  </object>
+  <object id="93" type="Platform" x="224" y="416" width="16" height="3"/>
+  <object id="94" type="Platform" x="192" y="416" width="16" height="3"/>
+  <object id="96" type="Platform" x="256" y="416" width="16" height="3"/>
+  <object id="97" type="Platform" x="240" y="416" width="16" height="3"/>
+  <object id="98" type="Platform" x="176" y="416" width="16" height="3"/>
+  <object id="99" type="Solid" x="48" y="368" width="224" height="32"/>
+  <object id="102" x="224" y="448">
+   <properties>
+    <property name="delay" type="int" value="29"/>
+    <property name="steps" type="int" value="10"/>
+   </properties>
+   <polyline points="-48,-16 -48,-32"/>
+  </object>
+  <object id="103" type="MovingSolid" x="176" y="432" width="16" height="8">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="102"/>
+   </properties>
+  </object>
+  <object id="104" type="Saw" x="184" y="432">
+   <point/>
+  </object>
+  <object id="105" type="Saw" x="216" y="432">
+   <point/>
+  </object>
+  <object id="106" type="Saw" x="248" y="432">
+   <point/>
+  </object>
+  <object id="107" type="Saw" x="280" y="432">
+   <point/>
+  </object>
+  <object id="108" type="Platform" x="272" y="416" width="16" height="3"/>
+  <object id="109" type="Platform" x="288" y="416" width="16" height="3"/>
+  <object id="112" x="256" y="448">
+   <properties>
+    <property name="delay" type="int" value="31"/>
+    <property name="steps" type="int" value="10"/>
+   </properties>
+   <polyline points="-48,-16 -48,-32"/>
+  </object>
+  <object id="113" type="MovingSolid" x="208" y="432" width="16" height="8">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="112"/>
+   </properties>
+  </object>
+  <object id="116" x="288" y="448">
+   <properties>
+    <property name="delay" type="int" value="3"/>
+    <property name="steps" type="int" value="10"/>
+   </properties>
+   <polyline points="-48,-16 -48,-32"/>
+  </object>
+  <object id="117" type="MovingSolid" x="240" y="432" width="16" height="8">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="116"/>
+   </properties>
+  </object>
+  <object id="120" x="320" y="448">
+   <properties>
+    <property name="delay" type="int" value="60"/>
+    <property name="steps" type="int" value="23"/>
+   </properties>
+   <polyline points="-48,-16 -48,-32"/>
+  </object>
+  <object id="121" type="MovingSolid" x="272" y="432" width="16" height="8">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="120"/>
+   </properties>
+  </object>
+  <object id="124" type="Solid" x="32" y="576" width="16" height="192"/>
+  <object id="125" type="Solid" x="32" y="768" width="16" height="64"/>
+  <object id="126" type="Solid" x="32" y="384" width="16" height="192"/>
+  <object id="127" type="Solid" x="48" y="256" width="16" height="112"/>
+  <object id="128" type="Platform" x="256" y="592" width="16" height="3"/>
+  <object id="129" type="Platform" x="272" y="592" width="16" height="3"/>
+  <object id="130" type="Solid" x="32" y="368" width="16" height="16"/>
+  <object id="131" type="Platform" x="16" y="144" width="16" height="3"/>
+  <object id="132" x="256" y="352">
+   <properties>
+    <property name="delay" type="int" value="60"/>
+    <property name="steps" type="int" value="10"/>
+   </properties>
+   <polyline points="-16,0 -48,-32"/>
+  </object>
+  <object id="133" type="MovingSolid" x="224" y="336" width="16" height="8">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="132"/>
+   </properties>
+  </object>
+  <object id="134" type="Platform" x="272" y="384" width="16" height="3"/>
+  <object id="135" type="Platform" x="288" y="384" width="16" height="3"/>
+  <object id="136" type="Platform" x="272" y="368" width="16" height="3"/>
+  <object id="137" type="Platform" x="288" y="368" width="16" height="3"/>
+  <object id="138" type="Platform" x="32" y="144" width="16" height="3"/>
+  <object id="139" type="Saw" x="80" y="256">
+   <point/>
+  </object>
+  <object id="140" type="Saw" x="96" y="256">
+   <point/>
+  </object>
+  <object id="142" type="Platform" x="16" y="64" width="16" height="3"/>
+  <object id="143" type="Platform" x="32" y="64" width="16" height="3"/>
+  <object id="144" x="112" y="48">
+   <properties>
+    <property name="delay" type="int" value="20"/>
+    <property name="steps" type="int" value="30"/>
+   </properties>
+   <polyline points="-48,-16 -48,-32"/>
+  </object>
+  <object id="145" type="MovingSolid" x="64" y="32" width="32" height="16">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="144"/>
+   </properties>
+  </object>
+  <object id="150" type="Platform" x="16" y="208" width="16" height="3"/>
+  <object id="151" type="Platform" x="32" y="208" width="16" height="3"/>
+  <object id="152" type="Platform" x="16" y="176" width="16" height="3"/>
+  <object id="153" type="Platform" x="32" y="176" width="16" height="3"/>
+  <object id="154" type="Platform" x="16" y="104" width="16" height="3"/>
+  <object id="155" type="Platform" x="32" y="104" width="16" height="3"/>
+  <object id="158" x="112" y="80">
+   <properties>
+    <property name="delay" type="int" value="20"/>
+    <property name="steps" type="int" value="30"/>
+   </properties>
+   <polyline points="-48,-32 -48,-16"/>
+  </object>
+  <object id="159" type="MovingSolid" x="64" y="64" width="32" height="16">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="158"/>
+   </properties>
+  </object>
+  <object id="160" x="144" y="64">
+   <properties>
+    <property name="delay" type="int" value="30"/>
+    <property name="steps" type="int" value="30"/>
+   </properties>
+   <polyline points="-48,-16 -48,-32"/>
+  </object>
+  <object id="161" type="MovingSolid" x="96" y="48" width="32" height="16">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="160"/>
+   </properties>
+  </object>
+  <object id="162" x="144" y="96">
+   <properties>
+    <property name="delay" type="int" value="30"/>
+    <property name="steps" type="int" value="30"/>
+   </properties>
+   <polyline points="-48,-32 -48,-16"/>
+  </object>
+  <object id="163" type="MovingSolid" x="96" y="80" width="32" height="16">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="162"/>
+   </properties>
+  </object>
+  <object id="164" x="176" y="80">
+   <properties>
+    <property name="delay" type="int" value="40"/>
+    <property name="steps" type="int" value="30"/>
+   </properties>
+   <polyline points="-48,-16 -48,-32"/>
+  </object>
+  <object id="165" type="MovingSolid" x="128" y="64" width="32" height="16">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="164"/>
+   </properties>
+  </object>
+  <object id="166" x="176" y="112">
+   <properties>
+    <property name="delay" type="int" value="40"/>
+    <property name="steps" type="int" value="30"/>
+   </properties>
+   <polyline points="-48,-32 -48,-16"/>
+  </object>
+  <object id="167" type="MovingSolid" x="128" y="96" width="32" height="16">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="166"/>
+   </properties>
+  </object>
+  <object id="168" x="208" y="96">
+   <properties>
+    <property name="delay" type="int" value="50"/>
+    <property name="steps" type="int" value="30"/>
+   </properties>
+   <polyline points="-48,-16 -48,-32"/>
+  </object>
+  <object id="169" type="MovingSolid" x="160" y="80" width="32" height="16">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="168"/>
+   </properties>
+  </object>
+  <object id="170" x="208" y="128">
+   <properties>
+    <property name="delay" type="int" value="50"/>
+    <property name="steps" type="int" value="30"/>
+   </properties>
+   <polyline points="-48,-32 -48,-16"/>
+  </object>
+  <object id="171" type="MovingSolid" x="160" y="112" width="32" height="16">
+   <properties>
+    <property name="launch" type="bool" value="false"/>
+    <property name="path" type="object" value="170"/>
+   </properties>
+  </object>
+  <object id="176" type="Saw" x="112" y="128">
+   <point/>
+  </object>
+  <object id="177" type="Saw" x="80" y="112">
+   <point/>
+  </object>
+  <object id="178" type="Saw" x="144" y="144">
+   <point/>
+  </object>
+  <object id="179" type="Solid" x="176" y="144" width="128" height="16"/>
+  <object id="180" type="Solid" x="240" y="112" width="16" height="16"/>
+  <object id="181" type="Solid" x="208" y="80" width="16" height="16"/>
+  <object id="182" type="Solid" x="176" y="48" width="16" height="16"/>
+  <object id="183" type="Saw" x="240" y="608">
+   <point/>
+  </object>
+  <object id="184" type="Saw" x="240" y="592">
+   <point/>
+  </object>
+  <object id="185" type="Saw" x="208" y="592">
+   <point/>
+  </object>
+  <object id="186" type="Saw" x="176" y="592">
+   <point/>
+  </object>
+  <object id="187" type="Saw" x="80" y="25">
    <point/>
   </object>
  </objectgroup>

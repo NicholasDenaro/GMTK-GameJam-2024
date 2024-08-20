@@ -17,6 +17,10 @@ export class Text extends SpriteEntity {
     }
   }
 
+  setText(text: string) {
+    this.text = text;
+  }
+
   tick(engine: Engine, scene: Scene): Promise<void> | void {
     if (engine.isControl('interact1', ControllerState.Press)) {
       const details = engine.controlDetails('interact1', scene.getView()) as MouseDetails;

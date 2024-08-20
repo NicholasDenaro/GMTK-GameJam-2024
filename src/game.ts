@@ -60,7 +60,7 @@ new Sound('slime-saw', wavAssets('./premade/outputs/Pixabay/floraphonic/goopy-sl
 
 new Sound('button', wavAssets('./premade/outputs/Pixabay/Pixabay/button-press-85188.ogg'))
 
-let _mute: boolean = true;
+let _mute: boolean = false;
 export function mute() {
   _mute = true;
   Music?.volume(0);
@@ -81,18 +81,27 @@ export let Music: {
 };
 
 export function PlayLoop(loop: string) {
-  if (Music.song !== loop) {
+  if (Music?.song !== loop) {
     Music?.stop();
     Music = {
       song: loop,
       ...Sound.Sounds[loop].play()
     };
+    Music.volume(bgmVolume / 100);
     if (isMuted()) {
       mute();
     }
   }
 }
 
+export function PlaySFX(sfx: string) {
+  const playing = Sound.Sounds[sfx].play();
+
+  playing.volume(sfxVolume);
+  return playing;
+}
+
+new Sound('title', wavAssets('./outputs/BeepBox-Title.ogg'), true);
 new Sound('loop1', wavAssets('./outputs/BeepBox-Song.ogg'), true);
 new Sound('loop2', wavAssets('./outputs/BeepBox-Song2.ogg'), true);
 new Sound('loop3', wavAssets('./outputs/BeepBox-Song3.ogg'), true);
@@ -147,8 +156,7 @@ async function init() {
       if (!engine.getActivatedScenes().some(scene => scene.key === 'main-menu')) {
         engine.switchToScene('main-menu');
         view.setOffset(0, 0);
-        Music?.stop();
-        Music = null;
+        PlayLoop('title');
       }
     }
   });
@@ -173,6 +181,11 @@ async function init() {
       playerAbilities.squishDown = true;
       playerAbilities.unSquish = true;
     }
+    if (world[1] === '3') {
+      playerAbilities.squishUp = true;
+      playerAbilities.squishDown = true;
+      playerAbilities.unSquish = true;
+    }
 
     if (positionCheat) {
       const position = positionCheat.split('=')[1].split(',').map(coord => Number(coord));
@@ -184,7 +197,7 @@ async function init() {
     engine.switchToScene('title');
   }
 
-  Sound.setVolume(0.3);
+  Sound.setVolume(mainVolume / 100);
 
   Sound.Sounds['start'].play();
 
@@ -304,10 +317,6 @@ const WorldStages = [
       {
         stage: 3,
         key: 'w2s3',
-      },
-      {
-        stage: 4,
-        key: 'w2s4',
       }
     ]
   },
@@ -336,6 +345,11 @@ export function nextStage(stage: string = undefined) {
     playerAbilities.unSquish = false;
   }
   if (World === 2) {
+    playerAbilities.squishUp = true;
+    playerAbilities.squishDown = true;
+    playerAbilities.unSquish = true;
+  }
+  if (World === 3) {
     playerAbilities.squishUp = true;
     playerAbilities.squishDown = true;
     playerAbilities.unSquish = true;
@@ -386,6 +400,11 @@ export function nextStage(stage: string = undefined) {
     playerAbilities.squishDown = true;
     playerAbilities.unSquish = true;
   }
+  if (World === 3) {
+    playerAbilities.squishUp = true;
+    playerAbilities.squishDown = true;
+    playerAbilities.unSquish = true;
+  }
 
   // TODO: reset the state of the level
   nextScene = engine.getScene(WorldStages.find(world => world.world === World).stages.find(stage => stage.stage === Stage).key);
@@ -412,11 +431,28 @@ function loadSaveData() {
   if (lastStageString) {
     SaveData.lastStage = JSON.parse(lastStageString);
   }
+
+  const mainVolumeString = window.localStorage.getItem('mainVolume');
+  if (mainVolumeString) {
+    mainVolume = Number(mainVolume);
+    Sound.setVolume(mainVolume);
+  }
+  const bgmVolumeString = window.localStorage.getItem('bgmVolume');
+  if (bgmVolumeString) {
+    bgmVolume = Number(bgmVolume);
+  }
+  const sfxVolumeString = window.localStorage.getItem('sfxVolume');
+  if (sfxVolumeString) {
+    sfxVolume = Number(sfxVolume);
+  }
 }
 
 function saveData() {
   window.localStorage.setItem('unlocked', JSON.stringify(SaveData.unlocked));
   window.localStorage.setItem('lastStage', JSON.stringify(SaveData.lastStage));
+  window.localStorage.setItem('mainVolume', `${mainVolume}`);
+  window.localStorage.setItem('bgmVolume', `${bgmVolume}`);
+  window.localStorage.setItem('sfxVolume', `${sfxVolume}`);
 }
 
 function createTitleScreen(view: View): Scene {
@@ -431,6 +467,7 @@ function createGMTKSplashScreen(view: View): Scene {
   scene.addEntity(new ImageEntity(Sprite.Sprites['gmtk-splash'], 0, 0));
   scene.addEntity(new Timer(60, () => {
     engine.switchToScene('main-menu');
+    PlayLoop('title');
   }));
   return scene;
 }
@@ -466,6 +503,9 @@ function createMainMenu(view: View): Scene {
 
 function createWorldSelect(view: View): Scene {
   const scene = new Scene('world-select', view);
+  scene.addEntity(new Text(16, 16, 'X', () => {
+    engine.switchToScene('main-menu');
+  }, 16));
 
   for (let w = 1; w < 4; w++) {
     if (SaveData.unlocked.find(unlock => unlock.world === w)) {
@@ -488,9 +528,79 @@ function createWorldSelect(view: View): Scene {
   
   return scene;
 }
+
+let mainVolume: number = 30;
+let bgmVolume: number = 100;
+let sfxVolume: number = 100;
 function createOptions(view: View): Scene {
   const scene = new Scene('options', view);
+  scene.addEntity(new Text(32, 32, 'X', () => {
+    engine.switchToScene('main-menu');
+  }, 16));
+
   scene.addEntity(new Text(screenWidth / 2, screenHeight / 4, 'Options', null, 16));
+
+  scene.addEntity(new Text(48, screenHeight / 4 + 32, 'Main Volume:', null, 16, false));
+  const volumeEntity = new Text(screenWidth * 3 / 4, screenHeight / 4 + 32, '30%', null, 16, false);
+  scene.addEntity(volumeEntity);
+  scene.addEntity(new Text(screenWidth * 3 / 4 - 32, screenHeight / 4 + 32, '-', () => {
+    if (mainVolume > 0) {
+      mainVolume -= 10;
+      volumeEntity.setText(`${mainVolume}%`);
+      Sound.setVolume(mainVolume / 100);
+      Music.volume(mainVolume / 100 * bgmVolume / 100);
+    }
+  }, 16, false));
+  scene.addEntity(new Text(screenWidth * 3 / 4 + 32, screenHeight / 4 + 32, '+', () => {
+    if (mainVolume < 100) {
+      mainVolume += 10;
+      volumeEntity.setText(`${mainVolume}%`);
+      Sound.setVolume(mainVolume / 100);
+      Music.volume(mainVolume / 100 * bgmVolume / 100);
+    }
+  }, 16, false));
+
+
+
+  scene.addEntity(new Text(48, screenHeight / 4 + 32 + 32, 'BGM Volume:', null, 16, false));
+  const volumeBGMEntity = new Text(screenWidth * 3 / 4, screenHeight / 4 + 32 + 32, '100%', null, 16, false);
+  scene.addEntity(volumeBGMEntity);
+  scene.addEntity(new Text(screenWidth * 3 / 4 - 32, screenHeight / 4 + 32 + 32, '-', () => {
+    if (bgmVolume > 0) {
+      bgmVolume -= 10;
+      volumeBGMEntity.setText(`${bgmVolume}%`);
+      Sound.setVolume(bgmVolume / 100);
+      Music.volume(mainVolume / 100 * bgmVolume / 100);
+    }
+  }, 16, false));
+  scene.addEntity(new Text(screenWidth * 3 / 4 + 32, screenHeight / 4 + 32 + 32, '+', () => {
+    if (bgmVolume < 100) {
+      bgmVolume += 10;
+      volumeBGMEntity.setText(`${bgmVolume}%`);
+      Sound.setVolume(bgmVolume / 100);
+      Music.volume(mainVolume / 100 * bgmVolume / 100);
+    }
+  }, 16, false));
+
+
+  scene.addEntity(new Text(48, screenHeight / 4 + 32 + 32 + 32, 'SFX Volume:', null, 16, false));
+  const volumeSFXEntity = new Text(screenWidth * 3 / 4, screenHeight / 4 + 32 + 32 + 32, '100%', null, 16, false);
+  scene.addEntity(volumeSFXEntity);
+  scene.addEntity(new Text(screenWidth * 3 / 4 - 32, screenHeight / 4 + 32 + 32 + 32, '-', () => {
+    if (sfxVolume > 0) {
+      sfxVolume -= 10;
+      volumeSFXEntity.setText(`${sfxVolume}%`);
+      Sound.setVolume(sfxVolume / 100);
+    }
+  }, 16, false));
+  scene.addEntity(new Text(screenWidth * 3 / 4 + 32, screenHeight / 4 + 32 + 32 + 32, '+', () => {
+    if (sfxVolume < 100) {
+      sfxVolume += 10;
+      volumeSFXEntity.setText(`${sfxVolume}%`);
+      Sound.setVolume(sfxVolume / 100);
+    }
+  }, 16, false));
+
   return scene;
 }
 
