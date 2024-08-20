@@ -33,7 +33,7 @@ export class GmtkTiledLoder extends TiledLoader {
         scene.addEntity(new Player(bounds.x, bounds.y - 1));
         break;
       case 'Solid':
-        scene.addEntity(new Solid(bounds));
+        scene.addEntity(new Solid(bounds, undefined, this.getProperty(object, 'invisible') === 'true'));
         break;
       case 'Platform':
         scene.addEntity(new Platform(bounds));
@@ -61,7 +61,7 @@ export class GmtkTiledLoder extends TiledLoader {
         scene.addEntity(new Saw(bounds.x, bounds.y));
         break;
       case 'Music':
-        const music = new MusicMuter(Sprite.Sprites['music'], bounds.x, bounds.y);
+        const music = new MusicMuter(bounds.x, bounds.y);
         scene.addEntity(music);
         music.zIndex = -100;
         break;

@@ -194,10 +194,10 @@
   <object id="57" type="Saw" x="192" y="256">
    <point/>
   </object>
-  <object id="58" type="Saw" x="96" y="224">
+  <object id="58" type="Saw" x="96" y="208">
    <point/>
   </object>
-  <object id="59" type="Saw" x="160" y="224">
+  <object id="59" type="Saw" x="160" y="208">
    <point/>
   </object>
   <object id="61" type="Music" x="304" y="560">

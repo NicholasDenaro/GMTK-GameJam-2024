@@ -5,6 +5,7 @@ import { ViewStart } from './view-start.js';
 import { Text } from './text.js';
 import { Timer } from './timer.js';
 import { ImageEntity } from './image-entity.js';
+import { MusicMuter } from './music-muter.js';
 
 export const screenWidth = 320;
 export const screenHeight = 192;
@@ -105,6 +106,7 @@ new Sound('title', wavAssets('./outputs/BeepBox-Title.ogg'), true);
 new Sound('loop1', wavAssets('./outputs/BeepBox-Song.ogg'), true);
 new Sound('loop2', wavAssets('./outputs/BeepBox-Song2.ogg'), true);
 new Sound('loop3', wavAssets('./outputs/BeepBox-Song3.ogg'), true);
+new Sound('loop4', wavAssets('./outputs/BeepBox-Victory.ogg'), true);
 
 new Sprite('slime', spriteAssets('./slime.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 8, spriteOffsetY: 15 });
 new Sprite('sign', spriteAssets('./sign.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 8, spriteOffsetY: 15 });
@@ -118,6 +120,8 @@ new Sprite('key', spriteAssets('./key.png'), { spriteWidth: 16, spriteHeight: 16
 new Sprite('lock', spriteAssets('./lock.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 0, spriteOffsetY: 0 });
 new Sprite('button', spriteAssets('./button.png'), { spriteWidth: 16, spriteHeight: 5, spriteOffsetX: 0, spriteOffsetY: 0 });
 new Sprite('orb', spriteAssets('./orb.png'), { spriteWidth: 16, spriteHeight: 16, spriteOffsetX: 8, spriteOffsetY: 8 });
+
+new Sprite('title', spriteAssets('./title.png'), { spriteWidth: 320, spriteHeight: 192, spriteOffsetX: 0, spriteOffsetY: 0 });
 
 async function init() {
 
@@ -182,6 +186,11 @@ async function init() {
       playerAbilities.unSquish = true;
     }
     if (world[1] === '3') {
+      playerAbilities.squishUp = true;
+      playerAbilities.squishDown = true;
+      playerAbilities.unSquish = true;
+    }
+    if (world[1] === '4') {
       playerAbilities.squishUp = true;
       playerAbilities.squishDown = true;
       playerAbilities.unSquish = true;
@@ -332,6 +341,16 @@ const WorldStages = [
       },
     ]
   },
+  {
+    world: 4,
+    name: 'The Pinacle',
+    stages: [
+      {
+        stage: 1,
+        key: 'w4s1',
+      },
+    ]
+  },
 ]
 let World = 1;
 let Stage = 1;
@@ -348,6 +367,11 @@ export function nextStage(stage: string = undefined) {
     playerAbilities.unSquish = true;
   }
   if (World === 3) {
+    playerAbilities.squishUp = true;
+    playerAbilities.squishDown = true;
+    playerAbilities.unSquish = true;
+  }
+  if (World === 4) {
     playerAbilities.squishUp = true;
     playerAbilities.squishDown = true;
     playerAbilities.unSquish = true;
@@ -383,6 +407,7 @@ export function nextStage(stage: string = undefined) {
     console.log(`next world: ${World}`);
   } else {
     nextScene = engine.getScene(`victory`);
+    (nextScene.getView() as Canvas2DView).setOffset(0, 0);
     saveData();
     engine.switchToScene(nextScene.key);
     return;
@@ -399,6 +424,11 @@ export function nextStage(stage: string = undefined) {
     playerAbilities.unSquish = true;
   }
   if (World === 3) {
+    playerAbilities.squishUp = true;
+    playerAbilities.squishDown = true;
+    playerAbilities.unSquish = true;
+  }
+  if (World === 4) {
     playerAbilities.squishUp = true;
     playerAbilities.squishDown = true;
     playerAbilities.unSquish = true;
@@ -472,7 +502,8 @@ function createGMTKSplashScreen(view: View): Scene {
 
 function createMainMenu(view: View): Scene {
   const scene = new Scene('main-menu', view);
-  scene.addEntity(new Text(screenWidth / 2, screenHeight / 4, 'Slimb Climb', null, 16));
+  scene.addEntity(new ImageEntity(Sprite.Sprites['title'], 0, 0));
+  // scene.addEntity(new Text(screenWidth / 2, screenHeight / 4, 'Slimb Climb', null, 16));
 
   let i = 0;
   const baseY = screenHeight * 3 / 4 - 32;
@@ -496,6 +527,8 @@ function createMainMenu(view: View): Scene {
   scene.addEntity(new Text(screenWidth / 2, baseY + i++ * 16, 'Credits', () => {
     engine.switchToScene('credits');
   }, 16));
+
+  scene.addEntity(new MusicMuter());
   return scene;
 }
 
@@ -505,7 +538,7 @@ function createWorldSelect(view: View): Scene {
     engine.switchToScene('main-menu');
   }, 16));
 
-  for (let w = 1; w < 4; w++) {
+  for (let w = 1; w < 5; w++) {
     if (SaveData.unlocked.find(unlock => unlock.world === w)) {
       scene.addEntity(new Text(32, 32 + (w - 1) * 32, `Chapter ${w} - ${WorldStages.find(world => world.world === w).name}`, () => { }, 16, false));
       for (let s = 1; s < 5; s++) {
@@ -523,6 +556,8 @@ function createWorldSelect(view: View): Scene {
       }
     }
   }
+
+  scene.addEntity(new MusicMuter());
   
   return scene;
 }
@@ -605,18 +640,24 @@ function createOptions(view: View): Scene {
     }
   }, 16, false));
 
+  scene.addEntity(new MusicMuter());
+
   return scene;
 }
 
 function createCredits(view: View): Scene {
   const scene = new Scene('credits', view);
   scene.addEntity(new Text(screenWidth / 2, screenHeight / 4, 'Credits', null, 16));
+
+  scene.addEntity(new MusicMuter());
   return scene;
 }
 
 function createVictory(view: View): Scene {
   const scene = new Scene('victory', view);
   scene.addEntity(new Text(screenWidth / 2, screenHeight / 4, 'Victory', null, 16));
+
+  scene.addEntity(new MusicMuter());
   return scene;
 }
 

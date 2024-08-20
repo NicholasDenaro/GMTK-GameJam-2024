@@ -23,7 +23,7 @@
         },
         "tileset.tsx": {
             "scaleInDock": 4,
-            "scaleInEditor": 23
+            "scaleInEditor": 8
         },
         "w1s1.tmx": {
             "expandedObjectLayers": [
@@ -52,7 +52,7 @@
                 3
             ],
             "scale": 3,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
                 "x": 173.49999999999997,
                 "y": 133.5
@@ -65,8 +65,8 @@
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 157.49999999999997,
-                "y": 441.5
+                "x": 129.16666666666669,
+                "y": 433.16666666666663
             }
         },
         "world1/w1s3.tmx": {
@@ -74,10 +74,10 @@
                 3
             ],
             "scale": 3,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 115.49999999999999,
-                "y": 81.49999999999999
+                "x": 154.16666666666669,
+                "y": 146.5
             }
         },
         "world1/w1s4.tmx": {
@@ -87,8 +87,8 @@
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 172.83333333333331,
-                "y": 502.16666666666663
+                "x": 161.83333333333331,
+                "y": 417.5
             }
         },
         "world1/w1template.tmx": {
@@ -106,11 +106,11 @@
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 4,
-            "selectedLayer": 1,
+            "scale": 3,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 192.625,
-                "y": 465.625
+                "x": 151.5,
+                "y": 118.49999999999999
             }
         },
         "world2/w2s2.tmx": {
@@ -118,21 +118,21 @@
                 3
             ],
             "scale": 4,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 130.375,
-                "y": 67.625
+                "x": 143.625,
+                "y": 447.125
             }
         },
         "world2/w2s3.tmx": {
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 1.5,
-            "selectedLayer": 1,
+            "scale": 23,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 89,
-                "y": 139.66666666666663
+                "x": 235.67391304347825,
+                "y": 489.8913043478261
             }
         },
         "world2/w2s4.tmx": {
@@ -155,19 +155,33 @@
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 4,
+            "scale": 1,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 154.125,
-                "y": 97.125
+                "x": 229.5,
+                "y": 848.5
             }
         },
         "world3/w3s2.tmx": {
-            "scale": 1.9989583333333332,
-            "selectedLayer": 0,
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 5.5,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 159.83324648254302,
-                "y": 287.89994788952583
+                "x": 163.1818181818182,
+                "y": 466.0909090909091
+            }
+        },
+        "world4/w4s1.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 11,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 105.5,
+                "y": 546.0454545454545
             }
         }
     },
@@ -182,18 +196,18 @@
     "project": "gmtk2024.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "world1/w1s2.tmx",
-        "world1/w1s3.tmx",
-        "world1/w1s4.tmx",
+        "world3/w3s1.tmx",
+        "world2/w2s3.tmx",
         "world2/w2s2.tmx",
         "world2/w2s1.tmx",
+        "world1/w1s3.tmx",
+        "world4/w4s1.tmx",
         "world3/w3s2.tmx",
-        "world2/w2s3.tmx",
-        "world3/w3s1.tmx",
         "world1/w1s1.tmx",
-        "world2/w2s4.tmx",
-        "world2/w2template.tmx",
-        "dev-room.tmx"
+        "tileset.tsx",
+        "world1/w1s4.tmx",
+        "world1/w1s2.tmx",
+        "world2/w2s4.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

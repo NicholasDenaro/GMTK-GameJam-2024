@@ -2,7 +2,7 @@ import { Engine, PainterContext, Rectangle, Scene, Sprite, SpriteEntity, SpriteP
 
 export class Solid extends SpriteEntity {
   protected color: string = 'black';
-  constructor(bounds: Rectangle, sprite: Sprite = undefined) {
+  constructor(bounds: Rectangle, sprite: Sprite = undefined, private invisible: boolean = false) {
     super(new SpritePainter(sprite ?? ((ctx) => this.draw(ctx)), {spriteWidth: bounds.width, spriteHeight: bounds.height}));
     this.bounds = bounds;
   }
@@ -11,7 +11,9 @@ export class Solid extends SpriteEntity {
   }
 
   protected draw(ctx: PainterContext) {
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
+    if (!this.invisible) {
+      ctx.fillStyle = this.color;
+      ctx.fillRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
+    }
   }
 }

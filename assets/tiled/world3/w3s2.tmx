@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="36" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="22">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="36" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="28">
  <tileset firstgid="1" source="../tileset.tsx"/>
  <layer id="2" name="Background" width="20" height="36">
   <properties>
@@ -74,17 +74,17 @@
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,2,
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,2
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,13,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,10,15,11,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,10,15,2,2,2,15,11,0,0,0,17,
+18,0,0,0,0,0,0,0,10,2,2,2,2,2,2,2,11,0,0,17,
+18,0,0,0,0,0,0,10,2,2,2,2,2,2,2,2,2,11,0,17,
+18,0,0,0,0,0,10,2,2,2,2,2,2,2,2,2,2,2,15,2,
+2,15,15,15,15,15,2,2,2,2,2,2,2,2,2,2,2,2,2,2
 </data>
  </layer>
  <objectgroup id="3" name="Object Layer 1">
@@ -111,6 +111,17 @@
   <object id="19" type="Solid" x="0" y="176" width="160" height="16"/>
   <object id="20" type="Solid" x="160" y="176" width="160" height="16"/>
   <object id="21" type="Music" x="304" y="560">
+   <point/>
+  </object>
+  <object id="22" type="Solid" x="96" y="544" width="208" height="16"/>
+  <object id="23" type="Solid" x="112" y="528" width="176" height="16"/>
+  <object id="24" type="Solid" x="128" y="512" width="144" height="16"/>
+  <object id="25" type="Solid" x="176" y="480" width="48" height="16"/>
+  <object id="26" type="Solid" x="144" y="496" width="112" height="16"/>
+  <object id="27" type="Orb" x="200" y="464">
+   <properties>
+    <property name="text" value="You've made it.|Hooray!"/>
+   </properties>
    <point/>
   </object>
  </objectgroup>

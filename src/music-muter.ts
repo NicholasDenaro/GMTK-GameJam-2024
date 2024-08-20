@@ -1,8 +1,12 @@
-import { Canvas2DView, ControllerState, Engine, MouseDetails, Scene, SpriteEntity } from 'game-engine';
+import { Canvas2DView, ControllerState, Engine, MouseDetails, Scene, Sprite, SpriteEntity } from 'game-engine';
 import { ImageEntity } from './image-entity.js';
 import { collisionPoint, isMuted, Music, mute, screenHeight, screenWidth, unmute } from './game.js';
 
 export class MusicMuter extends ImageEntity {
+  constructor(x: number = 0, y: number = 0) {
+    super(Sprite.Sprites['music'], x, y);
+  }
+
   tick(engine: Engine, scene: Scene): Promise<void> | void {
     const view = scene.getView() as Canvas2DView;
     if (engine.isControl('interact1', ControllerState.Press)) {
