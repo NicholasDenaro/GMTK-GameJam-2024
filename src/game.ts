@@ -277,8 +277,6 @@ const gamepadMap = [
   }
 ];
 
-init();
-
 const WorldStages = [
   {
     world: 1,
@@ -434,16 +432,16 @@ function loadSaveData() {
 
   const mainVolumeString = window.localStorage.getItem('mainVolume');
   if (mainVolumeString) {
-    mainVolume = Number(mainVolume);
+    mainVolume = Number(mainVolumeString);
     Sound.setVolume(mainVolume);
   }
   const bgmVolumeString = window.localStorage.getItem('bgmVolume');
   if (bgmVolumeString) {
-    bgmVolume = Number(bgmVolume);
+    bgmVolume = Number(bgmVolumeString);
   }
   const sfxVolumeString = window.localStorage.getItem('sfxVolume');
   if (sfxVolumeString) {
-    sfxVolume = Number(sfxVolume);
+    sfxVolume = Number(sfxVolumeString);
   }
 }
 
@@ -541,7 +539,7 @@ function createOptions(view: View): Scene {
   scene.addEntity(new Text(screenWidth / 2, screenHeight / 4, 'Options', null, 16));
 
   scene.addEntity(new Text(48, screenHeight / 4 + 32, 'Main Volume:', null, 16, false));
-  const volumeEntity = new Text(screenWidth * 3 / 4, screenHeight / 4 + 32, '30%', null, 16, false);
+  const volumeEntity = new Text(screenWidth * 3 / 4, screenHeight / 4 + 32, `${mainVolume}%`, null, 16, false);
   scene.addEntity(volumeEntity);
   scene.addEntity(new Text(screenWidth * 3 / 4 - 32, screenHeight / 4 + 32, '-', () => {
     if (mainVolume > 0) {
@@ -549,6 +547,7 @@ function createOptions(view: View): Scene {
       volumeEntity.setText(`${mainVolume}%`);
       Sound.setVolume(mainVolume / 100);
       Music.volume(mainVolume / 100 * bgmVolume / 100);
+      saveData();
     }
   }, 16, false));
   scene.addEntity(new Text(screenWidth * 3 / 4 + 32, screenHeight / 4 + 32, '+', () => {
@@ -557,13 +556,14 @@ function createOptions(view: View): Scene {
       volumeEntity.setText(`${mainVolume}%`);
       Sound.setVolume(mainVolume / 100);
       Music.volume(mainVolume / 100 * bgmVolume / 100);
+      saveData();
     }
   }, 16, false));
 
 
 
   scene.addEntity(new Text(48, screenHeight / 4 + 32 + 32, 'BGM Volume:', null, 16, false));
-  const volumeBGMEntity = new Text(screenWidth * 3 / 4, screenHeight / 4 + 32 + 32, '100%', null, 16, false);
+  const volumeBGMEntity = new Text(screenWidth * 3 / 4, screenHeight / 4 + 32 + 32, `${bgmVolume}%`, null, 16, false);
   scene.addEntity(volumeBGMEntity);
   scene.addEntity(new Text(screenWidth * 3 / 4 - 32, screenHeight / 4 + 32 + 32, '-', () => {
     if (bgmVolume > 0) {
@@ -571,6 +571,7 @@ function createOptions(view: View): Scene {
       volumeBGMEntity.setText(`${bgmVolume}%`);
       Sound.setVolume(bgmVolume / 100);
       Music.volume(mainVolume / 100 * bgmVolume / 100);
+      saveData();
     }
   }, 16, false));
   scene.addEntity(new Text(screenWidth * 3 / 4 + 32, screenHeight / 4 + 32 + 32, '+', () => {
@@ -579,18 +580,20 @@ function createOptions(view: View): Scene {
       volumeBGMEntity.setText(`${bgmVolume}%`);
       Sound.setVolume(bgmVolume / 100);
       Music.volume(mainVolume / 100 * bgmVolume / 100);
+      saveData();
     }
   }, 16, false));
 
 
   scene.addEntity(new Text(48, screenHeight / 4 + 32 + 32 + 32, 'SFX Volume:', null, 16, false));
-  const volumeSFXEntity = new Text(screenWidth * 3 / 4, screenHeight / 4 + 32 + 32 + 32, '100%', null, 16, false);
+  const volumeSFXEntity = new Text(screenWidth * 3 / 4, screenHeight / 4 + 32 + 32 + 32, `${sfxVolume}%`, null, 16, false);
   scene.addEntity(volumeSFXEntity);
   scene.addEntity(new Text(screenWidth * 3 / 4 - 32, screenHeight / 4 + 32 + 32 + 32, '-', () => {
     if (sfxVolume > 0) {
       sfxVolume -= 10;
       volumeSFXEntity.setText(`${sfxVolume}%`);
       Sound.setVolume(sfxVolume / 100);
+      saveData();
     }
   }, 16, false));
   scene.addEntity(new Text(screenWidth * 3 / 4 + 32, screenHeight / 4 + 32 + 32 + 32, '+', () => {
@@ -598,6 +601,7 @@ function createOptions(view: View): Scene {
       sfxVolume += 10;
       volumeSFXEntity.setText(`${sfxVolume}%`);
       Sound.setVolume(sfxVolume / 100);
+      saveData();
     }
   }, 16, false));
 
@@ -639,3 +643,6 @@ window.addEventListener("keydown", function (e) {
     e.preventDefault();
   }
 }, false);
+
+// This needs to be last for some things, like loading save data
+init();

@@ -52,21 +52,21 @@
                 3
             ],
             "scale": 3,
-            "selectedLayer": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 213.49999999999997,
-                "y": 77.83333333333331
+                "x": 173.49999999999997,
+                "y": 133.5
             }
         },
         "world1/w1s2.tmx": {
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 2,
-            "selectedLayer": 2,
+            "scale": 3,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 187.75,
-                "y": 277.75
+                "x": 157.49999999999997,
+                "y": 441.5
             }
         },
         "world1/w1s3.tmx": {
@@ -74,21 +74,21 @@
                 3
             ],
             "scale": 3,
-            "selectedLayer": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 166.16666666666669,
-                "y": 471.8333333333333
+                "x": 115.49999999999999,
+                "y": 81.49999999999999
             }
         },
         "world1/w1s4.tmx": {
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 2,
-            "selectedLayer": 2,
+            "scale": 3,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 189.25,
-                "y": 519.25
+                "x": 172.83333333333331,
+                "y": 502.16666666666663
             }
         },
         "world1/w1template.tmx": {
@@ -106,11 +106,11 @@
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 2,
-            "selectedLayer": 2,
+            "scale": 4,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 140.25,
-                "y": 253.25
+                "x": 192.625,
+                "y": 465.625
             }
         },
         "world2/w2s2.tmx": {
@@ -118,21 +118,21 @@
                 3
             ],
             "scale": 4,
-            "selectedLayer": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 153.125,
-                "y": 152.875
+                "x": 130.375,
+                "y": 67.625
             }
         },
         "world2/w2s3.tmx": {
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 4,
-            "selectedLayer": 2,
+            "scale": 1.5,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 149.125,
-                "y": 472.375
+                "x": 89,
+                "y": 139.66666666666663
             }
         },
         "world2/w2s4.tmx": {
@@ -155,11 +155,19 @@
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 2,
-            "selectedLayer": 2,
+            "scale": 4,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 132.25,
-                "y": 943.25
+                "x": 154.125,
+                "y": 97.125
+            }
+        },
+        "world3/w3s2.tmx": {
+            "scale": 1.9989583333333332,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 159.83324648254302,
+                "y": 287.89994788952583
             }
         }
     },
@@ -174,18 +182,18 @@
     "project": "gmtk2024.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "world2/w2s1.tmx",
-        "world2/w2s3.tmx",
+        "world1/w1s2.tmx",
+        "world1/w1s3.tmx",
         "world1/w1s4.tmx",
         "world2/w2s2.tmx",
+        "world2/w2s1.tmx",
+        "world3/w3s2.tmx",
+        "world2/w2s3.tmx",
+        "world3/w3s1.tmx",
+        "world1/w1s1.tmx",
         "world2/w2s4.tmx",
         "world2/w2template.tmx",
-        "world1/w1s1.tmx",
-        "world1/w1s3.tmx",
-        "world1/w1s2.tmx",
-        "dev-room.tmx",
-        "world1/w1template.tmx",
-        "tileset.tsx"
+        "dev-room.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

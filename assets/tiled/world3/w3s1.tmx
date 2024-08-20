@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="72" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="188">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="72" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="225">
  <tileset firstgid="1" source="../tileset.tsx"/>
  <layer id="2" name="Background" width="20" height="72">
   <properties>
@@ -85,77 +85,77 @@
    <property name="zindex" type="int" value="-1"/>
   </properties>
   <data encoding="csv">
-2,2,2,2,2,2,2,2,2,0,2,2,2,2,2,2,2,2,2,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,15,15,15,15,15,15,15,15,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,15,2,15,15,15,15,15,15,15,15,15,15,15,15,15,0,0,2,
-2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,2,
-2,0,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-2,0,2,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,15,0,0,15,0,0,0,0,15,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,15,15,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,
-2,0,0,4,4,4,4,4,4,4,4,4,4,4,4,4,3,0,0,2,
-2,0,0,0,15,0,0,15,0,0,15,0,0,15,0,0,15,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,15,0,0,0,15,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,2,2,2,2,2,2,2,18,0,17,2,2,2,2,2,2,2,2,2,
+18,0,0,0,17,2,2,2,18,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,17,2,2,11,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,17,2,15,11,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,17,18,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,8,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,10,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,2,
+18,0,0,17,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+18,0,0,0,0,0,0,0,17,2,2,2,2,2,2,2,2,2,2,2,
+18,0,0,0,0,0,0,0,0,0,17,2,2,2,2,2,2,2,2,2,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,19,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,19,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,19,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,19,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,19,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,19,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,10,15,15,15,15,15,15,15,15,15,15,15,15,15,11,0,0,17,
+18,0,17,2,2,2,2,2,2,2,2,2,2,2,2,2,18,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,10,15,15,15,15,11,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,17,2,2,2,2,18,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+2,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+2,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+2,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+2,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+2,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+2,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,10,15,15,15,15,15,15,15,15,15,15,15,15,15,15,2,
+18,0,19,0,17,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+18,0,19,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,8,0,0,8,0,0,0,0,8,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,15,15,2,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,0,0,17,
+18,0,0,4,4,4,4,4,4,4,4,4,4,4,4,4,3,0,0,17,
+18,0,0,0,8,0,0,8,0,0,8,0,0,8,0,0,8,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,8,0,0,0,8,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0,0,0,17,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,
 2,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,2
 </data>
  </layer>
@@ -175,7 +175,6 @@
   <object id="23" type="Solid" x="160" y="0" width="160" height="16"/>
   <object id="24" type="Exit" x="144" y="0" width="16" height="16"/>
   <object id="25" type="Exit" x="144" y="16" width="16" height="16"/>
-  <object id="26" type="Exit" x="144" y="32" width="16" height="16"/>
   <object id="27" type="Solid" x="0" y="768" width="16" height="192"/>
   <object id="28" type="Solid" x="304" y="768" width="16" height="192"/>
   <object id="29" type="Solid" x="304" y="960" width="16" height="176"/>
@@ -218,7 +217,7 @@
     <property name="path" type="object" value="57"/>
    </properties>
   </object>
-  <object id="59" type="Saw" x="272" y="784">
+  <object id="59" type="Saw" x="272" y="800">
    <point/>
   </object>
   <object id="60" type="Saw" x="240" y="784">
@@ -284,7 +283,6 @@
   <object id="80" type="Platform" x="48" y="768" width="16" height="3"/>
   <object id="81" type="Platform" x="256" y="560" width="16" height="3"/>
   <object id="82" type="Platform" x="272" y="560" width="16" height="3"/>
-  <object id="83" type="Platform" x="240" y="560" width="16" height="3"/>
   <object id="84" type="Platform" x="288" y="560" width="16" height="3"/>
   <object id="86" x="256" y="560">
    <properties>
@@ -300,13 +298,13 @@
    </properties>
   </object>
   <object id="88" type="Platform" x="208" y="416" width="16" height="3"/>
-  <object id="89" type="Saw" x="224" y="496">
+  <object id="89" type="Saw" x="224" y="480">
    <point/>
   </object>
-  <object id="90" type="Saw" x="288" y="496">
+  <object id="90" type="Saw" x="288" y="480">
    <point/>
   </object>
-  <object id="91" type="Saw" x="256" y="496">
+  <object id="91" type="Saw" x="256" y="480">
    <point/>
   </object>
   <object id="93" type="Platform" x="224" y="416" width="16" height="3"/>
@@ -384,7 +382,7 @@
   <object id="124" type="Solid" x="32" y="576" width="16" height="192"/>
   <object id="125" type="Solid" x="32" y="768" width="16" height="64"/>
   <object id="126" type="Solid" x="32" y="384" width="16" height="192"/>
-  <object id="127" type="Solid" x="48" y="256" width="16" height="112"/>
+  <object id="127" type="Solid" x="96" y="256" width="16" height="112"/>
   <object id="128" type="Platform" x="256" y="592" width="16" height="3"/>
   <object id="129" type="Platform" x="272" y="592" width="16" height="3"/>
   <object id="130" type="Solid" x="32" y="368" width="16" height="16"/>
@@ -407,12 +405,6 @@
   <object id="136" type="Platform" x="272" y="368" width="16" height="3"/>
   <object id="137" type="Platform" x="288" y="368" width="16" height="3"/>
   <object id="138" type="Platform" x="32" y="144" width="16" height="3"/>
-  <object id="139" type="Saw" x="80" y="256">
-   <point/>
-  </object>
-  <object id="140" type="Saw" x="96" y="256">
-   <point/>
-  </object>
   <object id="142" type="Platform" x="16" y="64" width="16" height="3"/>
   <object id="143" type="Platform" x="32" y="64" width="16" height="3"/>
   <object id="144" x="112" y="48">
@@ -447,35 +439,9 @@
     <property name="path" type="object" value="158"/>
    </properties>
   </object>
-  <object id="160" x="144" y="64">
-   <properties>
-    <property name="delay" type="int" value="30"/>
-    <property name="steps" type="int" value="30"/>
-   </properties>
-   <polyline points="-48,-16 -48,-32"/>
-  </object>
-  <object id="161" type="MovingSolid" x="96" y="48" width="32" height="16">
-   <properties>
-    <property name="launch" type="bool" value="false"/>
-    <property name="path" type="object" value="160"/>
-   </properties>
-  </object>
-  <object id="162" x="144" y="96">
-   <properties>
-    <property name="delay" type="int" value="30"/>
-    <property name="steps" type="int" value="30"/>
-   </properties>
-   <polyline points="-48,-32 -48,-16"/>
-  </object>
-  <object id="163" type="MovingSolid" x="96" y="80" width="32" height="16">
-   <properties>
-    <property name="launch" type="bool" value="false"/>
-    <property name="path" type="object" value="162"/>
-   </properties>
-  </object>
   <object id="164" x="176" y="80">
    <properties>
-    <property name="delay" type="int" value="40"/>
+    <property name="delay" type="int" value="23"/>
     <property name="steps" type="int" value="30"/>
    </properties>
    <polyline points="-48,-16 -48,-32"/>
@@ -488,7 +454,7 @@
   </object>
   <object id="166" x="176" y="112">
    <properties>
-    <property name="delay" type="int" value="40"/>
+    <property name="delay" type="int" value="23"/>
     <property name="steps" type="int" value="30"/>
    </properties>
    <polyline points="-48,-32 -48,-16"/>
@@ -501,7 +467,7 @@
   </object>
   <object id="168" x="208" y="96">
    <properties>
-    <property name="delay" type="int" value="50"/>
+    <property name="delay" type="int" value="19"/>
     <property name="steps" type="int" value="30"/>
    </properties>
    <polyline points="-48,-16 -48,-32"/>
@@ -514,7 +480,7 @@
   </object>
   <object id="170" x="208" y="128">
    <properties>
-    <property name="delay" type="int" value="50"/>
+    <property name="delay" type="int" value="19"/>
     <property name="steps" type="int" value="30"/>
    </properties>
    <polyline points="-48,-32 -48,-16"/>
@@ -525,19 +491,19 @@
     <property name="path" type="object" value="170"/>
    </properties>
   </object>
-  <object id="176" type="Saw" x="112" y="128">
+  <object id="176" type="Saw" x="112" y="112">
    <point/>
   </object>
-  <object id="177" type="Saw" x="80" y="112">
+  <object id="177" type="Saw" x="80" y="96">
    <point/>
   </object>
-  <object id="178" type="Saw" x="144" y="144">
+  <object id="178" type="Saw" x="144" y="128">
    <point/>
   </object>
-  <object id="179" type="Solid" x="176" y="144" width="128" height="16"/>
+  <object id="179" type="Solid" x="48" y="144" width="256" height="16"/>
   <object id="180" type="Solid" x="240" y="112" width="16" height="16"/>
   <object id="181" type="Solid" x="208" y="80" width="16" height="16"/>
-  <object id="182" type="Solid" x="176" y="48" width="16" height="16"/>
+  <object id="182" type="Solid" x="160" y="48" width="32" height="32"/>
   <object id="183" type="Saw" x="240" y="608">
    <point/>
   </object>
@@ -550,7 +516,154 @@
   <object id="186" type="Saw" x="176" y="592">
    <point/>
   </object>
-  <object id="187" type="Saw" x="80" y="25">
+  <object id="188" type="Solid" x="160" y="560" width="96" height="16"/>
+  <object id="189" type="Solid" x="160" y="576" width="96" height="16"/>
+  <object id="191" type="Solid" x="64" y="16" width="80" height="16"/>
+  <object id="192" type="Solid" x="96" y="32" width="48" height="16"/>
+  <object id="193" type="Solid" x="128" y="48" width="32" height="16"/>
+  <object id="194" type="Saw" x="176" y="144">
+   <point/>
+  </object>
+  <object id="195" type="Platform" x="96" y="96" width="16" height="3"/>
+  <object id="196" type="Solid" x="144" y="32" width="16" height="16"/>
+  <object id="197" type="Gate" x="64" y="784" width="16" height="16">
+   <properties>
+    <property name="keys" value="A"/>
+   </properties>
+  </object>
+  <object id="198" type="Key" x="296" y="816">
+   <properties>
+    <property name="key" value="A"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="199" type="Gate" x="256" y="608" width="16" height="16">
+   <properties>
+    <property name="keys" value="B"/>
+   </properties>
+  </object>
+  <object id="200" type="Gate" x="272" y="608" width="16" height="16">
+   <properties>
+    <property name="keys" value="B"/>
+   </properties>
+  </object>
+  <object id="201" type="Key" x="64" y="624">
+   <properties>
+    <property name="key" value="B"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="202" type="Key" x="176" y="624">
+   <properties>
+    <property name="key" value="B"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="203" type="Key" x="208" y="624">
+   <properties>
+    <property name="key" value="B"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="204" type="Gate" x="192" y="400" width="16" height="16">
+   <properties>
+    <property name="keys" value="C"/>
+   </properties>
+  </object>
+  <object id="205" type="Gate" x="256" y="400" width="16" height="16">
+   <properties>
+    <property name="keys" value="E"/>
+   </properties>
+  </object>
+  <object id="206" type="Gate" x="224" y="400" width="16" height="16">
+   <properties>
+    <property name="keys" value="D"/>
+   </properties>
+  </object>
+  <object id="207" type="Key" x="176" y="480">
+   <properties>
+    <property name="key" value="E"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="208" type="Key" x="128" y="464">
+   <properties>
+    <property name="key" value="D"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="209" type="Key" x="144" y="512">
+   <properties>
+    <property name="key" value="C"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="210" type="Gate" x="16" y="192" width="16" height="16">
+   <properties>
+    <property name="keys" value="E"/>
+   </properties>
+  </object>
+  <object id="211" type="Gate" x="32" y="192" width="16" height="16">
+   <properties>
+    <property name="keys" value="D"/>
+   </properties>
+  </object>
+  <object id="212" type="Key" x="240" y="240">
+   <properties>
+    <property name="key" value="E"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="213" type="Key" x="128" y="224">
+   <properties>
+    <property name="key" value="D"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="214" type="Gate" x="32" y="176" width="16" height="16">
+   <properties>
+    <property name="keys" value="D"/>
+   </properties>
+  </object>
+  <object id="215" type="Gate" x="16" y="176" width="16" height="16">
+   <properties>
+    <property name="keys" value="E"/>
+   </properties>
+  </object>
+  <object id="216" type="Solid" x="48" y="160" width="256" height="16"/>
+  <object id="217" type="Solid" x="128" y="176" width="176" height="16"/>
+  <object id="218" type="Solid" x="160" y="192" width="144" height="16"/>
+  <object id="219" type="Key" x="80" y="64">
+   <properties>
+    <property name="key" value="F"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="220" type="Gate" x="240" y="96" width="16" height="16">
+   <properties>
+    <property name="keys" value="F"/>
+   </properties>
+  </object>
+  <object id="221" type="Gate" x="208" y="64" width="16" height="16">
+   <properties>
+    <property name="keys" value="G"/>
+   </properties>
+  </object>
+  <object id="222" type="Gate" x="176" y="32" width="16" height="16">
+   <properties>
+    <property name="keys" value="H"/>
+   </properties>
+  </object>
+  <object id="223" type="Key" x="144" y="96">
+   <properties>
+    <property name="key" value="G"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="224" type="Key" x="176" y="112">
+   <properties>
+    <property name="key" value="H"/>
+   </properties>
    <point/>
   </object>
  </objectgroup>

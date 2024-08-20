@@ -77,6 +77,8 @@ export class Player extends SpriteEntity {
   private animationTime = 10;
   private animationIndex: number = 0;
 
+  private justSpawned: boolean;
+
   constructor(x: number, y: number) {
     super(new SpritePainter((ctx: PainterContext) => this.draw(ctx), Sprite.Sprites['slime'].getOptions()), x, y);
     this.myPainter = new SpritePainter(Sprite.Sprites['slime']);
@@ -91,10 +93,25 @@ export class Player extends SpriteEntity {
 
     this.spawnX = x;
     this.spawnY = y;
+
+    this.justSpawned = true;
   }
 
   tick(engine: Engine, scene: Scene): Promise<void> | void {
-    if (!this.exploding && engine.isControl('reset', ControllerState.Down)) {
+    if (this.justSpawned) {
+      this.justSpawned = false;
+      const solids = scene.entitiesByType(Solid);
+      let inSolid;
+      while (inSolid = this.inSolid(solids)) {
+        if (this.x > inSolid.bounds.x) {
+          this.moveDelta(1, 0)
+        } else {
+          this.moveDelta(-1, 0);
+        }
+      }
+    }
+
+    if (!this.exploding && engine.isControl('reset', ControllerState.Down) && this.viewScrollDirection === 0) {
       this.explode();
     }
 
@@ -320,6 +337,9 @@ export class Player extends SpriteEntity {
         const player = new Player(this.spawnX, this.spawnY);
         scene.addEntity(player);
         player.viewOffsetY = this.viewOffsetY;
+        player.viewScrollDirection = this.viewScrollDirection;
+        player.scrollTime = this.scrollTime;
+        return;
       }
     }
 
