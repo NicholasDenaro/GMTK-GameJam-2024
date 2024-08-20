@@ -44,6 +44,7 @@ export const playerAbilities = {
 
 export class Player extends SpriteEntity {
 
+  private landCount: number = 0;
   private moveSound: {stop: () => void};
   private inAirLastFrame: boolean = false;
   private resetSpawn: boolean = false;
@@ -178,6 +179,7 @@ export class Player extends SpriteEntity {
       // }
 
       if (this.onGround(solids, platforms)) {
+        this.landCount = 0;
         if (this.xVelocity > 0) {
           this.xVelocity -= clamp(0, FRICTION * (Math.abs(this.xVelocity) ** 0.5), Math.abs(this.xVelocity));
         } else if (this.xVelocity < 0) {
@@ -221,17 +223,36 @@ export class Player extends SpriteEntity {
           this.moveDelta(0, -change);
           this.snapToSolid(collided);
           this.yVelocity = 0;
-          this.setAnimation('land');
           if (this.landSound < 0) {
+            this.setAnimation('land');
             PlaySFX('slime-land');
             this.landSound = 10;
           }
+          this.landCount++;
 
-          console.log('---');
-          console.log(`on ground check`, this.onGround(solids, platforms));
-          console.log(`my bounds:`, this.bounds);
-          console.log(`col bounds:`, collided.bounds);
-          console.log('---');
+          if (this.landCount > 5) {
+            this.moveDelta(0.2, 0);
+            if (this.inSolid(solids)) {
+              this.moveDelta(-0.2, 0);
+
+              this.moveDelta(-0.2, 0);
+              if (this.inSolid(solids)) {
+                this.moveDelta(0.2, 0);
+                if(this.landCount > 20) {
+                  this.explode();
+                }
+              }
+            }
+          }
+
+          this.coyoteTime = 10;
+          this.jumps = 1;
+
+          // console.log('---');
+          // console.log(`on ground check`, this.onGround(solids, platforms));
+          // console.log(`my bounds:`, this.bounds);
+          // console.log(`col bounds:`, collided.bounds);
+          // console.log('---');
 
           landed = true;
 
