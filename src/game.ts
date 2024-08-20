@@ -103,7 +103,7 @@ export function PlayLoop(loop: string) {
 export function PlaySFX(sfx: string) {
   const playing = Sound.Sounds[sfx].play();
 
-  playing.volume(sfxVolume);
+  playing.volume(mainVolume / 100 * sfxVolume / 100);
   return playing;
 }
 
@@ -223,7 +223,7 @@ async function init() {
 
   Sound.setVolume(mainVolume / 100);
 
-  Sound.Sounds['start'].play();
+  PlaySFX('start');
 
   await engine.start();
 }

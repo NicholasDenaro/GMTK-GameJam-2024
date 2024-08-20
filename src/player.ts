@@ -1,6 +1,6 @@
 import { Scene, Sound, Sprite, SpriteEntity, SpritePainter, ControllerState, Engine, Rectangle, PainterContext, Canvas2DView } from "game-engine";
 import { Solid } from './solid.js';
-import { clamp, SaveData, screenHeight, screenWidth } from './game.js';
+import { clamp, PlaySFX, SaveData, screenHeight, screenWidth } from './game.js';
 import { Platform } from './platform.js';
 import { MovingSolid } from './moving-solid.js';
 import { DialogWindow } from './dialog-window.js';
@@ -136,7 +136,7 @@ export class Player extends SpriteEntity {
     } else {
 
       if (engine.isControl('button1', ControllerState.Press)) {
-        Sound.Sounds['start']?.play();
+        PlaySFX('start')
       }
 
       const solids = scene.entitiesByType(Solid);
@@ -223,7 +223,7 @@ export class Player extends SpriteEntity {
           this.yVelocity = 0;
           this.setAnimation('land');
           if (this.landSound < 0) {
-            Sound.Sounds['slime-land'].play();
+            PlaySFX('slime-land');
             this.landSound = 10;
           }
 
@@ -262,7 +262,7 @@ export class Player extends SpriteEntity {
 
         if (move) {
           if (!this.moveSound) {
-            this.moveSound = Sound.Sounds['slime-move'].play();
+            this.moveSound = PlaySFX('slime-move');
           }
         } else {
           if (this.moveSound) {
@@ -297,14 +297,14 @@ export class Player extends SpriteEntity {
             this.jump = true;
             this.jumps--;
             this.setAnimation('jump');
-            Sound.Sounds['slime-jump'].play();
+            PlaySFX('slime-jump');
             const platformKick = onGround ? onMovingSolid : this.coyotePlatform;
             if (platformKick) {
               this.xVelocity += platformKick.xVelocity;
               this.yVelocity += platformKick.yVelocity;
               this.coyotePlatform = null;
               if (platformKick.yVelocity < -0.5) {
-                Sound.Sounds['spring'].play();
+                PlaySFX('spring');
               }
             }
           } else if (!this.rejump) {

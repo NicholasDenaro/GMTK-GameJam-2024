@@ -1,6 +1,6 @@
 import { Engine, Scene, Sound, Sprite, SpriteEntity, SpritePainter } from 'game-engine';
 import { Player } from './player.js';
-import { clamp, distance } from './game.js';
+import { clamp, distance, PlaySFX } from './game.js';
 
 const SAW_RADIUS = 10;
 
@@ -20,7 +20,7 @@ export class Saw extends SpriteEntity {
     if (this.checkCollisionWithPlayer(player)) {
       player.explode();
       if (this.playSawSound < 0) {
-        Sound.Sounds['slime-saw'].play();
+        PlaySFX('slime-saw');
         this.playSawSound = 120;
       }
     }

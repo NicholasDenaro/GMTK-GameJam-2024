@@ -1,5 +1,6 @@
 import { Engine, Rectangle, Scene, Sound, Sprite, SpriteEntity, SpritePainter } from 'game-engine';
 import { Player } from './player.js';
+import { PlaySFX } from './game.js';
 
 export class Key extends SpriteEntity {
 
@@ -11,7 +12,7 @@ export class Key extends SpriteEntity {
   tick(engine: Engine, scene: Scene): Promise<void> | void {
     const player = scene.entitiesByType(Player)[0];
     if (player.collision(this)) {
-      Sound.Sounds['key'].play();
+      PlaySFX('key');
       scene.removeEntity(this);
     }
   }
