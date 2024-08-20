@@ -172,6 +172,7 @@ async function init() {
   engine.addActionPost('pause', () => {
     if (engine.isControl('pause', ControllerState.Press) ) {
       if (!engine.getActivatedScenes().some(scene => scene.key === 'main-menu')) {
+        engine.addScene(createMainMenu(view));
         engine.switchToScene('main-menu');
         view.setOffset(0, 0);
         PlayLoop('title');
@@ -594,6 +595,7 @@ function createWorldSelect(view: View): Scene {
             SaveData.lastStage = {world, stage};
             World = world;
             Stage = stage;
+            saveData();
             await nextStage(world, stage);
             PlayLoop(`loop${world}`);
           }, 13, false));
