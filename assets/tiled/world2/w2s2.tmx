@@ -116,9 +116,6 @@
   <object id="23" type="Exit" x="144" y="32" width="16" height="16"/>
   <object id="24" type="Solid" x="0" y="0" width="144" height="16"/>
   <object id="25" type="Solid" x="160" y="0" width="160" height="16"/>
-  <object id="26" type="Saw" x="112" y="504">
-   <point/>
-  </object>
   <object id="27" type="Platform" x="80" y="528" width="16" height="3"/>
   <object id="28" type="Platform" x="128" y="528" width="16" height="3"/>
   <object id="29" type="Saw" x="128" y="544">

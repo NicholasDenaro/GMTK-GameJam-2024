@@ -203,6 +203,7 @@ export class Player extends SpriteEntity {
 
       this.yVelocity = clamp(-10, this.yVelocity, 10);
 
+      let landed = false;
       // move down
       let dy = this.yVelocity;
       for (let i = 0; i < this.yVelocity; i++) {
@@ -215,14 +216,19 @@ export class Player extends SpriteEntity {
         const collided = collision ?? collisionBottom ?? onGround;
         if (collided) {
           this.moveDelta(0, -change);
-          //this.moveDelta(0, collided.bounds.y - this.y - 1);
           this.snapToSolid(collided);
           this.yVelocity = 0;
           this.setAnimation('land');
-          Sound.Sounds['slime-land'].play();
-          // console.log(`landed on ground`);
-          // console.log(this.bounds);
-          // console.log(this.y);
+          // Sound.Sounds['slime-land'].play();
+
+          console.log('---');
+          console.log(`on ground check`, this.onGround(solids, platforms));
+          console.log(`my bounds:`, this.bounds);
+          console.log(`col bounds:`, collided.bounds);
+          console.log('---');
+
+          landed = true;
+
           break;
         }
       }
@@ -322,8 +328,42 @@ export class Player extends SpriteEntity {
       for (let i = 0; i > this.yVelocity; i--) {
         this.moveDelta(0, -1);
         if (this.checkCollisions(solids)) {
-          this.moveDelta(0, 1);
-          this.yVelocity = 0;
+
+          // 250,440 is the bad edge detect
+
+          const left = this.bounds.x;
+          const right = this.bounds.x + this.bounds.width;
+          // try to slide left/right
+          const solid = this.checkCollisions(solids);
+          const otherSolids = solids.filter(s => s !== solid);
+          let didNudge = true;
+          if (left > solid.bounds.x + solid.bounds.width - 4) {
+            console.log('try to nudge right');
+            const nudge = left - this.bounds.x + 1;
+            this.moveDelta(nudge, 0);
+            if (this.checkCollisions(otherSolids)) {
+              this.moveDelta(-nudge, 0);
+              didNudge = false
+            }
+          } else if (right < solid.bounds.x + 4) {
+            console.log('try to nudge left');
+            const nudge = solid.bounds.x - right - 1.1;
+            this.moveDelta(nudge, 0);
+            if (this.checkCollisions(otherSolids)) {
+              this.moveDelta(-nudge, 0);
+              didNudge = false;
+            }
+          } else {
+            console.log('do not try to nudge');
+            console.log(`my bounds:`, this.bounds);
+            console.log(`solid bounds:`, solid.bounds);
+            didNudge = false;
+          }
+
+          if (!didNudge) {
+            this.moveDelta(0, 1);
+            this.yVelocity = 0;
+          }
           break;
         }
       }
@@ -388,7 +428,12 @@ export class Player extends SpriteEntity {
     if (Math.abs(Math.round(this.bounds.height) - this.bounds.height) < 0.00001) {
       this.topLeft.y += Math.round(this.bounds.height) - this.bounds.height;
       this.topRight.y += Math.round(this.bounds.height) - this.bounds.height;
+
+      // this.bottomLeft.y += Math.round(this.bounds.height) - this.bounds.height;
+      // this.bottomRight.y += Math.round(this.bounds.height) - this.bounds.height;
     }
+
+    this.updateBounds();
 
     //console.log('snap to solid');
   }
@@ -396,8 +441,8 @@ export class Player extends SpriteEntity {
   private updateBounds() {
     this.bounds.x = this.topLeft.x;
     this.bounds.y = this.topLeft.y;
-    this.bounds.width = this.topRight.x - this.topLeft.x;
-    this.bounds.height = this.bottomLeft.y - this.topLeft.y;
+    this.bounds.width = this.topRight.x - this.topLeft.x + 1;
+    this.bounds.height = this.bottomLeft.y - this.topLeft.y + 1;
   }
 
   public launch(dxVelocity: number, dyVelocity: number) {

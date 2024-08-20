@@ -52,10 +52,10 @@
                 3
             ],
             "scale": 3,
-            "selectedLayer": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 187.83333333333331,
-                "y": 282.5
+                "x": 188.83333333333331,
+                "y": 388.5
             }
         },
         "world1/w1s2.tmx": {
@@ -65,19 +65,19 @@
             "scale": 2,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 122.25,
-                "y": 377.25
+                "x": 141.25,
+                "y": 283.25
             }
         },
         "world1/w1s3.tmx": {
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 3,
-            "selectedLayer": 1,
+            "scale": 2,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 167.16666666666669,
-                "y": 159.5
+                "x": 105.75,
+                "y": 248.25
             }
         },
         "world1/w1s4.tmx": {
@@ -109,8 +109,8 @@
             "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 172.83333333333331,
-                "y": 478.8333333333333
+                "x": 162.49999999999997,
+                "y": 361.16666666666663
             }
         },
         "world2/w2s2.tmx": {
@@ -196,9 +196,9 @@
     "project": "gmtk2024.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "world1/w1s2.tmx",
-        "world1/w1s3.tmx",
         "world2/w2s1.tmx",
+        "world1/w1s3.tmx",
+        "world1/w1s2.tmx",
         "world1/w1s1.tmx",
         "world3/w3s1.tmx",
         "world2/w2s2.tmx",

@@ -208,10 +208,7 @@
     <property name="path" type="object" value="58"/>
    </properties>
   </object>
-  <object id="61" type="Saw" x="96" y="272">
-   <point/>
-  </object>
-  <object id="62" type="Saw" x="96" y="352">
+  <object id="62" type="Saw" x="96" y="348">
    <point/>
   </object>
   <object id="63" type="Saw" x="96" y="224">
@@ -223,7 +220,7 @@
   <object id="65" type="Saw" x="176" y="304">
    <point/>
   </object>
-  <object id="70" type="Saw" x="96" y="368">
+  <object id="70" type="Saw" x="96" y="364">
    <point/>
   </object>
   <object id="71" type="Saw" x="176" y="368">
@@ -232,7 +229,7 @@
   <object id="73" type="Saw" x="176" y="336">
    <point/>
   </object>
-  <object id="74" type="Saw" x="96" y="304">
+  <object id="74" type="Saw" x="96" y="300">
    <point/>
   </object>
   <object id="76" type="Saw" x="263" y="256">
@@ -278,13 +275,13 @@
   <object id="93" type="Platform" x="240" y="176" width="16" height="3"/>
   <object id="94" type="Solid" x="256" y="208" width="16" height="32"/>
   <object id="95" type="Solid" x="224" y="208" width="16" height="32"/>
-  <object id="96" type="Saw" x="96" y="336">
+  <object id="96" type="Saw" x="96" y="332">
    <point/>
   </object>
-  <object id="97" type="Saw" x="96" y="288">
+  <object id="97" type="Saw" x="96" y="284">
    <point/>
   </object>
-  <object id="98" type="Saw" x="96" y="320">
+  <object id="98" type="Saw" x="96" y="316">
    <point/>
   </object>
   <object id="99" type="Saw" x="176" y="352">

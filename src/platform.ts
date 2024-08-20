@@ -9,10 +9,15 @@ export class Platform extends SpriteEntity implements Geometry {
   }
 
   tick(engine: Engine, scene: Scene): Promise<void> | void {
+    if (this.platform) {
+      
+    }
   }
 
   private draw(ctx: PainterContext) {
-    ctx.fillStyle = 'grey';
-    ctx.fillRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
+    if (this.platform) {
+      ctx.fillStyle = 'grey';
+      ctx.fillRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
+    }
   }
 }

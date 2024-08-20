@@ -131,6 +131,7 @@ new Sprite('title', spriteAssets('./title.png'), { spriteWidth: 320, spriteHeigh
 new Sprite('world-select', spriteAssets('./world-select.png'), { spriteWidth: 320, spriteHeight: 192, spriteOffsetX: 0, spriteOffsetY: 0 });
 new Sprite('options', spriteAssets('./options.png'), { spriteWidth: 320, spriteHeight: 192, spriteOffsetX: 0, spriteOffsetY: 0 });
 new Sprite('credits', spriteAssets('./credits.png'), { spriteWidth: 320, spriteHeight: 192, spriteOffsetX: 0, spriteOffsetY: 0 });
+new Sprite('victory', spriteAssets('./victory.png'), { spriteWidth: 320, spriteHeight: 192, spriteOffsetX: 0, spriteOffsetY: 0 });
 
 async function init() {
 
@@ -732,10 +733,11 @@ function createCredits(view: View): Scene {
 
 function createVictory(view: View): Scene {
   const scene = new Scene('victory', view);
-  scene.addEntity(new Text(screenWidth / 2, screenHeight / 4, 'Victory!', null, 16));
-  scene.addEntity(new Text(screenWidth / 2, screenHeight / 4 + 32, 'Thank you for playing', null, 16));
+  scene.addEntity(new ImageEntity(Sprite.Sprites['victory'], 0, 0));
+  // scene.addEntity(new Text(screenWidth / 2, screenHeight / 4, 'Victory!', null, 16));
+  scene.addEntity(new Text(screenWidth / 2, screenHeight - 24, 'Thank you for playing', null, 16));
 
-  scene.addEntity(new Text(screenWidth / 2, screenHeight  - 32, 'Continue', () => {
+  scene.addEntity(new Text(screenWidth / 2, screenHeight  - 8, 'Continue', () => {
     engine.switchToScene('credits');
   }, 16));
   scene.addEntity(new MusicMuter());
